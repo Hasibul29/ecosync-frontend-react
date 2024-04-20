@@ -1,6 +1,6 @@
 import { HTMLAttributes, useState } from "react";
 import { useForm } from "react-hook-form";
-// import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -36,6 +36,7 @@ const formSchema = z.object({
 
 const Login = ({ className, ...props }: UserAuthFormProps) => {
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -51,6 +52,7 @@ const Login = ({ className, ...props }: UserAuthFormProps) => {
 
     setTimeout(() => {
       setIsLoading(false);
+      navigate("/dashboard");
     }, 3000);
   }
 
