@@ -1,4 +1,5 @@
 import App from "@/App";
+import { Header } from "./Header";
 
 const Layout = () => {
   return (
@@ -6,8 +7,10 @@ const Layout = () => {
       <div className="bg-green-300 w-64">
         <aside>Sidebar</aside>
       </div>
-      <div className="bg-slate-600 flex-1">
-        <header className="bg-red-300 h-10">Header</header>
+      <div className="flex-1">
+        <header className="py-3 pr-5 flex justify-end border-b">
+          <Header />
+        </header>
         <main>
           <App />
         </main>
