@@ -1,7 +1,5 @@
-import { Button } from "./components/ui/button";
-
-function App() {
-  return <Button variant="secondary" >Click me</Button>;
-}
+const App = () => {
+  return <p>Main Body Content</p>;
+};
 
 export default App;
