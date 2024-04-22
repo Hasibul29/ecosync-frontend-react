@@ -1,4 +1,4 @@
-import { HTMLAttributes, useState } from "react";
+import { HTMLAttributes } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { z } from "zod";
@@ -16,6 +16,7 @@ import { Button } from "@/components/custom/button";
 import { PasswordInput } from "@/components/custom/PasswordInput";
 import { cn } from "@/lib/utils";
 import { Card } from "@/components/ui/card";
+import useLogin from "@/hooks/useLogin";
 
 interface UserAuthFormProps extends HTMLAttributes<HTMLDivElement> {}
 
@@ -35,8 +36,8 @@ const formSchema = z.object({
 });
 
 const Login = ({ className, ...props }: UserAuthFormProps) => {
-  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const some = useLogin();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -47,13 +48,8 @@ const Login = ({ className, ...props }: UserAuthFormProps) => {
   });
 
   function onSubmit(data: z.infer<typeof formSchema>) {
-    setIsLoading(true);
     console.log(data);
-
-    setTimeout(() => {
-      setIsLoading(false);
-      navigate("/dashboard");
-    }, 3000);
+    some.mutate(data, { onSuccess: () => navigate("/dashboard") });
   }
 
   return (
@@ -61,6 +57,9 @@ const Login = ({ className, ...props }: UserAuthFormProps) => {
       <div className="mx-auto flex w-full flex-col justify-center space-y-2 sm:w-[480px] lg:p-8">
         <div className="mb-4 flex items-center justify-center">
           <h1 className="text-3xl font-medium ">EcoSync</h1>
+          {some.error && (
+            <h1 className="text-3xl font-medium ">{some.error.message}</h1>
+          )}
         </div>
         <Card className="p-6">
           <div className="flex flex-col space-y-2 text-left">
@@ -107,7 +106,7 @@ const Login = ({ className, ...props }: UserAuthFormProps) => {
                       </FormItem>
                     )}
                   />
-                  <Button className="mt-2" loading={isLoading}>
+                  <Button className="mt-2" loading={some.isPending}>
                     Login
                   </Button>
                 </div>
