@@ -9,6 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import useLogout from "@/hooks/useLogout";
+import useUserStore from "@/store";
 
 export function Header() {
   const logout = useLogout();
@@ -16,7 +17,7 @@ export function Header() {
   const onLogoutPressHandle = () => {
     logout.mutate({});
   };
-
+  const { user } = useUserStore();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -28,9 +29,11 @@ export function Header() {
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">Username</p>
+            <p className="text-sm font-medium leading-none">
+              {user.firstName + " " + user.lastName}
+            </p>
             <p className="text-xs leading-none text-muted-foreground">
-              userEmail@gmail.com
+              {user.email}
             </p>
           </div>
         </DropdownMenuLabel>

@@ -1,7 +1,7 @@
-import Dashboard from "@/pages/Dashboard";
 import { Header } from "./Header";
 import Sidebar from "./Sidebar";
 import useAuth from "@/hooks/useAuth";
+import { Outlet } from "react-router-dom";
 
 const Layout = () => {
   const { data, isLoading, isError, error } = useAuth();
@@ -28,7 +28,7 @@ const Layout = () => {
           <Header />
         </header>
         <main>
-          <Dashboard />
+          <Outlet />
         </main>
       </div>
     </div>
