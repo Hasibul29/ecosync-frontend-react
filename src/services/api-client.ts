@@ -8,6 +8,7 @@ export interface FetchResponse<T> {
 
 const axiosInstance = axios.create({
   baseURL: "http://127.0.0.1:3000",
+  withCredentials: true,
 });
 
 class APIClient<T, V> {
@@ -16,10 +17,18 @@ class APIClient<T, V> {
   constructor(endpoint: string) {
     this.endpoint = endpoint;
   }
-  post = (data: V | AxiosRequestConfig) => {
-    return axiosInstance
-      .post<FetchResponse<T>>(this.endpoint, data)
-      .then((res) => res.data);
+
+  get = async (config?: AxiosRequestConfig) => {
+    const res = await axiosInstance.get<FetchResponse<T>>(
+      this.endpoint,
+      config
+    );
+    return res.data;
+  };
+
+  post = async (data?: V | AxiosRequestConfig) => {
+    const res = await axiosInstance.post<FetchResponse<T>>(this.endpoint, data);
+    return res.data;
   };
 }
 

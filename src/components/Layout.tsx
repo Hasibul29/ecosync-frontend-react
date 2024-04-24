@@ -1,8 +1,21 @@
-import App from "@/App";
+import Dashboard from "@/pages/Dashboard";
 import { Header } from "./Header";
 import Sidebar from "./Sidebar";
+import useAuth from "@/hooks/useAuth";
 
 const Layout = () => {
+  const { data, isLoading, isError, error } = useAuth();
+
+  if (isLoading) return <p>Loading...</p>;
+
+  if (isError) {
+    return <p>{error.message}</p>;
+  }
+
+  if (!data?.success) {
+    return <p>WOW</p>;
+  }
+
   return (
     <div className="min-h-screen flex flex-row">
       <div className="w-56 border-r">
@@ -15,7 +28,7 @@ const Layout = () => {
           <Header />
         </header>
         <main>
-          <App />
+          <Dashboard />
         </main>
       </div>
     </div>

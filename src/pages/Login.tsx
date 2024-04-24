@@ -1,6 +1,6 @@
 import { HTMLAttributes } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -36,8 +36,7 @@ const formSchema = z.object({
 });
 
 const Login = ({ className, ...props }: UserAuthFormProps) => {
-  const navigate = useNavigate();
-  const some = useLogin();
+  const login = useLogin();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -48,8 +47,7 @@ const Login = ({ className, ...props }: UserAuthFormProps) => {
   });
 
   function onSubmit(data: z.infer<typeof formSchema>) {
-    console.log(data);
-    some.mutate(data, { onSuccess: () => navigate("/dashboard") });
+    login.mutate(data);
   }
 
   return (
@@ -57,8 +55,8 @@ const Login = ({ className, ...props }: UserAuthFormProps) => {
       <div className="mx-auto flex w-full flex-col justify-center space-y-2 sm:w-[480px] lg:p-8">
         <div className="mb-4 flex items-center justify-center">
           <h1 className="text-3xl font-medium ">EcoSync</h1>
-          {some.error && (
-            <h1 className="text-3xl font-medium ">{some.error.message}</h1>
+          {login.error && (
+            <h1 className="text-3xl font-medium ">{login.error.message}</h1>
           )}
         </div>
         <Card className="p-6">
@@ -92,12 +90,12 @@ const Login = ({ className, ...props }: UserAuthFormProps) => {
                       <FormItem className="space-y-1">
                         <div className="flex items-center justify-between">
                           <FormLabel>Password</FormLabel>
-                          {/* <Link
+                          <Link
                             to="/forgot-password"
                             className="text-sm font-medium text-muted-foreground hover:opacity-75"
                           >
                             Forgot password?
-                          </Link> */}
+                          </Link>
                         </div>
                         <FormControl>
                           <PasswordInput placeholder="Password" {...field} />
@@ -106,7 +104,7 @@ const Login = ({ className, ...props }: UserAuthFormProps) => {
                       </FormItem>
                     )}
                   />
-                  <Button className="mt-2" loading={some.isPending}>
+                  <Button className="mt-2" loading={login.isPending}>
                     Login
                   </Button>
                 </div>
