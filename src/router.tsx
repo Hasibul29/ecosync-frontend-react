@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import NotFoundError from "./pages/NotFoundError";
 import Dashboard from "./pages/Dashboard";
-import Users from "./pages/Users";
+import Users from "./pages/Users/Users";
 
 const router = createBrowserRouter([
   // Auth routes

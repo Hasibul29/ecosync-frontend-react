@@ -5,6 +5,14 @@ export interface User {
   firstName?: string;
   lastName?: string;
   email?: string;
+  roleId?: string;
+  role?: Role;
+}
+
+interface Role {
+  id?: string;
+  name?: string;
+  description?: string | null;
 }
 
 interface UserStore {
