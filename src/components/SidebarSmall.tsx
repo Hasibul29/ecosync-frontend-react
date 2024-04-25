@@ -4,9 +4,7 @@ import { sidelinks } from "@/data/sidelinks";
 import { MenuIcon } from "lucide-react";
 import { useState } from "react";
 
-interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {}
-
-export function SidebarSmall({ className }: SidebarProps) {
+export function SidebarSmall() {
   const [open, setOpen] = useState(false);
   return (
     <Sheet open={open} onOpenChange={setOpen}>
