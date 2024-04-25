@@ -12,17 +12,17 @@ const router = createBrowserRouter([
     }),
   },
   {
-    path: "/dashboard",
+    path: "/",
     lazy: async () => ({
       Component: (await import("./components/Layout")).default,
     }),
     children: [
       {
-        path: "/dashboard/home",
+        path: "/dashboard",
         element: <Dashboard />,
       },
       {
-        path: "/dashboard/user",
+        path: "/users",
         element: <Users />,
       },
     ],

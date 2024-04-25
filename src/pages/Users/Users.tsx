@@ -9,8 +9,10 @@ const Users = () => {
 
   return (
     <>
-      <h6>Users</h6>
-      <div className="w-[950px] mx-4 my-10">
+      <div className="flex items-center">
+        <h1 className="text-lg font-semibold md:text-2xl">Inventory</h1>
+      </div>
+      <div>
         {error && <p>{error.message}</p>}
         {isLoading ? (
           <p>Loading.....</p>

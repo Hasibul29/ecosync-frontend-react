@@ -22,16 +22,16 @@ export function DataTableToolbar<TData>({
 
   return (
     <div className="flex items-center justify-between">
-      <div className="flex gap-x-2 pr-2">
-        <DataTableFilterOptions
-          table={table}
-          selectedFilter={(value) => {
-            table.resetColumnFilters();
-            setSelectedFilter(value);
-          }}
-        />
-      </div>
       <div className="flex flex-1 flex-col-reverse items-start gap-y-2 sm:flex-row sm:items-center sm:space-x-2">
+        <div className="flex gap-x-2 pl-1 pt-1">
+          <DataTableFilterOptions
+            table={table}
+            selectedFilter={(value) => {
+              table.resetColumnFilters();
+              setSelectedFilter(value);
+            }}
+          />
+        </div>
         <Input
           placeholder="Filter user..."
           value={

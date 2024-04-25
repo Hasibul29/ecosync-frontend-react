@@ -1,39 +1,20 @@
-import { useState } from "react";
-import { Button } from "./ui/button";
-import { useNavigate } from "react-router-dom";
+import { DashboardNav } from "@/components/dashboard-nav";
+import { sidelinks } from "@/data/sidelinks";
+import { cn } from "@/lib/utils";
 
-const SideBar = () => {
-  const [selected, setSelected] = useState("dashboard");
-  const navigate = useNavigate();
+export default function Sidebar() {
   return (
-    <div>
-      <div className="bg-blue-300 h-40">IconAndTitle</div>
-      <div className="px-2 py-2">
-        <div className="space-y-1">
-          <Button
-            variant={selected == "dashboard" ? "default" : "ghost"}
-            className="w-full justify-start"
-            onClick={() => {
-              setSelected("dashboard");
-              navigate("/dashboard/home");
-            }}
-          >
-            Dashboard
-          </Button>
-          <Button
-            variant={selected == "users" ? "default" : "ghost"}
-            className="w-full justify-start"
-            onClick={() => {
-              setSelected("users");
-              navigate("/dashboard/user");
-            }}
-          >
-            Users
-          </Button>
+    <nav className={cn(`h-screen pt-16`)}>
+      <div className="space-y-4 py-4">
+        <div className="px-3 py-2">
+          <div className="space-y-1">
+            <h2 className="mb-2 px-4 text-xl font-semibold tracking-tight">
+              Overview
+            </h2>
+            <DashboardNav items={sidelinks} />
+          </div>
         </div>
       </div>
-    </div>
+    </nav>
   );
-};
-
-export default SideBar;
+}
