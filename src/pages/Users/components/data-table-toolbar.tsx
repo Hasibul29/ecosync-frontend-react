@@ -22,6 +22,15 @@ export function DataTableToolbar<TData>({
 
   return (
     <div className="flex items-center justify-between">
+      <div className="flex gap-x-2 pr-2">
+        <DataTableFilterOptions
+          table={table}
+          selectedFilter={(value) => {
+            table.resetColumnFilters();
+            setSelectedFilter(value);
+          }}
+        />
+      </div>
       <div className="flex flex-1 flex-col-reverse items-start gap-y-2 sm:flex-row sm:items-center sm:space-x-2">
         <Input
           placeholder="Filter user..."
@@ -34,20 +43,13 @@ export function DataTableToolbar<TData>({
           className="h-8 w-[150px] lg:w-[250px]"
         />
         <div className="flex gap-x-2">
-          {table.getColumn("role") && (
+          {table.getColumn("roles") && (
             <DataTableFacetedFilter
-              column={table.getColumn("role")}
+              column={table.getColumn("roles")}
               title="Role"
               options={roles}
             />
           )}
-          {/* {table.getColumn("priority") && (
-            <DataTableFacetedFilter
-              column={table.getColumn("priority")}
-              title="Priority"
-              options={priorities}
-            />
-          )} */}
         </div>
         {isFiltered && (
           <Button
@@ -59,17 +61,7 @@ export function DataTableToolbar<TData>({
             <Cross2Icon className="ml-2 h-4 w-4" />
           </Button>
         )}
-        <div className="flex gap-x-2">
-          <DataTableFilterOptions
-            table={table}
-            selectedFilter={(value) => {
-              table.resetColumnFilters();
-              setSelectedFilter(value);
-            }}
-          />
-        </div>
       </div>
-      {/* <DataTableFilterOptions table={table} /> */}
       <DataTableViewOptions table={table} />
     </div>
   );

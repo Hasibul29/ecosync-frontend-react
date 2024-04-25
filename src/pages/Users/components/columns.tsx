@@ -37,7 +37,7 @@ export const columns: ColumnDef<User>[] = [
   // {
   //   accessorKey: "id",
   //   header: ({ column }) => (
-  //     <DataTableColumnHeader column={column} title="Task" />
+  //     <DataTableColumnHeader column={column} title="Id" />
   //   ),
   //   cell: ({ row }) => <div className="w-[80px]">{row.getValue("id")}</div>,
   //   enableSorting: false,
@@ -72,29 +72,14 @@ export const columns: ColumnDef<User>[] = [
       );
     },
   },
-  // {
-  // accessorFn: (row) => `${row.role?.name}`,
-  // id: "role",
-  //   header: ({ column }) => (
-  //     <DataTableColumnHeader column={column} title="Roles" />
-  //   ),
-  //   cell: ({ row }) => {
-  //     return (
-  //       <div className="flex w-[100px] items-center">
-  //         {row.getValue("role")}
-  //       </div>
-  //     );
-  //   },
-  // },
   {
     accessorFn: (row) => `${row.role?.name}`,
-    id: "role",
+    id: "roles",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Role" />
     ),
     cell: ({ row }) => {
-      console.log(row.getValue("role"));
-      const role = roles.find((role) => role.value === row.getValue("role"));
+      const role = roles.find((role) => role.value === row.getValue("roles"));
 
       if (!role) {
         return null;

@@ -30,7 +30,9 @@ export function DataTableFilterOptions<TData>({
             .getAllColumns()
             .filter(
               (column) =>
-                typeof column.accessorFn !== "undefined" && column.getCanHide()
+                typeof column.accessorFn !== "undefined" &&
+                column.getCanHide() &&
+                column.id != "roles"
             )
             .map((column) => (
               <SelectItem key={column.id} value={column.id}>
