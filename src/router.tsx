@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import NotFoundError from "./pages/NotFoundError";
 import Dashboard from "./pages/Dashboard";
 import Users from "./pages/Users/Users";
+import RegistUser from "./pages/Users/RegistUser";
 
 const router = createBrowserRouter([
   // Auth routes
@@ -22,8 +23,12 @@ const router = createBrowserRouter([
         element: <Dashboard />,
       },
       {
-        path: "/users",
+        path: "dashboard/users",
         element: <Users />,
+      },
+      {
+        path: "dashboard/users/register",
+        element: <RegistUser />,
       },
     ],
   },

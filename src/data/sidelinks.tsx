@@ -43,7 +43,7 @@ export const sidelinks: SideLink[] = [
   {
     title: "Users",
     label: "",
-    href: "/users",
+    href: "/dashboard/users",
     icon: <IconChecklist size={18} />,
   },
   //   {

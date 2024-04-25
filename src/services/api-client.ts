@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig } from "axios";
 
-export interface FetchResponse<T> {
+export interface FetchResponse<T = undefined> {
   success: boolean;
   message: string;
   data?: T[] | T;
@@ -11,7 +11,7 @@ const axiosInstance = axios.create({
   withCredentials: true,
 });
 
-class APIClient<T, V> {
+class APIClient<T, V = undefined> {
   endpoint: string;
 
   constructor(endpoint: string) {
