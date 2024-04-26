@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import useLogout from "@/hooks/useLogout";
 import useUserStore from "@/store";
+import { ModeToggle } from "./ModeToogle";
 
 export function Header() {
   const logout = useLogout();
@@ -19,6 +20,8 @@ export function Header() {
   };
   const { user } = useUserStore();
   return (
+    <>
+    <ModeToggle/>
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Avatar>
@@ -48,5 +51,6 @@ export function Header() {
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
+    </>
   );
 }

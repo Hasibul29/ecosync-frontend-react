@@ -77,7 +77,7 @@ const Login = ({ className, ...props }: UserAuthFormProps) => {
                       <FormItem className="space-y-1">
                         <FormLabel>Email</FormLabel>
                         <FormControl>
-                          <Input placeholder="Email" {...field} />
+                          <Input  type="email" placeholder="Email" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
