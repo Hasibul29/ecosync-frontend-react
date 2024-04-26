@@ -28,7 +28,7 @@ export function DataTablePagination<TData>({
         {table.getFilteredSelectedRowModel().rows.length} of{" "}
         {table.getFilteredRowModel().rows.length} row(s) selected.
       </div>
-      <div className="flex items-center sm:space-x-6 lg:space-x-8">
+      <div className="flex items-center py-1 sm:space-x-6 lg:space-x-8">
         <div className="flex items-center space-x-2">
           <p className="hidden text-sm font-medium sm:block">Rows per page</p>
           <Select

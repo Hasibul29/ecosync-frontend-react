@@ -20,7 +20,10 @@ import {
   SelectGroup,
   SelectItem,
 } from "@/components/ui/select";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/custom/button";
+import useRoles from "@/hooks/useRoles";
+import useUserRegister from "@/hooks/useUserRegister";
+import { User } from "@/store";
 
 const schema = z.object({
   firstName: z.string().min(2).max(50),
@@ -37,10 +40,13 @@ const schema = z.object({
     .min(7, {
       message: "Password must be at least 7 characters long.",
     }),
-  role: z.string().optional(),
+  roleId: z.string().optional(),
 });
 
 const RegistUser = () => {
+  const { data, error, isError } = useRoles();
+  const userRegister = useUserRegister();
+
   const breadcrumbItems = [
     { title: "Users", link: "/dashboard/users" },
     { title: "Register", link: "/dashboard/users/register" },
@@ -54,13 +60,13 @@ const RegistUser = () => {
         lastName: "",
         email: "",
         password: "",
-        role: "",
+        roleId: "",
       },
     });
 
     const onSubmit = (data: z.infer<typeof schema>) => {
       console.log(data);
-      console.log(form);
+      userRegister.mutate(data as User);
     };
 
     return (
@@ -135,44 +141,54 @@ const RegistUser = () => {
                     </FormItem>
                   )}
                 />
-                <FormField
-                  control={form.control}
-                  name="role"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Role<span className="text-gray-400 pl-1">(Optional)</span></FormLabel>
-                      <FormControl>
-                        <Select
-                          onValueChange={field.onChange}
-                          defaultValue={field.value}
-                          value={field.value}
-                        >
-                          <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Select a fruit" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectGroup>
-                              <SelectLabel>Role</SelectLabel>
-                              <SelectItem value="apple">Apple</SelectItem>
-                              <SelectItem value="banana">Banana</SelectItem>
-                              <SelectItem value="blueberry">
-                                Blueberry
-                              </SelectItem>
-                              <SelectItem value="grapes">Grapes</SelectItem>
-                              <SelectItem value="pineapple">
-                                Pineapple
-                              </SelectItem>
-                            </SelectGroup>
-                          </SelectContent>
-                        </Select>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
+                <div className="colums-1">
+                  {isError && (
+                    <p className="text-red-400">
+                      {error?.response?.data?.message}
+                    </p>
                   )}
-                />
+                  <FormField
+                    control={form.control}
+                    name="roleId"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>
+                          Role
+                          <span className="text-gray-400 pl-1">(Optional)</span>
+                        </FormLabel>
+                        <FormControl>
+                          <Select
+                            onValueChange={field.onChange}
+                            defaultValue={field.value}
+                            value={field.value}
+                          >
+                            <SelectTrigger className="w-[180px]">
+                              <SelectValue placeholder="Select a role" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectGroup>
+                                <SelectLabel>Role</SelectLabel>
+                                {data?.data?.map((role) => (
+                                  <SelectItem key={role.id} value={role.id}>
+                                    {role.name}
+                                  </SelectItem>
+                                ))}
+                              </SelectGroup>
+                            </SelectContent>
+                          </Select>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
               </div>
               <div className="mt-14 flex justify-center sm:justify-end">
-                <Button type="submit" className="px-8 py-2 w-64">
+                <Button
+                  type="submit"
+                  className="px-8 py-2 w-64"
+                  loading={userRegister.isPending}
+                >
                   Submit
                 </Button>
               </div>
