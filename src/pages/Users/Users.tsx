@@ -20,8 +20,7 @@ const Users = () => {
       </div>
       <div className="flex justify-end">
         <Button onClick={() => navigate("/dashboard/users/register")}>
-          <PlusIcon />
-          Add User
+          <PlusIcon className="mr-2" /> Add User
         </Button>
       </div>
       <div>
