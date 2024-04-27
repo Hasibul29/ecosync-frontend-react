@@ -8,10 +8,8 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
   DialogClose,
 } from "@/components/ui/dialog";
-import { PlusIcon } from "@radix-ui/react-icons";
 import {
   Form,
   FormControl,
@@ -32,56 +30,47 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/custom/button";
 import useRoles from "@/hooks/useRoles";
-import useUserRegister from "@/hooks/useUserRegister";
 import { User } from "@/store";
-import { useState } from "react";
+import useUserUpdate from "@/hooks/useUserUpdate";
 
 const schema = z.object({
+  id:z.string(),
   firstName: z.string().min(2).max(50),
   lastName: z.string().min(2).max(50),
   email: z
     .string()
     .min(1, { message: "Please enter your email." })
     .email({ message: "Invalid email address." }),
-  password: z
-    .string()
-    .min(1, {
-      message: "Please enter your password.",
-    })
-    .min(7, {
-      message: "Password must be at least 7 characters long.",
-    }),
   roleId: z.string().optional(),
 });
 
-const RegistUser = () => {
-  const { data, error, isError } = useRoles();
-  const [open,onOpenChange] = useState(false);
-  const userRegister = useUserRegister(onOpenChange);
+interface Props {
+  open: boolean;
+  onOpenChange: (val: boolean) => void;
+  userData: User;
+}
 
+const UpdateUser = ({ open, onOpenChange, userData }: Props) => {
+  const { data, error, isError } = useRoles();
+  const update = useUserUpdate(onOpenChange);
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: {
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
-      roleId: undefined,
+        id: userData.id,
+      firstName: userData.firstName,
+      lastName: userData.lastName,
+      email: userData.email,
+      roleId: userData.roleId,
     },
   });
 
   const onSubmit = (data: z.infer<typeof schema>) => {
-    console.log(data);
-    userRegister.mutate(data as User, {onSuccess: () => form.reset()});
+    
+    update.mutate(data);
   };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogTrigger asChild>
-        <Button>
-          <PlusIcon className="mr-2" /> Add User
-        </Button>
-      </DialogTrigger>
       <DialogContent
         onInteractOutside={(e) => {
           e.preventDefault();
@@ -89,17 +78,12 @@ const RegistUser = () => {
         className="sm:max-w-[425px]"
       >
         <DialogHeader>
-          <DialogTitle>User Registration</DialogTitle>
+          <DialogTitle>Update User</DialogTitle>
           <DialogDescription>
-            Register a new user here. Click register button when you are done.
+            Update the user details and save the changes.
           </DialogDescription>
         </DialogHeader>
         <div>
-          <div className="flex justify-end">
-            <Button variant="destructive" onClick={() => form.reset()}>
-              Clear
-            </Button>
-          </div>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
               <div className="grid grid-cols-1 gap-1">
@@ -140,24 +124,7 @@ const RegistUser = () => {
                     <FormItem>
                       <FormLabel>Email</FormLabel>
                       <FormControl>
-                        <Input type="Email" placeholder="Email" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="password"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Password</FormLabel>
-                      <FormControl>
-                        <Input
-                          type="password"
-                          placeholder="Password"
-                          {...field}
-                        />
+                        <Input disabled={true} type="Email" placeholder="Email" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -180,6 +147,7 @@ const RegistUser = () => {
                         </FormLabel>
                         <FormControl>
                           <Select
+                            disabled={true}
                             onValueChange={field.onChange}
                             defaultValue={field.value}
                             value={field.value}
@@ -212,7 +180,7 @@ const RegistUser = () => {
                     Cancel
                   </Button>
                 </DialogClose>
-                <Button loading={userRegister.isPending}>Register</Button>
+                <Button loading={update.isPending}>Save</Button>
               </DialogFooter>
             </form>
           </Form>
@@ -221,4 +189,4 @@ const RegistUser = () => {
     </Dialog>
   );
 };
-export default RegistUser;
+export default UpdateUser;

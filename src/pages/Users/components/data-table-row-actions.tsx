@@ -10,13 +10,25 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { User } from "@/store";
+import UpdateUser from "../UpdateUser";
+import { useState } from "react";
+import { DeleteUser } from "../DeleteUser";
 
 interface DataTableRowActionsProps {
   row: Row<User>;
 }
 
 export function DataTableRowActions({ row }: DataTableRowActionsProps) {
+
+    const [showUpdateUserDialog, setShowUpdateUserDialog] = useState(false)
+    const [showDeleteUserDialog, setShowDeleteUserDialog] = useState(false)
+
+
+
   return (
+    <>
+    <UpdateUser open={showUpdateUserDialog} onOpenChange={setShowUpdateUserDialog} userData={row.original} />
+    <DeleteUser open={showDeleteUserDialog} onOpenChange={setShowDeleteUserDialog} userData={row.original} />
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
@@ -28,7 +40,7 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[160px]">
-        <DropdownMenuItem>Edit</DropdownMenuItem>
+        <DropdownMenuItem onClick={() => {setShowUpdateUserDialog(true)}} >Edit</DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => {
             navigator.clipboard.writeText(row.original.id ?? "");
@@ -45,8 +57,9 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Delete</DropdownMenuItem>
+        <DropdownMenuItem onClick={() => {setShowDeleteUserDialog(true)}}>Delete</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
+    </>
   );
 }

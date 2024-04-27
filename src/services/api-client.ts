@@ -30,6 +30,16 @@ class APIClient<T, V = undefined> {
     const res = await axiosInstance.post<FetchResponse<T>>(this.endpoint, data);
     return res.data;
   };
+
+  put = async (data?: V | AxiosRequestConfig) => {
+    const res = await axiosInstance.put<FetchResponse<T>>(this.endpoint, data);
+    return res.data;
+  };
+  
+  delete = async (data?: AxiosRequestConfig) => {
+    const res = await axiosInstance.delete<FetchResponse<T>>(this.endpoint, data);
+    return res.data;
+  };
 }
 
 export default APIClient;
