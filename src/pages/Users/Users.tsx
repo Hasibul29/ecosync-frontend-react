@@ -15,7 +15,10 @@ const Users = () => {
       <div className="flex items-center">
         <h1 className="text-lg font-semibold md:text-2xl">Manage Users</h1>
       </div>
-      <RegistUser/>
+      <div className="flex justify-end">
+        <RegistUser />
+      </div>
+
       <div>
         {error && <p>{error.message}</p>}
         {isLoading ? (

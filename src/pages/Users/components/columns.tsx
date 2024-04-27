@@ -4,6 +4,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { DataTableColumnHeader } from "./data-table-column-header";
 import { User } from "@/store";
 import { roles } from "../data/data";
+import { DataTableRowActions } from "./data-table-row-actions";
 
 export const columns: ColumnDef<User>[] = [
   {
@@ -86,8 +87,8 @@ export const columns: ColumnDef<User>[] = [
       return value.includes(row.getValue(id));
     },
   },
-  // {
-  //   id: "actions",
-  //   cell: ({ row }) => <DataTableRowActions row={row} />,
-  // },
+  {
+    id: "actions",
+    cell: ({ row }) => <DataTableRowActions row={row} />,
+  },
 ];

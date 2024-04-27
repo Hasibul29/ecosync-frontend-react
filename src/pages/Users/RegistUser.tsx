@@ -77,11 +77,9 @@ const RegistUser = () => {
     return (
       <Dialog>
         <DialogTrigger asChild>
-          <div className="flex justify-end">
-            <Button>
-              <PlusIcon className="mr-2" /> Add User
-            </Button>
-          </div>
+          <Button>
+            <PlusIcon className="mr-2" /> Add User
+          </Button>
         </DialogTrigger>
         <DialogContent
           onInteractOutside={(e) => {
