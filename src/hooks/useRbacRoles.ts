@@ -10,7 +10,7 @@ export interface Roles {
     permissions?: Permissions[]
 }
 
-interface Permissions {
+export interface Permissions {
     id:string,
     name:string,
     description?:string,

@@ -2,11 +2,18 @@ import { ColumnDef } from "@tanstack/react-table";
 
 import { Checkbox } from "@/components/ui/checkbox";
 import { DataTableColumnHeader } from "./data-table-column-header";
-// import { DataTableRowActions } from "./data-table-row-actions";
-import { Roles } from "@/hooks/useRbacRoles";
-import { DataTableRowActions } from "./data-table-row-actions";
+import { DataTableRowActionsPermission } from "./data-table-row-action-permission";
+import { Permissions } from "@/hooks/useRbacRoles";
 
-export const columns: ColumnDef<Roles>[] = [
+
+let roleId:string;
+
+
+export const getRoleId = (roleid:string)=>{
+  roleId=roleid;
+}
+
+export const columns: ColumnDef<Permissions>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -59,6 +66,6 @@ export const columns: ColumnDef<Roles>[] = [
   },
   {
     id: "actions",
-    cell: ({ row }) => <DataTableRowActions row={row} />,
+    cell: ({ row }) => <DataTableRowActionsPermission row={row} roleid={roleId}/>,
   },
 ];

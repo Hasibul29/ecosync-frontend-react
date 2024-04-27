@@ -3,6 +3,7 @@ import { Roles } from "@/hooks/useRbacRoles";
 import { useLocation } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import RoleUpdate from "./RoleUpdate";
+import RolePermissions from "./RolePermissions";
 
 const RoleInfo = () => {
   const location = useLocation();
@@ -21,7 +22,7 @@ const RoleInfo = () => {
           Role ID <code className="px-1">{state.id}</code>
         </p>
       </div>
-      <Tabs defaultValue="setting" className="w-[400px]">
+      <Tabs defaultValue="setting">
         <TabsList>
           <TabsTrigger value="setting">Settings</TabsTrigger>
           <TabsTrigger value="permissions">Permissions</TabsTrigger>
@@ -30,7 +31,7 @@ const RoleInfo = () => {
         <TabsContent value="setting">
           <RoleUpdate roleData={state}/>
         </TabsContent>
-        <TabsContent value="permissions">Change your password here.</TabsContent>
+        <TabsContent value="permissions"><RolePermissions roleData={state}/></TabsContent>
         <TabsContent value="users">NEW</TabsContent>
       </Tabs>
     </>
