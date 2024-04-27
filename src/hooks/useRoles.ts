@@ -12,7 +12,7 @@ interface Role {
 
 const useRoles = () =>
   useQuery<FetchResponse<Role[]>, AxiosError<FetchResponse<Role[]>>>({
-    queryKey: ["roles"],
+    queryKey: ["users","roles"],
     queryFn: apiClient.get,
     staleTime: 24 * 60 * 60 * 1000, // 1 hour
     placeholderData: roleData,

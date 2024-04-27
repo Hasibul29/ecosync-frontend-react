@@ -34,7 +34,7 @@ import { User } from "@/store";
 import useUserUpdate from "@/hooks/useUserUpdate";
 
 const schema = z.object({
-  id:z.string(),
+  id: z.string(),
   firstName: z.string().min(2).max(50),
   lastName: z.string().min(2).max(50),
   email: z
@@ -56,7 +56,7 @@ const UpdateUser = ({ open, onOpenChange, userData }: Props) => {
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: {
-        id: userData.id,
+      id: userData.id,
       firstName: userData.firstName,
       lastName: userData.lastName,
       email: userData.email,
@@ -65,7 +65,6 @@ const UpdateUser = ({ open, onOpenChange, userData }: Props) => {
   });
 
   const onSubmit = (data: z.infer<typeof schema>) => {
-    
     update.mutate(data);
   };
 
@@ -124,7 +123,12 @@ const UpdateUser = ({ open, onOpenChange, userData }: Props) => {
                     <FormItem>
                       <FormLabel>Email</FormLabel>
                       <FormControl>
-                        <Input disabled={true} type="Email" placeholder="Email" {...field} />
+                        <Input
+                          disabled={true}
+                          type="Email"
+                          placeholder="Email"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

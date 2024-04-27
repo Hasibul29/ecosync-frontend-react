@@ -2,7 +2,8 @@ import { createBrowserRouter } from "react-router-dom";
 import NotFoundError from "./pages/NotFoundError";
 import Dashboard from "./pages/Dashboard";
 import Users from "./pages/Users/Users";
-import RegistUser from "./pages/Users/RegistUser";
+import Rbac from "./pages/Rbac/Rbac";
+import RbacInfo from "./pages/Rbac/RoleInfo";
 
 const router = createBrowserRouter([
   // Auth routes
@@ -19,7 +20,7 @@ const router = createBrowserRouter([
     }),
     children: [
       {
-        path: "/dashboard",
+        path: "dashboard",
         element: <Dashboard />,
       },
       {
@@ -27,12 +28,15 @@ const router = createBrowserRouter([
         element: <Users />,
       },
       {
-        path: "dashboard/users/register",
-        element: <RegistUser />,
+        path: "dashboard/rbac",
+        element: <Rbac />,
+      },
+      {
+        path: "dashboard/rbac/roles",
+        element: <RbacInfo />,
       },
     ],
   },
-
   { path: "/404", Component: NotFoundError },
   { path: "*", Component: NotFoundError },
 ]);
