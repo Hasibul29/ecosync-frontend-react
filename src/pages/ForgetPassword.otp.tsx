@@ -19,7 +19,7 @@ import { Button } from "@/components/custom/button";
 import { cn } from "@/lib/utils";
 import { Card } from "@/components/ui/card";
 import useForgetPasswordOtp from "@/hooks/useForgetPasswordOtp";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 interface UserAuthFormProps extends HTMLAttributes<HTMLDivElement> {}
 
@@ -34,6 +34,8 @@ const formSchema = z.object({
 const ForgetPasswordOtp = ({ className, ...props }: UserAuthFormProps) => {
    const otpConfirm = useForgetPasswordOtp();
    const {state} = useLocation();
+   const navigate = useNavigate();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -45,7 +47,7 @@ const ForgetPasswordOtp = ({ className, ...props }: UserAuthFormProps) => {
 
   function onSubmit(data: z.infer<typeof formSchema>) {
     console.log(data);
-    otpConfirm.mutate(data);
+    otpConfirm.mutate(data, {onSuccess: () => {navigate("/forgot-password/confirm",{ state: {email: data.email}})}});
   }
 
   return (
