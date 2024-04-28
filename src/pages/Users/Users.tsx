@@ -24,7 +24,7 @@ const Users = () => {
         {isLoading ? (
           <p>Loading.....</p>
         ) : (
-          <DataTable columns={columns} data={data?.data as User[]} />
+          <DataTable columns={columns} data={data?.data ?? []} />
         )}
       </div>
     </>

@@ -1,4 +1,3 @@
-import { Permissions } from "@/hooks/useRbacRoles";
 import { DataTable } from "./components/data-tables";
 import { columns } from "./components/permission-column";
 import AddRolePermission from "./AddRolePermission";
@@ -16,11 +15,12 @@ const RolePermissions = () => {
         <h1 className="text-lg font-semibold md:text-2xl">Manage Rbac</h1>
       </div>
       <div className="flex justify-end my-4">
+        {error && <p>{error.message}</p>}
         {isLoading ? (
           <p>Loading.....</p>
         ) : (
           <AddRolePermission
-            permissions={data?.data as Permissions[]}
+            permissions={data?.data ??  []}
           />
         )}
       </div>
@@ -29,7 +29,7 @@ const RolePermissions = () => {
         {isLoading ? (
           <p>Loading.....</p>
         ) : (
-          <DataTable columns={columns} data={data?.data as Permissions[]} />
+          <DataTable columns={columns} data={data?.data ?? []} />
         )}
       </div>
     </>

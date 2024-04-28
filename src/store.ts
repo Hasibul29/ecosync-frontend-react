@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 export interface User {
   id?: string;
@@ -20,20 +21,31 @@ interface UserStore {
   setUser: (user: User) => void;
 }
 
-const useUserStore = create<UserStore>((set) => ({
-  user: {},
-  setUser: (user) => set(() => ({ user: user })),
-}));
+const useUserStore = create<UserStore>()(
+  persist(
+    (set) => ({
+      user: {},
+      setUser: (user) => set(() => ({ user: user })),
+    }),
+    {
+      name: "user",
+    }
+  )
+);
 
 export default useUserStore;
-
 
 interface RoleStore {
   role: Role;
   setRole: (role: Role) => void;
 }
 
-export const useRoleStore = create<RoleStore>((set) => ({
-  role: {},
-  setRole: (role) => set(() => ({ role: role })),
-}))
+export const useRoleStore = create<RoleStore>()(
+  persist(
+    (set) => ({
+      role: {},
+      setRole: (role) => set(() => ({ role: role })),
+    }),
+    { name: "role" }
+  )
+);

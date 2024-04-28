@@ -19,7 +19,7 @@ const Rbac = () => {
         {isLoading ? (
           <p>Loading.....</p>
         ) : (
-          <DataTable columns={columns} data={data?.data as Roles[]} />
+          <DataTable columns={columns} data={data?.data ?? []} />
         )}
       </div>
     </>
