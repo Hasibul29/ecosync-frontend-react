@@ -40,7 +40,7 @@ export const columns: ColumnDef<User>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <span className="max-w-32 truncate font-medium sm:max-w-72 md:max-w-[31rem]">
+          <span className="font-medium min-w-[30%]">
             {row.getValue("name")}
           </span>
         </div>
@@ -54,7 +54,7 @@ export const columns: ColumnDef<User>[] = [
     ),
     cell: ({ row }) => {
       return (
-        <div className="flex w-[100px] items-center">
+        <div className="font-medium min-w-[50%]">
           {row.getValue("email")}
         </div>
       );
@@ -69,7 +69,7 @@ export const columns: ColumnDef<User>[] = [
     cell: ({ row }) => {
   
       return (
-        <div className="flex w-[150px] items-center">
+        <div className="font-medium min-w-[10%]">
           {row.getValue("roles")}
         </div>
       );
@@ -80,6 +80,6 @@ export const columns: ColumnDef<User>[] = [
   },
   {
     id: "actions",
-    cell: ({ row }) => <DataTableRowActions row={row} />,
+    cell: ({ row }) => <div className="min-w-[10%]"><DataTableRowActions row={row} /></div>,
   },
 ];
