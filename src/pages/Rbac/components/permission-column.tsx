@@ -6,13 +6,6 @@ import { DataTableRowActionsPermission } from "./data-table-row-action-permissio
 import { Permissions } from "@/hooks/useRbacRoles";
 
 
-let roleId:string;
-
-
-export const getRoleId = (roleid:string)=>{
-  roleId=roleid;
-}
-
 export const columns: ColumnDef<Permissions>[] = [
   {
     id: "select",
@@ -66,6 +59,6 @@ export const columns: ColumnDef<Permissions>[] = [
   },
   {
     id: "actions",
-    cell: ({ row }) => <DataTableRowActionsPermission row={row} roleid={roleId}/>,
+    cell: ({ row }) => <DataTableRowActionsPermission row={row} />,
   },
 ];

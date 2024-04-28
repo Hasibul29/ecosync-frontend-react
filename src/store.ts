@@ -26,3 +26,14 @@ const useUserStore = create<UserStore>((set) => ({
 }));
 
 export default useUserStore;
+
+
+interface RoleStore {
+  role: Role;
+  setRole: (role: Role) => void;
+}
+
+export const useRoleStore = create<RoleStore>((set) => ({
+  role: {},
+  setRole: (role) => set(() => ({ role: role })),
+}))

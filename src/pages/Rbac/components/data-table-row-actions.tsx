@@ -13,6 +13,7 @@ import { useState } from "react";
 import { DeleteRole } from "../DeleteRole";
 import { Roles } from "@/hooks/useRbacRoles";
 import { useNavigate } from "react-router-dom";
+import { useRoleStore } from "@/store";
 
 interface DataTableRowActionsProps {
   row: Row<Roles>;
@@ -21,7 +22,7 @@ interface DataTableRowActionsProps {
 export function DataTableRowActions({ row }: DataTableRowActionsProps) {
     const [showDeleteRolesDialog, setShowDeleteRolesDialog] = useState(false)
     const navigate = useNavigate();
-
+    const {setRole} = useRoleStore();
 
 
   return (
@@ -38,7 +39,7 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[160px]">
-        <DropdownMenuItem onClick={() => navigate("roles",{ state : { ...row.original}})} >View Details</DropdownMenuItem>
+        <DropdownMenuItem onClick={() => {navigate("roles",{ state : { ...row.original}});setRole(row.original) }} >View Details</DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => {
             navigator.clipboard.writeText(row.original.id ?? "");

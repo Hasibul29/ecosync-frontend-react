@@ -1,16 +1,15 @@
-import { Permissions, Roles } from "@/hooks/useRbacRoles";
+import { Permissions } from "@/hooks/useRbacRoles";
 import { DataTable } from "./components/data-tables";
-import { columns, getRoleId } from "./components/permission-column";
+import { columns } from "./components/permission-column";
 import AddRolePermission from "./AddRolePermission";
 import useRbacRolePermissions from "@/hooks/useRbacRolePermission";
+import { useRoleStore } from "@/store";
 
-interface Props {
-  roleData: Roles;
-}
 
-const RolePermissions = ({ roleData }: Props) => {
-  const { data, isLoading, error } = useRbacRolePermissions(roleData.id ?? "");
-  getRoleId(roleData.id);
+const RolePermissions = () => {
+  const {role} = useRoleStore();
+  const { data, isLoading, error } = useRbacRolePermissions(role.id ?? "");
+  
   return (
     <>
       <div className="flex items-center">
@@ -22,7 +21,6 @@ const RolePermissions = ({ roleData }: Props) => {
         ) : (
           <AddRolePermission
             permissions={data?.data as Permissions[]}
-            roleId={roleData.id}
           />
         )}
       </div>

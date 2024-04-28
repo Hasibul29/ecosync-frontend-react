@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/custom/button";
 import { Roles } from "@/hooks/useRbacRoles";
 import useRbacUpdateRole from "@/hooks/useRbacUpdateRole";
+import { useRoleStore } from "@/store";
 
 const formSchema = z.object({
   id: z.string(),
@@ -29,18 +30,16 @@ const formSchema = z.object({
     }),
 });
 
-interface Props {
-  roleData: Roles;
-}
 
-const RoleUpdate = ({ roleData }: Props) => {
+const RoleUpdate = () => {
+  const {role} = useRoleStore();
   const updateRole = useRbacUpdateRole();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      id: roleData.id,
-      name: roleData.name,
-      description: roleData.description ?? "",
+      id: role.id,
+      name: role.name,
+      description: role.description ?? "",
     },
   });
 

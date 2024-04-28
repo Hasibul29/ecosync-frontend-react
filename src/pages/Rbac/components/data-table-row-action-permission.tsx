@@ -5,15 +5,16 @@ import { Button } from "@/components/custom/button";
 
 import { Permissions } from "@/hooks/useRbacRoles";
 import useRbacDeleteRolePermission from "@/hooks/useRbacDeleteRolePermission";
+import { useRoleStore } from "@/store";
 
 interface Props {
   row: Row<Permissions>;
-  roleid:string
 }
 
-export function DataTableRowActionsPermission({ row ,roleid}: Props) {
+export function DataTableRowActionsPermission({ row }: Props) {
+  const { role }= useRoleStore();
 
-  const deletePermission = useRbacDeleteRolePermission(roleid,row.original.id);
+  const deletePermission = useRbacDeleteRolePermission(role.id ?? "",row.original.id);
 
   const onSubmit = () => {
     deletePermission.mutate({});

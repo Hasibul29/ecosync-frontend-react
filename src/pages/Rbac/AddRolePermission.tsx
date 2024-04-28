@@ -27,22 +27,23 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import useRbacAddRolePermissions from "@/hooks/useRbacAddRolePermission";
 import { Permissions } from "@/hooks/useRbacRoles";
+import { useRoleStore } from "@/store";
 
 
 
 interface Props {
   permissions: Permissions[],
-  roleId: string
 }
 
 const schema = z.object({
   permissionIdList: z.string().array(),
 });
 
-const AddRolePermission = ({permissions,roleId}:Props) => {
+const AddRolePermission = ({permissions}:Props) => {
+  const {role} = useRoleStore();
   const { data, error, isError } = useRbacPermissions();
   const [open, onOpenChange] = useState(false);
-  const addRolePermission = useRbacAddRolePermissions(roleId,onOpenChange);
+  const addRolePermission = useRbacAddRolePermissions(role.id?? "",onOpenChange);
   
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
