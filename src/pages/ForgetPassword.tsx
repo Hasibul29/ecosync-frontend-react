@@ -1,6 +1,5 @@
 import { HTMLAttributes } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -13,10 +12,10 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/custom/button";
-import { PasswordInput } from "@/components/custom/PasswordInput";
 import { cn } from "@/lib/utils";
 import { Card } from "@/components/ui/card";
-import useLogin from "@/hooks/useLogin";
+import useForgetPasswordInitiate from "@/hooks/useForgetPasswordInitiate";
+import { useNavigate } from "react-router-dom";
 
 interface UserAuthFormProps extends HTMLAttributes<HTMLDivElement> {}
 
@@ -25,18 +24,11 @@ const formSchema = z.object({
     .string()
     .min(1, { message: "Please enter your email." })
     .email({ message: "Invalid email address." }),
-  password: z
-    .string()
-    .min(1, {
-      message: "Please enter your password.",
-    })
-    .min(7, {
-      message: "Password must be at least 7 characters long.",
-    }),
 });
 
 const ForgetPassword = ({ className, ...props }: UserAuthFormProps) => {
-
+  const navigate = useNavigate();
+   const initiateReset  = useForgetPasswordInitiate();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -46,6 +38,7 @@ const ForgetPassword = ({ className, ...props }: UserAuthFormProps) => {
 
   function onSubmit(data: z.infer<typeof formSchema>) {
     console.log(data);
+    initiateReset.mutate(data,{onSuccess: () => navigate("otp",{state: {email: data.email}})});
   }
 
   return (
@@ -77,7 +70,7 @@ const ForgetPassword = ({ className, ...props }: UserAuthFormProps) => {
                       </FormItem>
                     )}
                   />
-                  <Button className="mt-5" loading={false}>
+                  <Button className="mt-5" loading={initiateReset.isPending}>
                     Send
                   </Button>
                 </div>
