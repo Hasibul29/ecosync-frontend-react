@@ -8,32 +8,40 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import useRbacDeleteRole from "@/hooks/useRbacDeleteRole";
-import { Roles } from "@/hooks/useRbacRoles";
-import { useNavigate } from "react-router-dom";
+import useRbacDeleteRolePermission from "@/hooks/useRbacDeleteRolePermission";
+import { Permissions } from "@/hooks/useRbacRoles";
+import { useRoleStore } from "@/store";
 
 interface Props {
   open: boolean;
   onOpenChange: (val: boolean) => void;
-  roleData: Roles;
-  redirect?: boolean;
+  permissionData: Permissions;
 }
 
-export function DeleteRole({ open, onOpenChange, roleData, redirect }: Props) {
-  const deleteRole = useRbacDeleteRole(roleData.id ?? "", onOpenChange);
-  const navigate = useNavigate();
+export function DeletePermission({
+  open,
+  onOpenChange,
+  permissionData,
+}: Props) {
+  const { role } = useRoleStore();
+
+  const deletePermission = useRbacDeleteRolePermission(
+    role.id ?? "",
+    permissionData.id
+  );
+
   const onSubmit = () => {
-    deleteRole.mutate({},{onSuccess: () => { if (redirect) navigate(-1);}});
+    deletePermission.mutate({});
   };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Delete Role?</DialogTitle>
+          <DialogTitle>Remove permission?</DialogTitle>
           <DialogDescription>
-            This action cannot be undone. This will permanently delete role{" "}
-            <span>"{roleData.name}"</span>.
+            Are you sure that you want to remove{" "}
+            <span>"{permissionData.name}"</span>?.
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="gap-2 sm:space-x-0">
@@ -44,6 +52,7 @@ export function DeleteRole({ open, onOpenChange, roleData, redirect }: Props) {
             <Button
               aria-label="Delete selected rows"
               variant="destructive"
+              loading={deletePermission.isPending}
               onClick={() => onSubmit()}
             >
               Delete

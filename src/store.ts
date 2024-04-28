@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { persist, StateStorage, createJSONStorage } from "zustand/middleware";
 import  secureLocalStorage  from  "react-secure-storage";
+import { Roles } from "./hooks/useRbacRoles";
 
 const SecureStorage: StateStorage = {
   getItem: async (name: string): Promise<string | null> => {
@@ -20,13 +21,7 @@ export interface User {
   lastName?: string;
   email?: string;
   roleId?: string;
-  role?: Role;
-}
-
-interface Role {
-  id?: string;
-  name?: string;
-  description?: string | null;
+  role?: Roles;
 }
 
 interface UserStore {
@@ -50,8 +45,8 @@ const useUserStore = create<UserStore>()(
 export default useUserStore;
 
 interface RoleStore {
-  role: Role;
-  setRole: (role: Role) => void;
+  role: Roles;
+  setRole: (role: Roles) => void;
 }
 
 export const useRoleStore = create<RoleStore>()(

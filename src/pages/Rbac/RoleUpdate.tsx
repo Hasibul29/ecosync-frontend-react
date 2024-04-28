@@ -13,6 +13,9 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/custom/button";
 import useRbacUpdateRole from "@/hooks/useRbacUpdateRole";
 import { useRoleStore } from "@/store";
+import { useTheme } from "@/components/theme-provider";
+import { DeleteRole } from "./DeleteRole";
+import { useState } from "react";
 
 const formSchema = z.object({
   id: z.string(),
@@ -29,10 +32,12 @@ const formSchema = z.object({
     }),
 });
 
-
 const RoleUpdate = () => {
-  const {role} = useRoleStore();
+  const { theme } = useTheme();
+  const { role } = useRoleStore();
   const updateRole = useRbacUpdateRole();
+  const [showDeleteRolesDialog, setShowDeleteRolesDialog] = useState(false)
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -84,6 +89,21 @@ const RoleUpdate = () => {
           </div>
         </form>
       </Form>
+      <div
+        className={
+          "mt-20 p-4 w-full " +
+          (theme === "light" ? "bg-red-100" : "bg-red-950") +
+          " min-h-0"
+        }
+      >
+        <DeleteRole open={showDeleteRolesDialog} onOpenChange={setShowDeleteRolesDialog} roleData={role} redirect={true}></DeleteRole>
+        <div className="flex flex-row justify-between items-center">
+          <p className={theme === "light" ? "text-red-950" : "text-red-100"}>
+            <span className="font-medium">Delete Role</span> <br />Once confirmed, this operation can't be undone!
+          </p>
+          <Button variant="destructive" onClick={() => setShowDeleteRolesDialog(true)} >Delete Role</Button>
+        </div>
+      </div>
     </div>
   );
 };

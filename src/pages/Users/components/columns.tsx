@@ -3,7 +3,6 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Checkbox } from "@/components/ui/checkbox";
 import { DataTableColumnHeader } from "./data-table-column-header";
 import { User } from "@/store";
-import { roles } from "../data/data";
 import { DataTableRowActions } from "./data-table-row-actions";
 
 export const columns: ColumnDef<User>[] = [
@@ -68,18 +67,10 @@ export const columns: ColumnDef<User>[] = [
       <DataTableColumnHeader column={column} title="Role" />
     ),
     cell: ({ row }) => {
-      const role = roles.find((role) => role.value === row.getValue("roles"));
-
-      if (!role) {
-        return null;
-      }
-
+  
       return (
-        <div className="flex w-[100px] items-center">
-          {role.icon && (
-            <role.icon className="mr-2 h-4 w-4 text-muted-foreground" />
-          )}
-          <span>{role.label}</span>
+        <div className="flex w-[150px] items-center">
+          {row.getValue("roles")}
         </div>
       );
     },

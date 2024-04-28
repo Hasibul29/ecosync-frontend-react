@@ -1,7 +1,6 @@
 import useUsers from "@/hooks/useUsers";
 import { columns } from "./components/columns";
 import { DataTable } from "./components/data-tables";
-import { User } from "@/store";
 import BreadCrumb from "@/components/bread-crumb";
 import RegistUser from "./RegistUser";
 

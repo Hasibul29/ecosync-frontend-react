@@ -4,6 +4,7 @@ import Dashboard from "./pages/Dashboard";
 import Users from "./pages/Users/Users";
 import Rbac from "./pages/Rbac/Rbac";
 import RbacInfo from "./pages/Rbac/RoleInfo";
+import ForgetPassword from "./pages/ForgetPassword";
 
 const router = createBrowserRouter([
   // Auth routes
@@ -37,6 +38,7 @@ const router = createBrowserRouter([
       },
     ],
   },
+  { path: "/forgot-password", element: <ForgetPassword/> },
   { path: "/404", Component: NotFoundError },
   { path: "*", Component: NotFoundError },
 ]);

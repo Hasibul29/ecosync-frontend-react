@@ -8,7 +8,7 @@ import { DataTableViewOptions } from "../components/data-table-view-options";
 import { DataTableFacetedFilter } from "./data-table-faceted-filter";
 import { DataTableFilterOptions } from "./data-table-filter-option";
 import { useState } from "react";
-import { roles } from "../data/data";
+import useRoles from "@/hooks/useRoles";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
@@ -17,6 +17,7 @@ interface DataTableToolbarProps<TData> {
 export function DataTableToolbar<TData>({
   table,
 }: DataTableToolbarProps<TData>) {
+  const { data } = useRoles();
   const isFiltered = table.getState().columnFilters.length > 0;
   const [selectedFilter, setSelectedFilter] = useState("name");
 
@@ -47,7 +48,12 @@ export function DataTableToolbar<TData>({
             <DataTableFacetedFilter
               column={table.getColumn("roles")}
               title="Role"
-              options={roles}
+              options={
+                data?.data?.map((role) => ({
+                  label: role.name,
+                  value: role.name,
+                })) ?? []
+              }
             />
           )}
         </div>

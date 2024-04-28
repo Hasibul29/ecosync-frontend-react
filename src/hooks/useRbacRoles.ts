@@ -4,9 +4,9 @@ import APIClient, { FetchResponse } from "../services/api-client";
 const apiClient = new APIClient<Roles[]>("/rbac/roles");
 
 export interface Roles {
-    id:string,
-    name:string,
-    description:string,
+    id?:string,
+    name?:string,
+    description?:string,
     permissions?: Permissions[]
 }
 

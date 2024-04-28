@@ -1,7 +1,8 @@
 import BreadCrumb from "@/components/bread-crumb";
-import useRbacRoles, { Roles } from "@/hooks/useRbacRoles";
+import useRbacRoles from "@/hooks/useRbacRoles";
 import { DataTable } from "./components/data-tables";
 import { columns } from "./components/columns";
+import RoleRegist from "./RoleRegist";
 
 const Rbac = () => {
   const breadcrumbItems = [{ title: "Rbac", link: "/dashboard/rbac" }];
@@ -13,6 +14,9 @@ const Rbac = () => {
       <BreadCrumb items={breadcrumbItems} />
       <div className="flex items-center">
         <h1 className="text-lg font-semibold md:text-2xl">Manage Rbac</h1>
+      </div>
+      <div className="flex justify-end">
+        <RoleRegist />
       </div>
       <div>
         {error && <p>{error.message}</p>}
