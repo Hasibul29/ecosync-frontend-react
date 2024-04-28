@@ -5,6 +5,25 @@ import { DataTableColumnHeader } from "./data-table-column-header";
 // import { DataTableRowActions } from "./data-table-row-actions";
 import { Roles } from "@/hooks/useRbacRoles";
 import { DataTableRowActions } from "./data-table-row-actions";
+import { Link } from "react-router-dom";
+import { useRoleStore } from "@/store";
+
+interface RoleLinkProps {
+  to: string;
+  children: React.ReactNode;
+  roles: Roles;
+}
+
+const RoleLink = ({ to, children, roles }: RoleLinkProps) => {
+  const roleStore = useRoleStore();
+
+  const handleClick = () => {
+    roleStore.setRole(roles);
+  };
+
+  return <Link to={to} onClick={handleClick} className="text-blue-500 hover:text-blue-700" >{children}</Link>;
+};
+
 
 export const columns: ColumnDef<Roles>[] = [
   {
@@ -39,7 +58,8 @@ export const columns: ColumnDef<Roles>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex w-[100px] items-center">
-          {row.getValue("name")}
+          {/* <Link to={`roles`} >{row.getValue("name")}</Link> */}
+          <RoleLink to={`roles`} roles={row.original}> {row.getValue("name")}</RoleLink>
         </div>
       );
     },

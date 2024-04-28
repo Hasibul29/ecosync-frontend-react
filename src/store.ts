@@ -1,5 +1,18 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { persist, StateStorage, createJSONStorage } from "zustand/middleware";
+import  secureLocalStorage  from  "react-secure-storage";
+
+const SecureStorage: StateStorage = {
+  getItem: async (name: string): Promise<string | null> => {
+    return secureLocalStorage.getItem(name) as string;
+  },
+  setItem: async (name: string, value: string): Promise<void> => {
+    secureLocalStorage.setItem(name, value);
+  },
+  removeItem: async (name: string): Promise<void> => {
+    secureLocalStorage.removeItem(name);
+  },
+};
 
 export interface User {
   id?: string;
@@ -29,6 +42,7 @@ const useUserStore = create<UserStore>()(
     }),
     {
       name: "user",
+      storage: createJSONStorage(() => SecureStorage),
     }
   )
 );
@@ -46,6 +60,6 @@ export const useRoleStore = create<RoleStore>()(
       role: {},
       setRole: (role) => set(() => ({ role: role })),
     }),
-    { name: "role" }
+    { name: "role", storage: createJSONStorage(() => SecureStorage) }
   )
 );
