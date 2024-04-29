@@ -7,6 +7,7 @@ import RbacInfo from "./pages/Rbac/RoleInfo";
 import ForgetPassword from "./pages/ForgetPassword/ForgetPassword";
 import ForgetPasswordOtp from "./pages/ForgetPassword/ForgetPasswordOtp";
 import ForgetPasswordConfirm from "./pages/ForgetPassword/ForgetPasswordConfirm";
+import STS from "./pages/STS/STS";
 
 const router = createBrowserRouter([
   // Auth routes
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: "dashboard/rbac/roles",
         element: <RbacInfo />,
+      },
+      {
+        path: "dashboard/sts",
+        element: <STS />,
       },
     ],
   },

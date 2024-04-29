@@ -64,7 +64,7 @@ export function DataTable<TData, TValue>({
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
   });
-  console.log("I was Updated");
+
   return (
     <div className="space-y-4">
       <DataTableToolbar table={table} />

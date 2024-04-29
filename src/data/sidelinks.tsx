@@ -52,12 +52,12 @@ export const sidelinks: SideLink[] = [
     href: "/dashboard/rbac",
     icon: <IconChecklist size={18} />,
   },
-  //   {
-  //     title: "Chats",
-  //     label: "9",
-  //     href: "/chats",
-  //     icon: <IconMessages size={18} />,
-  //   },
+  {
+    title: "STS",
+    label: "9",
+    href: "/dashboard/sts",
+    icon: <IconMessages size={18} />,
+  },
   //   {
   //     title: "Apps",
   //     label: "",

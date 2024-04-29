@@ -9,7 +9,7 @@ const useUserUpdate = (onOpenChange: (open:boolean) => void) => {
   return useMutation<FetchResponse<User>, Error, User>({
     mutationFn: apiClient.put,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['users'] })
+      queryClient.invalidateQueries({ queryKey: ['users'] , exact: true});
       onOpenChange(false);
     },
   });

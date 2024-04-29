@@ -8,19 +8,19 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import useUserDelete from "@/hooks/useUserDelete";
-import { User } from "@/store";
+import { STS } from "@/hooks/useSTS";
+import useSTSDelete from "@/hooks/useSTSDelete";
 
 interface Props {
   open: boolean;
   onOpenChange: (val: boolean) => void;
-  userData: User;
+  stsData: STS;
 }
 
-export function DeleteUser({ open, onOpenChange, userData }: Props) {
-  const deleteUser = useUserDelete(userData.id ?? "", onOpenChange);
+export function DeleteSTS({ open, onOpenChange, stsData }: Props) {
+  const deleteSTS = useSTSDelete(stsData.id ?? "", onOpenChange);
   const onSubmit = () => {
-    deleteUser.mutate({});
+    deleteSTS.mutate({});
   };
 
   return (
@@ -29,7 +29,7 @@ export function DeleteUser({ open, onOpenChange, userData }: Props) {
         <DialogHeader>
           <DialogTitle>Are you absolutely sure?</DialogTitle>
           <DialogDescription>
-            This action cannot be undone. This will permanently delete user
+            This action cannot be undone. This will permanently delete STS
             data.
           </DialogDescription>
         </DialogHeader>
@@ -41,7 +41,7 @@ export function DeleteUser({ open, onOpenChange, userData }: Props) {
             <Button
               aria-label="Delete selected rows"
               variant="destructive"
-              loading={deleteUser.isPending}
+              loading={deleteSTS.isPending}
               onClick={() => onSubmit()}
             >
               Delete
