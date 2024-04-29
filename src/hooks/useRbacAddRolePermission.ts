@@ -13,7 +13,7 @@ const useRbacAddRolePermissions = (roleId: string, onOpenChange: (open: boolean)
     return useMutation({
       mutationFn: apiClient.post,
       onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ["roles", roleId , "permissions"] });
+        queryClient.invalidateQueries({ queryKey: ["roles", roleId , "permissions"] , exact: true });
         onOpenChange(false);
       },
     });

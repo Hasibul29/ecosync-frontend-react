@@ -4,11 +4,12 @@ import APIClient, { FetchResponse } from "../services/api-client";
 const apiClient = new APIClient<STS[]>("/sts");
 
 export interface STS {
-    id?: string;
-    wardNo: string;
-    latitude: string;
-    longitude: string;
-    capacity: number;
+  id?: string;
+  name: string;
+  wardNo: string;
+  latitude: string;
+  longitude: string;
+  capacity: number;
 }
 
 const useSTS = () =>

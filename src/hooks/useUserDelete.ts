@@ -7,7 +7,7 @@ const useUserDelete = (id: string, onOpenChange: (open: boolean) => void) => {
   return useMutation({
     mutationFn: apiClient.delete,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["users"] });
+      queryClient.invalidateQueries({ queryKey: ["users"], exact: true });
       onOpenChange(false);
     },
   });

@@ -26,6 +26,7 @@ import { useState } from "react";
 import useSTSRegist from "@/hooks/useSTSRegist";
 
 const schema = z.object({
+  name: z.string().min(1, { message: "Name is required" }),
   wardNo: z.string().min(1, { message: "Ward number is required" }),
   latitude: z.string().min(1, { message: "Latitude is required" }),
   longitude: z.string().min(1, { message: "Longitude is required" }),
@@ -38,6 +39,7 @@ const RegistSTS = () => {
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: {
+      name: "",
       wardNo: "",
       latitude: "",
       longitude: "",
@@ -78,6 +80,23 @@ const RegistSTS = () => {
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
               <div className="grid grid-cols-1 gap-1">
+              <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Name</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="text"
+                          placeholder="Name"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
                 <FormField
                   control={form.control}
                   name="wardNo"

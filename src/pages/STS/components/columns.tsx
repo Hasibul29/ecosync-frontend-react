@@ -33,6 +33,19 @@ export const columns: ColumnDef<STS>[] = [
     enableHiding: false,
   },
   {
+    accessorKey: "name",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Name" />
+    ),
+    cell: ({ row }) => {
+      return (
+        <div className="font-medium min-w-[50%]">
+          {row.getValue("name")}
+        </div>
+      );
+    },
+  },
+  {
     accessorKey: "wardNo",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Ward No" />

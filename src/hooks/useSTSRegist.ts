@@ -4,12 +4,12 @@ import { STS } from "./useSTS";
 
 const apiClient = new APIClient<STS, STS>("/sts");
 
-const useSTSRegist = (onOpenChange:(open:boolean) => void) => {
+const useSTSRegist = (onOpenChange: (open: boolean) => void) => {
   const queryClient = useQueryClient();
   return useMutation<FetchResponse<STS>, Error, STS>({
     mutationFn: apiClient.post,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['sts'] });
+      queryClient.invalidateQueries({ queryKey: ["sts"], exact: true });
       onOpenChange(false);
     },
   });

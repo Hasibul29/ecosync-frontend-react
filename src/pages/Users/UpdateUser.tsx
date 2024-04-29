@@ -32,6 +32,7 @@ import { Button } from "@/components/custom/button";
 import useRoles from "@/hooks/useRoles";
 import { User } from "@/store";
 import useUserUpdate from "@/hooks/useUserUpdate";
+import { useEffect } from "react";
 
 const schema = z.object({
   id: z.string(),
@@ -63,9 +64,20 @@ const UpdateUser = ({ open, onOpenChange, userData }: Props) => {
       roleId: userData.roleId,
     },
   });
+  
+  useEffect(() => {
+    form.reset({
+      id: userData.id,
+      firstName: userData.firstName,
+      lastName: userData.lastName,
+      email: userData.email,
+      roleId: userData.roleId,
+    });
+  }, [userData]); 
+
 
   const onSubmit = (data: z.infer<typeof schema>) => {
-    update.mutate(data);
+    update.mutate(data,{ onSuccess: () => form.reset() });
   };
 
   return (

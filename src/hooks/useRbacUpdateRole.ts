@@ -9,7 +9,7 @@ const useRbacUpdateRole = () => {
   return useMutation<FetchResponse<Roles>, Error, Roles>({
     mutationFn: apiClient.put,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['roles'] })
+      queryClient.invalidateQueries({ queryKey: ["roles"], exact: true });
     },
   });
 };

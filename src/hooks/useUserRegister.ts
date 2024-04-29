@@ -4,12 +4,12 @@ import { User } from "@/store";
 
 const apiClient = new APIClient<User, User>("/users");
 
-const useUserRegister = (onOpenChange:(open:boolean) => void) => {
+const useUserRegister = (onOpenChange: (open: boolean) => void) => {
   const queryClient = useQueryClient();
   return useMutation<FetchResponse<User>, Error, User>({
     mutationFn: apiClient.post,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['users'] });
+      queryClient.invalidateQueries({ queryKey: ["users"], exact: true });
       onOpenChange(false);
     },
   });

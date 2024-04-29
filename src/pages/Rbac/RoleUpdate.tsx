@@ -15,7 +15,7 @@ import useRbacUpdateRole from "@/hooks/useRbacUpdateRole";
 import { useRoleStore } from "@/store";
 import { useTheme } from "@/components/theme-provider";
 import { DeleteRole } from "./DeleteRole";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const formSchema = z.object({
   id: z.string(),
@@ -46,6 +46,14 @@ const RoleUpdate = () => {
       description: role.description ?? "",
     },
   });
+
+  useEffect(()=> {
+    form.reset({
+      id: role.id,
+      name: role.name,
+      description: role.description ?? "",
+    })
+  },[role]);
 
   function onSubmit(data: z.infer<typeof formSchema>) {
     console.log(data);

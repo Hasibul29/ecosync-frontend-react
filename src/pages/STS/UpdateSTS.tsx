@@ -8,10 +8,8 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
   DialogClose,
 } from "@/components/ui/dialog";
-import { PlusIcon } from "lucide-react";
 import {
   Form,
   FormControl,
@@ -24,8 +22,10 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/custom/button";
 import { STS } from "@/hooks/useSTS";
 import useSTSUpdate from "@/hooks/useSTSUpdate";
+import { useEffect } from "react";
 
 const schema = z.object({
+  name: z.string().min(1, { message: "Name is required" }),
   wardNo: z.string().min(1, { message: "Ward number is required" }),
   latitude: z.string().min(1, { message: "Latitude is required" }),
   longitude: z.string().min(1, { message: "Longitude is required" }),
@@ -38,18 +38,28 @@ interface Props {
   stsData: STS;
 }
 
-const UpdateSTS = ({onOpenChange,open,stsData}: Props) => {
-
-  const stsUpdate = useSTSUpdate(stsData.id ?? "",onOpenChange);
+const UpdateSTS = ({ onOpenChange, open, stsData }: Props) => {
+  const stsUpdate = useSTSUpdate(stsData.id ?? "", onOpenChange);
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: {
+      name: stsData.name,
       wardNo: stsData.wardNo,
       latitude: stsData.latitude,
       longitude: stsData.longitude,
       capacity: stsData.capacity,
     },
   });
+
+  useEffect(() => {
+    form.reset({
+      name: stsData.name,
+      wardNo: stsData.wardNo,
+      latitude: stsData.latitude,
+      longitude: stsData.longitude,
+      capacity: stsData.capacity,
+    });
+  }, [stsData]);
 
   const onSubmit = (data: z.infer<typeof schema>) => {
     console.log(data);
@@ -74,6 +84,23 @@ const UpdateSTS = ({onOpenChange,open,stsData}: Props) => {
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
               <div className="grid grid-cols-1 gap-1">
+              <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Name</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="text"
+                          placeholder="Name"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
                 <FormField
                   control={form.control}
                   name="wardNo"

@@ -4,17 +4,15 @@ import { Roles } from "./useRbacRoles";
 
 const apiClient = new APIClient<FetchResponse<Roles>, Roles>(`rbac/roles`);
 
-
 const useRbacAddRole = (onOpenChange: (open: boolean) => void) => {
-    const queryClient = useQueryClient();
-    return useMutation({
-      mutationFn: apiClient.post,
-      onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ["roles"] });
-        onOpenChange(false);
-      },
-    });
-  };
-  
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: apiClient.post,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["roles"], exact: true });
+      onOpenChange(false);
+    },
+  });
+};
 
 export default useRbacAddRole;
