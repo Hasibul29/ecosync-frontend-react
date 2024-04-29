@@ -2,15 +2,22 @@ import { create } from "zustand";
 import { persist, StateStorage, createJSONStorage } from "zustand/middleware";
 import  secureLocalStorage  from  "react-secure-storage";
 import { Roles } from "./hooks/useRbacRoles";
+import superjson from 'superjson'
 
 const SecureStorage: StateStorage = {
-  getItem: async (name: string): Promise<string | null> => {
-    return secureLocalStorage.getItem(name) as string;
+  getItem:  (name: string)=> {
+    console.log("get item called", name);
+    const str = secureLocalStorage.getItem(name) as string;
+    if (!str) return null
+    return superjson.parse(str)
+    // return secureLocalStorage.getItem(name) as string;
   },
-  setItem: async (name: string, value: string): Promise<void> => {
-    secureLocalStorage.setItem(name, value);
+  setItem:  (name: string, value: string) => {
+    console.log("set item called", name, value);
+    secureLocalStorage.setItem(name, superjson.stringify(value))
+    // secureLocalStorage.setItem(name, value);
   },
-  removeItem: async (name: string): Promise<void> => {
+  removeItem: (name: string)=> {
     secureLocalStorage.removeItem(name);
   },
 };
