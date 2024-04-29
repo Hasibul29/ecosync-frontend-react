@@ -6,16 +6,12 @@ import superjson from 'superjson'
 
 const SecureStorage: StateStorage = {
   getItem:  (name: string)=> {
-    console.log("get item called", name);
     const str = secureLocalStorage.getItem(name) as string;
     if (!str) return null
-    return superjson.parse(str)
-    // return secureLocalStorage.getItem(name) as string;
+    return superjson.parse(str);
   },
   setItem:  (name: string, value: string) => {
-    console.log("set item called", name, value);
-    secureLocalStorage.setItem(name, superjson.stringify(value))
-    // secureLocalStorage.setItem(name, value);
+    secureLocalStorage.setItem(name, superjson.stringify(value));
   },
   removeItem: (name: string)=> {
     secureLocalStorage.removeItem(name);
