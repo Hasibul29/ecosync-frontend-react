@@ -8,6 +8,7 @@ import ForgetPassword from "./pages/ForgetPassword/ForgetPassword";
 import ForgetPasswordOtp from "./pages/ForgetPassword/ForgetPasswordOtp";
 import ForgetPasswordConfirm from "./pages/ForgetPassword/ForgetPasswordConfirm";
 import STS from "./pages/STS/STS";
+import Vehicle from "./pages/Vehicle/Vehicle";
 
 const router = createBrowserRouter([
   // Auth routes
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
       {
         path: "dashboard/sts",
         element: <STS />,
+      },
+      {
+        path: "dashboard/vehicles",
+        element: <Vehicle />,
       },
     ],
   },

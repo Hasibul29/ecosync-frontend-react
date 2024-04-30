@@ -54,16 +54,16 @@ export const sidelinks: SideLink[] = [
   },
   {
     title: "STS",
-    label: "9",
+    label: "",
     href: "/dashboard/sts",
     icon: <IconMessages size={18} />,
   },
-  //   {
-  //     title: "Apps",
-  //     label: "",
-  //     href: "/apps",
-  //     icon: <IconApps size={18} />,
-  //   },
+    {
+      title: "Vehicles",
+      label: "",
+      href: "/dashboard/vehicles",
+      icon: <IconApps size={18} />,
+    },
   //   {
   //     title: "Authentication",
   //     label: "",
