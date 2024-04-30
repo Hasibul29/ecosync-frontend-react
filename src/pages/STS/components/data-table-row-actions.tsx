@@ -46,7 +46,7 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
             navigator.clipboard.writeText(row.original.id ?? "");
           }}
         >
-          Copy user id
+          Copy STS Id
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => {

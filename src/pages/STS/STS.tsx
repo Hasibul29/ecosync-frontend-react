@@ -3,6 +3,7 @@ import RegistSTS from "./RegistSTS";
 import { DataTable } from "./components/data-tables";
 import { columns } from "./components/columns";
 import useSTS from "@/hooks/useSTS";
+import { DataTableSkeleton } from "@/components/DataTableSkeleton";
 
 
 
@@ -22,7 +23,7 @@ const STS = () => {
       <div>
         {error && <p>{error.message}</p>}
         {isLoading ? (
-          <p>Loading.....</p>
+          <DataTableSkeleton columnCount={3} rowCount={10}/>
         ) : (
           <DataTable columns={columns} data={data?.data ?? []} />
         )}

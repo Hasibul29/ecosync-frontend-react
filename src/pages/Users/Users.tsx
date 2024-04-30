@@ -3,6 +3,7 @@ import { columns } from "./components/columns";
 import { DataTable } from "./components/data-tables";
 import BreadCrumb from "@/components/bread-crumb";
 import RegistUser from "./RegistUser";
+import { DataTableSkeleton } from "@/components/DataTableSkeleton";
 
 const Users = () => {
   const { data, isLoading, error } = useUsers();
@@ -21,7 +22,7 @@ const Users = () => {
       <div>
         {error && <p>{error.message}</p>}
         {isLoading ? (
-          <p>Loading.....</p>
+          <DataTableSkeleton columnCount={3} rowCount={5}/>
         ) : (
           <DataTable columns={columns} data={data?.data ?? []} />
         )}

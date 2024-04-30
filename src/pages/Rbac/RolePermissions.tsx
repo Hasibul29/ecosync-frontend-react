@@ -3,6 +3,7 @@ import { columns } from "./components/permission-column";
 import AddRolePermission from "./AddRolePermission";
 import useRbacRolePermissions from "@/hooks/useRbacRolePermission";
 import { useRoleStore } from "@/store";
+import { DataTableSkeleton } from "@/components/DataTableSkeleton";
 
 
 const RolePermissions = () => {
@@ -27,7 +28,7 @@ const RolePermissions = () => {
       <div>
         {error && <p>{error.message}</p>}
         {isLoading ? (
-          <p>Loading.....</p>
+          <DataTableSkeleton columnCount={3} rowCount={4}/>
         ) : (
           <DataTable columns={columns} data={data?.data ?? []} />
         )}

@@ -3,6 +3,7 @@ import useRbacRoles from "@/hooks/useRbacRoles";
 import { DataTable } from "./components/data-tables";
 import { columns } from "./components/columns";
 import RoleRegist from "./RoleRegist";
+import { DataTableSkeleton } from "@/components/DataTableSkeleton";
 
 const Rbac = () => {
   const breadcrumbItems = [{ title: "Rbac", link: "/dashboard/rbac" }];
@@ -21,7 +22,7 @@ const Rbac = () => {
       <div>
         {error && <p>{error.message}</p>}
         {isLoading ? (
-          <p>Loading.....</p>
+          <DataTableSkeleton columnCount={3} rowCount={5}/>
         ) : (
           <DataTable columns={columns} data={data?.data ?? []} />
         )}
