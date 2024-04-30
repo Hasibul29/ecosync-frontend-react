@@ -10,14 +10,9 @@ const useRbacDeleteRole = (
   return useMutation({
     mutationFn: apiClient.delete,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["roles"], exact: true });
+      queryClient.invalidateQueries({ queryKey: ["roles"] });
       queryClient.invalidateQueries({
-        queryKey: ["users", "roles"],
-        exact: true,
-      });
-      queryClient.invalidateQueries({
-        queryKey: ["roles", roleId, "permissions"],
-        exact: true,
+        queryKey: ["users"],
       });
       onOpenChange(false);
     },

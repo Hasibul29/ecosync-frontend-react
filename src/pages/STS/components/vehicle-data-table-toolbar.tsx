@@ -3,7 +3,7 @@ import { Table } from "@tanstack/react-table";
 
 import { Button } from "@/components/custom/button";
 import { Input } from "@/components/ui/input";
-import { DataTableViewOptions } from "../components/data-table-view-options";
+import { DataTableViewOptions } from "./data-table-view-options";
 import { DataTableFilterOptions } from "./data-table-filter-option";
 import { useState } from "react";
 
@@ -15,7 +15,7 @@ export function DataTableToolbar<TData>({
   table,
 }: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0;
-  const [selectedFilter, setSelectedFilter] = useState("name");
+  const [selectedFilter, setSelectedFilter] = useState("vehicleNumber");
 
   return (
     <div className="flex items-center justify-between">

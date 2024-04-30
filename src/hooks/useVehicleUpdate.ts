@@ -8,7 +8,7 @@ const useVehicleUpdate = (id: string, onOpenChange: (open: boolean) => void) => 
   return useMutation<FetchResponse<Vehicle>, Error, Vehicle>({
     mutationFn: apiClient.put,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["vehicles"], exact: true });
+      queryClient.invalidateQueries({ queryKey: ["vehicles"]});
       onOpenChange(false);
     },
   });

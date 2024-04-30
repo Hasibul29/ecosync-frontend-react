@@ -25,7 +25,7 @@ const STS = () => {
         {isLoading ? (
           <DataTableSkeleton columnCount={3} rowCount={10}/>
         ) : (
-          <DataTable columns={columns} data={data?.data ?? []} />
+          <DataTable columns={columns} data={data?.data ?? []}  />
         )}
       </div>
     </>

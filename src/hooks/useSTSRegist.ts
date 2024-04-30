@@ -9,7 +9,7 @@ const useSTSRegist = (onOpenChange: (open: boolean) => void) => {
   return useMutation<FetchResponse<STS>, Error, STS>({
     mutationFn: apiClient.post,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["sts"], exact: true });
+      queryClient.invalidateQueries({ queryKey: ["sts"]});
       onOpenChange(false);
     },
   });

@@ -3,6 +3,7 @@ import { persist, StateStorage, createJSONStorage } from "zustand/middleware";
 import secureLocalStorage from "react-secure-storage";
 import { Roles } from "./hooks/useRbacRoles";
 import superjson from "superjson";
+import { STS } from "./hooks/useSTS";
 
 const SecureStorage: StateStorage = {
   getItem: (name: string) => {
@@ -61,3 +62,20 @@ export const useRoleStore = create<RoleStore>()(
     { name: "role", storage: createJSONStorage(() => SecureStorage) }
   )
 );
+
+
+interface STSStore {
+  sts: Partial<STS>;
+  setSTS: (sts: STS) => void;
+}
+
+
+export const useSTSStore = create<STSStore>()(
+  persist(
+    (set) => ({
+      sts: {},
+      setSTS: (sts) => set(() => ({ sts: sts })),
+    }),
+    { name: "sts", storage: createJSONStorage(() => SecureStorage) }
+  )
+)

@@ -7,7 +7,8 @@ const useVehicleDelete = (id: string, onOpenChange: (open: boolean) => void) => 
   return useMutation({
     mutationFn: apiClient.delete,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["vehicles"], exact: true });
+      queryClient.invalidateQueries({ queryKey: ["vehicles"]});
+      queryClient.invalidateQueries({ queryKey: ["sts"]});
       onOpenChange(false);
     },
   });

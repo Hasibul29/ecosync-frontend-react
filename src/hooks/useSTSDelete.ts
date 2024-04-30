@@ -7,7 +7,7 @@ const useSTSDelete = (id: string, onOpenChange: (open: boolean) => void) => {
   return useMutation({
     mutationFn: apiClient.delete,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["sts"], exact: true });
+      queryClient.invalidateQueries({ queryKey: ["sts"]});
       onOpenChange(false);
     },
   });

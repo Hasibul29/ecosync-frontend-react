@@ -9,6 +9,7 @@ import ForgetPasswordConfirm from "./pages/ForgetPassword/ForgetPasswordConfirm"
 import STS from "./pages/STS/STS";
 import Vehicle from "./pages/Vehicle/Vehicle";
 import Role from "./pages/Rbac/Role";
+import STSInfo from "./pages/STS/STSInfo";
 
 const router = createBrowserRouter([
   // Auth routes
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
       {
         path: "dashboard/sts",
         element: <STS />,
+      },
+      {
+        path: "dashboard/sts/stsInfo",
+        element: <STSInfo />,
       },
       {
         path: "dashboard/vehicles",

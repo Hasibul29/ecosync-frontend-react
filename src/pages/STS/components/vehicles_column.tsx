@@ -2,29 +2,10 @@ import { ColumnDef } from "@tanstack/react-table";
 
 import { Checkbox } from "@/components/ui/checkbox";
 import { DataTableColumnHeader } from "./data-table-column-header";
-// import { DataTableRowActions } from "./data-table-row-actions";
-import { STS } from "@/hooks/useSTS";
-import { DataTableRowActions } from "./data-table-row-actions";
-import { Link } from "react-router-dom";
-import { useSTSStore } from "@/store";
+import { Vehicle } from "@/hooks/useVehicle";
+import { VehicleDataTableRowActions } from "./vehicle-data-table-row-action";
 
-interface STSLinkProps {
-  to: string;
-  children: React.ReactNode;
-  sts: STS;
-}
-
-const STSLink = ({ to, children, sts }: STSLinkProps) => {
-  const stsStore = useSTSStore();
-
-  const handleClick = () => {
-    stsStore.setSTS(sts);
-  };
-
-  return <Link to={to} onClick={handleClick} className="text-blue-500 hover:text-blue-700" >{children}</Link>;
-};
-
-export const columns: ColumnDef<STS>[] = [
+export const columns: ColumnDef<Vehicle>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -50,54 +31,27 @@ export const columns: ColumnDef<STS>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "name",
+    accessorKey: "vehicleNumber",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Name" />
+      <DataTableColumnHeader column={column} title="Vehicle Number" />
     ),
     cell: ({ row }) => {
       return (
         <div className="font-medium min-w-[50%]">
-          {/* {row.getValue("name")} */}
-          <STSLink to={`stsInfo`} sts={row.original}>{row.getValue("name")}</STSLink>
+          {row.getValue("vehicleNumber")}
         </div>
       );
     },
   },
   {
-    accessorKey: "wardNo",
+    accessorKey: "vehicleType",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Ward No" />
+      <DataTableColumnHeader column={column} title="Vehicle Type" />
     ),
     cell: ({ row }) => {
       return (
         <div className="font-medium min-w-[50%]">
-          {row.getValue("wardNo")}
-        </div>
-      );
-    },
-  },
-  {
-    accessorKey: "latitude",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Latitude" />
-    ),
-    cell: ({ row }) => {
-      return (
-        <div className="font-medium min-w-[50%]">
-          {row.getValue("latitude")}
-        </div>
-      );
-    },
-  },
-  {
-    accessorKey: "longitude",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Latitude" />
-    ),
-    cell: ({ row }) => {
-      return (
-        <div className="font-medium min-w-[50%]">
-          {row.getValue("longitude")}
+          {row.getValue("vehicleType")}
         </div>
       );
     },
@@ -116,7 +70,33 @@ export const columns: ColumnDef<STS>[] = [
     },
   },
   {
+    accessorKey: "fuelCostLoaded",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Fuel Cost Loaded" />
+    ),
+    cell: ({ row }) => {
+      return (
+        <div className="font-medium min-w-[50%]">
+          {row.getValue("fuelCostLoaded")}
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: "fuelCostUnloaded",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Fuel Cost Unloaded" />
+    ),
+    cell: ({ row }) => {
+      return (
+        <div className="font-medium min-w-[50%]">
+          {row.getValue("fuelCostUnloaded")}
+        </div>
+      );
+    },
+  },
+  {
     id: "actions",
-    cell: ({ row }) => <div className="min-w-[10%]"><DataTableRowActions row={row} /></div>,
+    cell: ({ row }) => <div className="min-w-[10%]"><VehicleDataTableRowActions row={row} /></div>,
   },
 ];

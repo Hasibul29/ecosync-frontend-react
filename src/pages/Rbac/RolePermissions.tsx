@@ -12,9 +12,9 @@ const RolePermissions = () => {
   
   return (
     <>
-      <div className="flex items-center">
-        <h1 className="text-lg font-semibold md:text-2xl">Manage Rbac</h1>
-      </div>
+      {/* <div className="flex items-center">
+        <h1 className="text-lg font-semibold md:text-2xl mt-4">Permissions</h1>
+      </div> */}
       <div className="flex justify-end my-4">
         {error && <p>{error.message}</p>}
         {isLoading ? (

@@ -92,7 +92,7 @@ const RoleUpdate = () => {
               )}
             />
             <Button className="w-20" loading={updateRole.isPending}>
-              Submit
+              Update
             </Button>
           </div>
         </form>

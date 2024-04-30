@@ -9,7 +9,8 @@ const useRbacAddRole = (onOpenChange: (open: boolean) => void) => {
   return useMutation({
     mutationFn: apiClient.post,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["roles"], exact: true });
+      queryClient.invalidateQueries({ queryKey: ["roles"] });
+      queryClient.invalidateQueries({ queryKey: ["users"] });
       onOpenChange(false);
     },
   });

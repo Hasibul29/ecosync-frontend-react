@@ -14,10 +14,14 @@ export interface Vehicle {
     stsId?: string;
 }
 
-const useVehicle = () =>
+const useVehicle = (filter?: string) =>
   useQuery<FetchResponse<Vehicle[]>, Error>({
-    queryKey: ["vehicles"],
-    queryFn: apiClient.get,
+    queryKey: ["vehicles", filter],
+    queryFn: () => apiClient.get({
+        params: {
+            filter: filter
+        }
+    }),
     staleTime: 24 * 60 * 60 * 1000, // 1 hour
   });
 

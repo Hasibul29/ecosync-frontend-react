@@ -8,7 +8,7 @@ const useSTSUpdate = (id: string, onOpenChange: (open: boolean) => void) => {
   return useMutation<FetchResponse<STS>, Error, STS>({
     mutationFn: apiClient.put,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["sts"], exact: true });
+      queryClient.invalidateQueries({ queryKey: ["sts"]});
       onOpenChange(false);
     },
   });
