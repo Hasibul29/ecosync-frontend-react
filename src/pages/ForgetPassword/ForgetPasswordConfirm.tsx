@@ -65,9 +65,9 @@ const ForgetPasswordConfirm = ({ className, ...props }: UserAuthFormProps) => {
         <div className="mb-4 flex items-center justify-center"></div>
         <Card className="p-6">
           <div className="flex flex-col space-y-2 text-left">
-            <h1 className="text-2xl font-semibold tracking-tight">Login</h1>
+            <h1 className="text-2xl font-semibold tracking-tight">Reset Password</h1>
             <p className="text-sm text-muted-foreground pb-2">
-              Enter your email and password below to log into your account
+              Please enter your new password below.
             </p>
           </div>
           <div className={cn("grid gap-6", className)} {...props}>
@@ -79,7 +79,7 @@ const ForgetPasswordConfirm = ({ className, ...props }: UserAuthFormProps) => {
                     name="newPassword"
                     render={({ field }) => (
                       <FormItem className="space-y-1">
-                        <FormLabel>Email</FormLabel>
+                        <FormLabel>Password</FormLabel>
                         <FormControl>
                           <PasswordInput placeholder="Password" {...field} />
                         </FormControl>
@@ -93,7 +93,7 @@ const ForgetPasswordConfirm = ({ className, ...props }: UserAuthFormProps) => {
                     render={({ field }) => (
                       <FormItem className="space-y-1">
                         <div className="flex items-center justify-between">
-                          <FormLabel>Password</FormLabel>
+                          <FormLabel>Confirm Password</FormLabel>
                           <Link
                             to="/forgot-password"
                             className="text-sm font-medium text-muted-foreground hover:opacity-75"
@@ -102,7 +102,7 @@ const ForgetPasswordConfirm = ({ className, ...props }: UserAuthFormProps) => {
                           </Link>
                         </div>
                         <FormControl>
-                          <PasswordInput placeholder="Password" {...field} />
+                          <PasswordInput placeholder="Confirm Password" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
