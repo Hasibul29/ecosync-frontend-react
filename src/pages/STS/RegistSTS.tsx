@@ -30,7 +30,7 @@ const schema = z.object({
   wardNo: z.string().min(1, { message: "Ward number is required" }),
   latitude: z.string().min(1, { message: "Latitude is required" }),
   longitude: z.string().min(1, { message: "Longitude is required" }),
-  capacity: z.number({invalid_type_error: "Capacity is required"})
+  capacity: z.string().min(1, { message: "Capacity is required" }),
 });
 
 const RegistSTS = () => {
@@ -43,13 +43,21 @@ const RegistSTS = () => {
       wardNo: "",
       latitude: "",
       longitude: "",
-      capacity: 0,
+      capacity: "",
     },
   });
 
   const onSubmit = (data: z.infer<typeof schema>) => {
     console.log(data);
-    stsRegister.mutate(data, {onSuccess: () => form.reset()});
+    const {name, wardNo, latitude, longitude, capacity} = data;
+    stsRegister.mutate({
+      name: name,
+      wardNo: wardNo,
+      latitude: latitude,
+      longitude: longitude,
+      capacity: parseInt(capacity)
+
+    }, {onSuccess: () => form.reset()});
   };
 
   return (
@@ -151,7 +159,6 @@ const RegistSTS = () => {
                           type="number"
                           placeholder="Capacity"
                           {...field}
-                          {...form.register("capacity",{valueAsNumber: true})}
                         />
                       </FormControl>
                       <FormMessage />

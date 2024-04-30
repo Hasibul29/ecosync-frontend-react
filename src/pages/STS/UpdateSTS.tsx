@@ -29,7 +29,7 @@ const schema = z.object({
   wardNo: z.string().min(1, { message: "Ward number is required" }),
   latitude: z.string().min(1, { message: "Latitude is required" }),
   longitude: z.string().min(1, { message: "Longitude is required" }),
-  capacity: z.number({ invalid_type_error: "Capacity is required" }),
+  capacity: z.string().min(1, { message: "Capacity is required" }),
 });
 
 interface Props {
@@ -47,7 +47,7 @@ const UpdateSTS = ({ onOpenChange, open, stsData }: Props) => {
       wardNo: stsData.wardNo,
       latitude: stsData.latitude,
       longitude: stsData.longitude,
-      capacity: stsData.capacity,
+      capacity: stsData.capacity.toString(),
     },
   });
 
@@ -57,13 +57,22 @@ const UpdateSTS = ({ onOpenChange, open, stsData }: Props) => {
       wardNo: stsData.wardNo,
       latitude: stsData.latitude,
       longitude: stsData.longitude,
-      capacity: stsData.capacity,
+      capacity: stsData.capacity.toString(),
     });
-  }, [stsData,open]);
+  }, [stsData, open]);
 
   const onSubmit = (data: z.infer<typeof schema>) => {
     console.log(data);
-    stsUpdate.mutate(data, { onSuccess: () => form.reset() });
+    stsUpdate.mutate(
+      {
+        name: data.name,
+        wardNo: data.wardNo,
+        latitude: data.latitude,
+        longitude: data.longitude,
+        capacity: parseInt(data.capacity),
+      },
+      { onSuccess: () => form.reset() }
+    );
   };
 
   return (
@@ -84,18 +93,14 @@ const UpdateSTS = ({ onOpenChange, open, stsData }: Props) => {
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
               <div className="grid grid-cols-1 gap-1">
-              <FormField
+                <FormField
                   control={form.control}
                   name="name"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Name</FormLabel>
                       <FormControl>
-                        <Input
-                          type="text"
-                          placeholder="Name"
-                          {...field}
-                        />
+                        <Input type="text" placeholder="Name" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -155,9 +160,6 @@ const UpdateSTS = ({ onOpenChange, open, stsData }: Props) => {
                           type="number"
                           placeholder="Capacity"
                           {...field}
-                          {...form.register("capacity", {
-                            valueAsNumber: true,
-                          })}
                         />
                       </FormControl>
                       <FormMessage />
