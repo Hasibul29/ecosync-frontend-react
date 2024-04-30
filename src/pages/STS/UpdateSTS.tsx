@@ -59,7 +59,7 @@ const UpdateSTS = ({ onOpenChange, open, stsData }: Props) => {
       longitude: stsData.longitude,
       capacity: stsData.capacity,
     });
-  }, [stsData]);
+  }, [stsData,open]);
 
   const onSubmit = (data: z.infer<typeof schema>) => {
     console.log(data);
@@ -75,7 +75,7 @@ const UpdateSTS = ({ onOpenChange, open, stsData }: Props) => {
         className="sm:max-w-[425px]"
       >
         <DialogHeader>
-          <DialogTitle>STS Registration</DialogTitle>
+          <DialogTitle>Update STS</DialogTitle>
           <DialogDescription>
             Register a new STS here. Click register button when you are done.
           </DialogDescription>
@@ -172,7 +172,7 @@ const UpdateSTS = ({ onOpenChange, open, stsData }: Props) => {
                     Cancel
                   </Button>
                 </DialogClose>
-                <Button loading={stsUpdate.isPending}>Register</Button>
+                <Button loading={stsUpdate.isPending}>Submit</Button>
               </DialogFooter>
             </form>
           </Form>

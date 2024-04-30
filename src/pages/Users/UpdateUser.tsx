@@ -73,7 +73,7 @@ const UpdateUser = ({ open, onOpenChange, userData }: Props) => {
       email: userData.email,
       roleId: userData.roleId,
     });
-  }, [userData]); 
+  }, [userData,open]); 
 
 
   const onSubmit = (data: z.infer<typeof schema>) => {

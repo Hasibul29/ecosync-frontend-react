@@ -71,7 +71,7 @@ const UpdateVehicle = ({ onOpenChange, open, vehicleData }: Props) => {
       fuelCostLoaded: vehicleData.fuelCostLoaded.toString(),
       fuelCostUnloaded: vehicleData.fuelCostUnloaded.toString(),
     });
-  }, [vehicleData]);
+  }, [vehicleData,open]);
 
   const onSubmit = (data: z.infer<typeof schema>) => {
     console.log(data);

@@ -39,7 +39,7 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[160px]">
-        <DropdownMenuItem onClick={() => {navigate("roles"); setRole(row.original) }} >View Details</DropdownMenuItem>
+        <DropdownMenuItem onClick={() => {navigate("roleInfo"); setRole(row.original) }} >View Details</DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => {
             navigator.clipboard.writeText(row.original.id ?? "");

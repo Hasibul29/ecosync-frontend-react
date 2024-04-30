@@ -53,7 +53,7 @@ const RoleUpdate = () => {
       name: role.name,
       description: role.description ?? "",
     })
-  },[role]);
+  },[role,open]);
 
   function onSubmit(data: z.infer<typeof formSchema>) {
     console.log(data);
