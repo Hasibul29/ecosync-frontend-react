@@ -2,13 +2,13 @@ import { createBrowserRouter } from "react-router-dom";
 import NotFoundError from "./pages/NotFoundError";
 import Dashboard from "./pages/Dashboard";
 import Users from "./pages/Users/Users";
-import Rbac from "./pages/Rbac/Rbac";
 import RbacInfo from "./pages/Rbac/RoleInfo";
 import ForgetPassword from "./pages/ForgetPassword/ForgetPassword";
 import ForgetPasswordOtp from "./pages/ForgetPassword/ForgetPasswordOtp";
 import ForgetPasswordConfirm from "./pages/ForgetPassword/ForgetPasswordConfirm";
 import STS from "./pages/STS/STS";
 import Vehicle from "./pages/Vehicle/Vehicle";
+import Role from "./pages/Rbac/Role";
 
 const router = createBrowserRouter([
   // Auth routes
@@ -33,11 +33,11 @@ const router = createBrowserRouter([
         element: <Users />,
       },
       {
-        path: "dashboard/rbac",
-        element: <Rbac />,
+        path: "dashboard/role",
+        element: <Role />,
       },
       {
-        path: "dashboard/rbac/roles",
+        path: "dashboard/role/roleInfo",
         element: <RbacInfo />,
       },
       {

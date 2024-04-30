@@ -5,8 +5,8 @@ import { columns } from "./components/columns";
 import RoleRegist from "./RoleRegist";
 import { DataTableSkeleton } from "@/components/DataTableSkeleton";
 
-const Rbac = () => {
-  const breadcrumbItems = [{ title: "Rbac", link: "/dashboard/rbac" }];
+const Role = () => {
+  const breadcrumbItems = [{ title: "Role", link: "/dashboard/role" }];
 
   const { data, isLoading, error } = useRbacRoles()
   
@@ -30,4 +30,4 @@ const Rbac = () => {
     </>
   );
 };
-export default Rbac;
+export default Role;

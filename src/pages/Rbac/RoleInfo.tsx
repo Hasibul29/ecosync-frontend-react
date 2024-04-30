@@ -7,8 +7,8 @@ import { useRoleStore } from "@/store";
 const RoleInfo = () => {
   const {role} = useRoleStore();
   const breadcrumbItems = [
-    { title: "Rbac", link: "/dashboard/rbac" },
-    { title: "Roles", link: "/dashboard/rbac/roles" },
+    { title: "Role", link: "/dashboard/role" },
+    { title: "Role Info", link: "/dashboard/role/roleInfo" },
   ];
 
   return (

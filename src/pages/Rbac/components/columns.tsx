@@ -58,8 +58,7 @@ export const columns: ColumnDef<Roles>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex w-[100px] items-center">
-          {/* <Link to={`roles`} >{row.getValue("name")}</Link> */}
-          <RoleLink to={`roles`} roles={row.original}> {row.getValue("name")}</RoleLink>
+          <RoleLink to={`roleInfo`} roles={row.original}> {row.getValue("name")}</RoleLink>
         </div>
       );
     },

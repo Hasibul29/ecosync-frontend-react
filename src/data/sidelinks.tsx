@@ -47,9 +47,9 @@ export const sidelinks: SideLink[] = [
     icon: <IconChecklist size={18} />,
   },
   {
-    title: "Rbac",
+    title: "Role",
     label: "",
-    href: "/dashboard/rbac",
+    href: "/dashboard/role",
     icon: <IconChecklist size={18} />,
   },
   {
