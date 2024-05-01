@@ -1,7 +1,7 @@
 import BreadCrumb from "@/components/bread-crumb";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import RoleUpdate from "./RoleUpdate";
-import RolePermissions from "./RolePermissions";
+import RolePermissions from "./Permission/RolePermissions";
 import { useRoleStore } from "@/store";
 
 const RoleInfo = () => {

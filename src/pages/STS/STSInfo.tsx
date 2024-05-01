@@ -20,7 +20,7 @@ const STSInfo = () => {
           STS ID <code className="px-1">{sts.id}</code>
         </p>
       </div>
-      <Tabs defaultValue="setting">
+      <Tabs defaultValue="vehicles">
         <TabsList>
           <TabsTrigger value="vehicles">Vehicles</TabsTrigger>
           <TabsTrigger value="users">Users</TabsTrigger>

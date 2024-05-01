@@ -1,5 +1,5 @@
-import { DataTable } from "./components/data-tables";
-import { columns } from "./components/permission-column";
+import { DataTable } from "../components/data-tables";
+import { columns } from "../components/permission-column";
 import AddRolePermission from "./AddRolePermission";
 import useRbacRolePermissions from "@/hooks/useRbacRolePermission";
 import { useRoleStore } from "@/store";

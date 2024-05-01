@@ -5,7 +5,7 @@ import { Button } from "@/components/custom/button";
 
 import { Permissions } from "@/hooks/useRbacRoles";
 import { useState } from "react";
-import { DeletePermission } from "../DeletePermission";
+import { DeletePermission } from "../Permission/DeletePermission";
 
 interface Props {
   row: Row<Permissions>;
