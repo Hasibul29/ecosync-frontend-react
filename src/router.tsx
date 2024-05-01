@@ -10,6 +10,7 @@ import STS from "./pages/STS/STS";
 import Vehicle from "./pages/Vehicle/Vehicle";
 import Role from "./pages/Rbac/Role";
 import STSInfo from "./pages/STS/STSInfo";
+import Landfill from "./pages/Landfill/Landfill";
 
 const router = createBrowserRouter([
   // Auth routes
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
       {
         path: "dashboard/vehicles",
         element: <Vehicle />,
+      },
+      {
+        path: "dashboard/landfill",
+        element: <Landfill/>,
       },
     ],
   },
