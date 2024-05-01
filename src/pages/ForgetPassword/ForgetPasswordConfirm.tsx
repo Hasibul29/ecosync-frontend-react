@@ -1,6 +1,6 @@
 import { HTMLAttributes } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -94,12 +94,6 @@ const ForgetPasswordConfirm = ({ className, ...props }: UserAuthFormProps) => {
                       <FormItem className="space-y-1">
                         <div className="flex items-center justify-between">
                           <FormLabel>Confirm Password</FormLabel>
-                          <Link
-                            to="/forgot-password"
-                            className="text-sm font-medium text-muted-foreground hover:opacity-75"
-                          >
-                            Forgot password?
-                          </Link>
                         </div>
                         <FormControl>
                           <PasswordInput placeholder="Confirm Password" {...field} />
@@ -109,7 +103,7 @@ const ForgetPasswordConfirm = ({ className, ...props }: UserAuthFormProps) => {
                     )}
                   />
                   <Button className="mt-2" loading={confirmReset.isPending}>
-                    Login
+                    Submit
                   </Button>
                 </div>
               </form>
