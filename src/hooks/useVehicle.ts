@@ -16,7 +16,7 @@ export interface Vehicle {
 
 const useVehicle = (filter?: string) =>
   useQuery<FetchResponse<Vehicle[]>, Error>({
-    queryKey: ["vehicles", filter],
+    queryKey: filter ? ["vehicles", filter] : ["vehicles"],
     queryFn: () => apiClient.get({
         params: {
             filter: filter

@@ -1,27 +1,27 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import APIClient, { FetchResponse } from "../services/api-client";
 
-const apiClient = new APIClient<undefined, STSvehicle>("/sts/vehicle");
+const apiClient = new APIClient<undefined, STSManager>("/sts/manager");
 
-interface STSvehicle {
+interface STSManager {
   stsId: string;
-  vehicleId: string;
+  userId: string;
 }
 
-const useSTSVehicleRegist = (
+const useSTSManagerRegist = (
   stsId: string,
   onOpenChange: (open: boolean) => void
 ) => {
   const queryClient = useQueryClient();
-  return useMutation<FetchResponse, Error, STSvehicle>({
+  return useMutation<FetchResponse, Error, STSManager>({
     mutationFn: apiClient.post,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["sts", stsId, "vehicle"],
+        queryKey: ["sts", stsId, "manager"],
         exact: true,
       });
       queryClient.invalidateQueries({
-        queryKey: ["vehicles", "sts"],
+        queryKey: ["users", "sts"],
         exact: true,
       });
       onOpenChange(false);
@@ -29,4 +29,4 @@ const useSTSVehicleRegist = (
   });
 };
 
-export default useSTSVehicleRegist;
+export default useSTSManagerRegist;

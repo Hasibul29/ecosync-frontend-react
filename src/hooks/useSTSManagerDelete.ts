@@ -1,25 +1,25 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import APIClient from "../services/api-client";
 
-const useSTSDeleteVehicle = (
+const useSTSManagerDelete = (
   stsId: string,
-  vehicleId: string,
+  userId: string,
   onOpenChange: (open: boolean) => void
 ) => {
-  const apiClient = new APIClient(`/sts/vehicle/${stsId}/${vehicleId}`);
+  const apiClient = new APIClient(`/sts/manager/${stsId}/${userId}`);
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: apiClient.delete,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["sts", stsId, "vehicle"],
+        queryKey: ["sts", stsId, "manager"],
       });
       queryClient.invalidateQueries({
-        queryKey: ["vehicles", "sts"],
+        queryKey: ["users", "sts"],
       })
       onOpenChange(false);
     },
   });
 };
 
-export default useSTSDeleteVehicle;
+export default useSTSManagerDelete;

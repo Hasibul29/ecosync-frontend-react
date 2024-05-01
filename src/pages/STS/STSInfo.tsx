@@ -1,10 +1,11 @@
 import BreadCrumb from "@/components/bread-crumb";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useSTSStore } from "@/store";
-import STSVehicle from "./STSVehicles";
+import STSVehicle from "./STSVehicle/STSVehicles";
+import STSManager from "./STSManager/STSManager";
 
 const STSInfo = () => {
-  const {sts} = useSTSStore();
+  const { sts } = useSTSStore();
   const breadcrumbItems = [
     { title: "Manage STS", link: "/dashboard/sts" },
     { title: "STS Info", link: "/dashboard/sts/stsInfo" },
@@ -21,17 +22,15 @@ const STSInfo = () => {
       </div>
       <Tabs defaultValue="setting">
         <TabsList>
-          <TabsTrigger value="setting">Settings</TabsTrigger>
           <TabsTrigger value="vehicles">Vehicles</TabsTrigger>
           <TabsTrigger value="users">Users</TabsTrigger>
         </TabsList>
-        <TabsContent value="setting">
-          {/* <RoleUpdate/> */}
-        </TabsContent>
         <TabsContent value="vehicles">
-            <STSVehicle/>
-            </TabsContent>
-        <TabsContent value="users">NEW</TabsContent>
+          <STSVehicle />
+        </TabsContent>
+        <TabsContent value="users">
+          <STSManager />
+        </TabsContent>
       </Tabs>
     </>
   );

@@ -38,26 +38,26 @@ import { cn } from "@/lib/utils";
 
 import { useEffect, useState } from "react";
 import { PlusIcon } from "lucide-react";
-import useVehicle from "@/hooks/useVehicle";
 import { useSTSStore } from "@/store";
-import useSTSVehicleRegist from "@/hooks/useSTSVehicleRegist";
+import useSTSManagerRegist from "@/hooks/useSTSManagerRegist";
+import useUsers from "@/hooks/useUsers";
 
 const formSchema = z.object({
-  vehicleId: z.string().min(1, { message: "Vehicle is required" }),
+  userId: z.string().min(1, { message: "Manager is required" }),
   stsId: z.string(),
 });
 
-const STSVehicleRegist = () => {
+const STSManagerRegist = () => {
   const [open, onOpenChange] = useState(false);
   const [open2, setOpen] = useState(false);
-  const { data, isLoading } = useVehicle("1");
+  const { data, isLoading } = useUsers("sts");
   const { sts } = useSTSStore();
-  const vehicleRegist = useSTSVehicleRegist(sts.id ?? "", onOpenChange);
+  const managerRegist = useSTSManagerRegist(sts.id ?? "", onOpenChange);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      vehicleId: "",
+      userId: "",
       stsId: sts.id,
     },
   });
@@ -65,20 +65,19 @@ const STSVehicleRegist = () => {
   useEffect(() => {
     form.reset({
       stsId: sts.id,
-      vehicleId: "",
+      userId: "",
     });
   }, [sts]);
 
   function onSubmit(data: z.infer<typeof formSchema>) {
-    console.log(data);
-    vehicleRegist.mutate(data, { onSuccess: () => form.reset() });
+    managerRegist.mutate(data, { onSuccess: () => form.reset() });
   }
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>
         <Button>
-          <PlusIcon className="mr-2" /> Add Vehicle
+          <PlusIcon className="mr-2" /> Add Manager
         </Button>
       </DialogTrigger>
       <DialogContent
@@ -88,9 +87,9 @@ const STSVehicleRegist = () => {
         className="sm:max-w-[425px]"
       >
         <DialogHeader>
-          <DialogTitle>Add Vehicle</DialogTitle>
+          <DialogTitle>Add Manager</DialogTitle>
           <DialogDescription>
-            Add a new Vehicle here. Search by vehicle Number.
+            Add a new Manager here. Search by manager email.
           </DialogDescription>
         </DialogHeader>
 
@@ -99,10 +98,10 @@ const STSVehicleRegist = () => {
             <div className="grid gap-5">
               <FormField
                 control={form.control}
-                name="vehicleId"
+                name="userId"
                 render={({ field }) => (
                   <FormItem className="space-y-1">
-                    <FormLabel>Select Vehicle</FormLabel>
+                    <FormLabel>Select Manager</FormLabel>
                     <FormControl>
                       <div>
                         <Popover open={open2} onOpenChange={setOpen}>
@@ -116,10 +115,10 @@ const STSVehicleRegist = () => {
                               <p className="opacity-50">
                                 {field.value
                                   ? data?.data?.find(
-                                      (vehicle) =>
-                                        vehicle.id === field.value
-                                    )?.vehicleNumber
-                                  : "Select Vehicles..."}
+                                      (user) =>
+                                        user.id === field.value
+                                    )?.email
+                                  : "Select Manager..."}
                               </p>
                               <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                             </Button>
@@ -127,31 +126,30 @@ const STSVehicleRegist = () => {
                           <PopoverContent className="w-[200px] p-0">
                             <Command>
                               <CommandInput
-                                placeholder="Search Vehicle..."
+                                placeholder="Search Manager..."
                                 className="h-9"
                               />
-                              <CommandEmpty>No vehicle found.</CommandEmpty>
+                              <CommandEmpty>No Manager found.</CommandEmpty>
                               <CommandGroup>
                                 <CommandList>
                                   {isLoading ? (
                                     <p>loading</p>
                                   ) : (
-                                    data?.data?.map((vehicle) => (
+                                    data?.data?.map((user) => (
                                       <CommandItem
-                                        key={vehicle.id}
-                                        value={vehicle.id}
-                                        onSelect={(currentValue) => {
-                                          field.value = currentValue;
-                                          field.onChange(currentValue);
+                                        key={user.id}
+                                        value={user.email}
+                                        onSelect={() => {
+                                          field.onChange(user.id);
                                           setOpen(false);
                                         }}
                                       >
-                                        {vehicle.vehicleNumber}
+                                        {user.email}
                                         <CheckIcon
                                           className={cn(
                                             "ml-auto h-4 w-4",
                                             field.value ===
-                                              vehicle.id
+                                              user.id
                                               ? "opacity-100"
                                               : "opacity-0"
                                           )}
@@ -177,7 +175,7 @@ const STSVehicleRegist = () => {
                   Cancel
                 </Button>
               </DialogClose>
-              <Button loading={vehicleRegist.isPending}>Register</Button>
+              <Button loading={managerRegist.isPending}>Register</Button>
             </DialogFooter>
           </form>
         </Form>
@@ -186,4 +184,4 @@ const STSVehicleRegist = () => {
   );
 };
 
-export default STSVehicleRegist;
+export default STSManagerRegist;

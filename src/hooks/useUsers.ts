@@ -4,10 +4,15 @@ import { User } from "@/store";
 
 const apiClient = new APIClient<User[]>("/users");
 
-const useUsers = () =>
+const useUsers = (filter?: string) =>
   useQuery<FetchResponse<User[]>, Error>({
-    queryKey: ["users"],
-    queryFn: apiClient.get,
+    queryKey: filter? ["users", filter]: ["users"],
+    queryFn: () =>
+      apiClient.get({
+        params: {
+          filter: filter,
+        },
+      }),
     staleTime: 24 * 60 * 60 * 1000, // 1 hour
   });
 

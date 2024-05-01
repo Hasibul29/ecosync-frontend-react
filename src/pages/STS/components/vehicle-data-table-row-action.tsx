@@ -2,8 +2,8 @@ import { Row } from "@tanstack/react-table";
 import { Button } from "@/components/custom/button";
 import { useState } from "react";
 import { Vehicle } from "@/hooks/useVehicle";
-import { DeleteSTSVehicle } from "../STSDeleteVehicle";
 import { IconTrash } from "@tabler/icons-react";
+import { DeleteSTSVehicle } from "../STSVehicle/STSDeleteVehicle";
 
 interface DataTableRowActionsProps {
   row: Row<Vehicle>;

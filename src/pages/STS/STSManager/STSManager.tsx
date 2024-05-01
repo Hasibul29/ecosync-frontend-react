@@ -1,13 +1,13 @@
 import { useSTSStore } from "@/store";
 import { DataTableSkeleton } from "@/components/DataTableSkeleton";
-import { columns } from "./components/vehicles_column";
-import useSTSVehicle from "@/hooks/useSTSVehicle";
-import STSVehicleRegist from "./STSVehicleRegist";
-import { DataTable } from "./components/vehicle-data-tables";
+import useSTSManager from "@/hooks/useSTSManager";
+import STSManagerRegist from "./STSManagerRegist";
+import { columns } from "../components/manager-columns";
+import { DataTable } from "../components/data-tables";
 
-const STSVehicle = () => {
+const STSManager = () => {
   const { sts } = useSTSStore();
-  const { data, isLoading, error } = useSTSVehicle(sts.id ?? "");
+  const { data, isLoading, error } = useSTSManager(sts.id ?? "");
 
   return (
     <>
@@ -15,7 +15,7 @@ const STSVehicle = () => {
         <h1 className="text-lg font-semibold md:text-2xl">Manage Rbac</h1>
       </div> */}
       <div className="flex justify-end my-4">
-        <STSVehicleRegist />
+        <STSManagerRegist />
       </div>
       <div>
         {error && <p>{error.message}</p>}
@@ -29,4 +29,4 @@ const STSVehicle = () => {
   );
 };
 
-export default STSVehicle;
+export default STSManager;
