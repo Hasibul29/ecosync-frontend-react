@@ -4,6 +4,7 @@ import secureLocalStorage from "react-secure-storage";
 import { Roles } from "./hooks/useRbacRoles";
 import superjson from "superjson";
 import { STS } from "./hooks/useSTS";
+import { Landfill } from "./hooks/useLandfill";
 
 const SecureStorage: StateStorage = {
   getItem: (name: string) => {
@@ -77,5 +78,22 @@ export const useSTSStore = create<STSStore>()(
       setSTS: (sts) => set(() => ({ sts: sts })),
     }),
     { name: "sts", storage: createJSONStorage(() => SecureStorage) }
+  )
+)
+
+
+interface LandfillStore {
+  landfill: Partial<Landfill>;
+  setLandfill: (landfill: Landfill) => void;
+}
+
+
+export const useLandfillStore = create<LandfillStore>()(
+  persist(
+    (set) => ({
+      landfill: {},
+      setLandfill: (landfill) => set(() => ({ landfill: landfill })),
+    }),
+    { name: "landfill", storage: createJSONStorage(() => SecureStorage) }
   )
 )

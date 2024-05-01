@@ -65,6 +65,12 @@ export const sidelinks: SideLink[] = [
     icon: <IconMessages size={18} />,
   },
   {
+    title: "Landfill",
+    label: "",
+    href: "/dashboard/landfill",
+    icon: <IconMessages size={18} />,
+  },
+  {
     title: "STS Entry",
     label: "",
     href: "/dashboard/stsentry",
