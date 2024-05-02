@@ -173,7 +173,7 @@ const STSEntryRegist = () => {
                     Cancel
                   </Button>
                 </DialogClose>
-                <Button loading={false}>Register</Button>
+                <Button loading={false} disabled={!form.formState.isDirty} >Register</Button>
               </DialogFooter>
             </form>
           </Form>

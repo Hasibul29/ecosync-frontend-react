@@ -173,7 +173,7 @@ const RegistLandfill = () => {
                     Cancel
                   </Button>
                 </DialogClose>
-                <Button loading={landfillRegister.isPending}>Register</Button>
+                <Button loading={landfillRegister.isPending} disabled={!form.formState.isDirty}>Register</Button>
               </DialogFooter>
             </form>
           </Form>

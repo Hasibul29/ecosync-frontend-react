@@ -174,7 +174,7 @@ const UpdateLandfill = ({ onOpenChange, open, landfillData }: Props) => {
                     Cancel
                   </Button>
                 </DialogClose>
-                <Button loading={landfillUpdate.isPending}>Submit</Button>
+                <Button loading={landfillUpdate.isPending} disabled={!form.formState.isDirty} >Submit</Button>
               </DialogFooter>
             </form>
           </Form>

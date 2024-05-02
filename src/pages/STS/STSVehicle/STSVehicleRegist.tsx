@@ -175,7 +175,7 @@ const STSVehicleRegist = () => {
                   Cancel
                 </Button>
               </DialogClose>
-              <Button loading={vehicleRegist.isPending}>Register</Button>
+              <Button loading={vehicleRegist.isPending} disabled={!form.formState.isDirty} >Register</Button>
             </DialogFooter>
           </form>
         </Form>

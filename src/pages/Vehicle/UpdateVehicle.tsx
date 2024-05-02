@@ -238,7 +238,7 @@ const UpdateVehicle = ({ onOpenChange, open, vehicleData }: Props) => {
                     Cancel
                   </Button>
                 </DialogClose>
-                <Button loading={vehicleUpdate.isPending}>Save</Button>
+                <Button loading={vehicleUpdate.isPending} disabled={!form.formState.isDirty} >Save</Button>
               </DialogFooter>
             </form>
           </Form>

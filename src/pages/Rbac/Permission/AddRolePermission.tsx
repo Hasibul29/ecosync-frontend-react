@@ -141,7 +141,7 @@ const AddRolePermission = ({ permissions }: Props) => {
                     Cancel
                   </Button>
                 </DialogClose>
-                <Button loading={addRolePermission.isPending}>Register</Button>
+                <Button loading={addRolePermission.isPending} disabled={!form.formState.isDirty}>Register</Button>
               </DialogFooter>
             </form>
           </Form>

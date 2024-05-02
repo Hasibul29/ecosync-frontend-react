@@ -91,7 +91,7 @@ const RoleUpdate = () => {
                 </FormItem>
               )}
             />
-            <Button className="w-20" loading={updateRole.isPending}>
+            <Button className="w-20" loading={updateRole.isPending} disabled={!form.formState.isDirty}>
               Update
             </Button>
           </div>

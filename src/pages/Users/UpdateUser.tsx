@@ -196,7 +196,7 @@ const UpdateUser = ({ open, onOpenChange, userData }: Props) => {
                     Cancel
                   </Button>
                 </DialogClose>
-                <Button loading={update.isPending}>Save</Button>
+                <Button loading={update.isPending} disabled={!form.formState.isDirty} >Save</Button>
               </DialogFooter>
             </form>
           </Form>

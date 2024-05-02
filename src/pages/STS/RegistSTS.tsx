@@ -173,7 +173,7 @@ const RegistSTS = () => {
                     Cancel
                   </Button>
                 </DialogClose>
-                <Button loading={stsRegister.isPending}>Register</Button>
+                <Button loading={stsRegister.isPending} disabled={!form.formState.isDirty} >Register</Button>
               </DialogFooter>
             </form>
           </Form>

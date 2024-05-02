@@ -174,7 +174,7 @@ const UpdateSTS = ({ onOpenChange, open, stsData }: Props) => {
                     Cancel
                   </Button>
                 </DialogClose>
-                <Button loading={stsUpdate.isPending}>Submit</Button>
+                <Button loading={stsUpdate.isPending} disabled={!form.formState.isDirty} >Submit</Button>
               </DialogFooter>
             </form>
           </Form>

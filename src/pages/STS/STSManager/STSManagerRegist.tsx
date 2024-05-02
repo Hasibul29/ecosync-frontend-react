@@ -175,7 +175,7 @@ const STSManagerRegist = () => {
                   Cancel
                 </Button>
               </DialogClose>
-              <Button loading={managerRegist.isPending}>Register</Button>
+              <Button loading={managerRegist.isPending} disabled={!form.formState.isDirty} >Register</Button>
             </DialogFooter>
           </form>
         </Form>

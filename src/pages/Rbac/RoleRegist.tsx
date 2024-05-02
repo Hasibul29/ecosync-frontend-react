@@ -113,7 +113,7 @@ const RoleRegist = () => {
                   Cancel
                 </Button>
               </DialogClose>
-              <Button loading={addRole.isPending}>Register</Button>
+              <Button loading={addRole.isPending} disabled={!form.formState.isDirty} >Register</Button>
             </DialogFooter>
           </form>
         </Form>
