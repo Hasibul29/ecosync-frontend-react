@@ -12,6 +12,7 @@ import Role from "./pages/Rbac/Role";
 import STSInfo from "./pages/STS/STSInfo";
 import Landfill from "./pages/Landfill/Landfill";
 import STSEntry from "./pages/STSEntry/STSEntry";
+import Profile from "./pages/Profile/Profile";
 
 const router = createBrowserRouter([
   // Auth routes
@@ -63,8 +64,18 @@ const router = createBrowserRouter([
         path: "dashboard/stsentry",
         element: <STSEntry />,
       },
+      {
+        path: "dashboard/profile",
+        element: <Profile />,
+      },
     ],
   },
+  // {
+  //   path: "/profile",
+  //   lazy: async () => ({
+  //     Component: (await import("./pages/Profile/Profile")).default,
+  //   }),
+  // },
   { path: "/forgot-password", element: <ForgetPassword/> },
   { path: "/forgot-password/otp", element: <ForgetPasswordOtp/> },
   { path: "/forgot-password/confirm", element: <ForgetPasswordConfirm/> },

@@ -11,12 +11,17 @@ import {
 import useLogout from "@/hooks/useLogout";
 import useUserStore from "@/store";
 import { ModeToggle } from "./ModeToogle";
+import { useNavigate } from "react-router-dom";
 
 export function Header() {
   const logout = useLogout();
+  const navigate = useNavigate();
 
   const onLogoutPressHandle = () => {
     logout.mutate({});
+  };
+  const onProfilePressHandle = () => {
+    navigate("/dashboard/profile");
   };
   const { user } = useUserStore();
   return (
@@ -42,7 +47,7 @@ export function Header() {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>Profile</DropdownMenuItem>
+          <DropdownMenuItem onClick={() => onProfilePressHandle()} >Profile</DropdownMenuItem>
           <DropdownMenuItem>Settings</DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
