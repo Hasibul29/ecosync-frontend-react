@@ -1,33 +1,34 @@
 import BreadCrumb from "@/components/bread-crumb";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useSTSStore } from "@/store";
+import { Tabs, TabsContent } from "@/components/ui/tabs";
+import { useLandfillStore } from "@/store";
+import LandfillManager from "./LandfillManager/LandfillManager";
 
-const STSInfo = () => {
-  const { sts } = useSTSStore();
+const LandfillInfo = () => {
+  const { landfill } = useLandfillStore();
   const breadcrumbItems = [
-    { title: "Manage STS", link: "/dashboard/sts" },
-    { title: "STS Info", link: "/dashboard/sts/stsInfo" },
+    { title: "Manage Landfill", link: "/dashboard/landfill" },
+    { title: "Landfill Info", link: "/dashboard/landfill/landfillInfo" },
   ];
 
   return (
     <>
       <BreadCrumb items={breadcrumbItems} />
       <div>
-        <h1 className="text-lg font-semibold md:text-2xl">{sts.name}</h1>
+        <h1 className="text-lg font-semibold md:text-2xl">{landfill.name}</h1>
         <p className="pt-2">
-          STS ID <code className="px-1">{sts.id}</code>
+          Landfill ID <code className="px-1">{landfill.id}</code>
         </p>
       </div>
-      <Tabs defaultValue="vehicles">
-        <TabsList>
+      <Tabs defaultValue="users">
+        {/* <TabsList>
           <TabsTrigger value="vehicles">Vehicles</TabsTrigger>
           <TabsTrigger value="users">Users</TabsTrigger>
-        </TabsList>
+        </TabsList> */}
         <TabsContent value="users">
-          {/* <LandfillManager /> */}
+          <LandfillManager />
         </TabsContent>
       </Tabs>
     </>
   );
 };
-export default STSInfo;
+export default LandfillInfo;

@@ -1,13 +1,13 @@
-import { useSTSStore } from "@/store";
+import { useLandfillStore } from "@/store";
 import { DataTableSkeleton } from "@/components/DataTableSkeleton";
-import useLandfillManager from "@/hooks/useLandfillManager";
 import LandfillManagerRegist from "./LandfillManagerRegist";
 import { columns } from "../components/manager-columns";
 import { DataTable } from "../components/data-tables";
+import useLandfillManager from "@/hooks/useLandfillManager";
 
 const LandfillManager = () => {
-  const { sts } = useSTSStore();
-  const { data, isLoading, error } = useLandfillManager(sts.id ?? "");
+  const { landfill } = useLandfillStore();
+  const { data, isLoading, error } = useLandfillManager(landfill.id??"");
 
   return (
     <>
