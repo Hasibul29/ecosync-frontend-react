@@ -10,10 +10,11 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import useProfileUpdate from "@/hooks/useProfieUpdate";
 import useProfile from "@/hooks/useProfile";
 import useUserStore from "@/store";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -31,7 +32,7 @@ const Profile = () => {
   const breadcrumbItems = [{ title: "Profile", link: "/dashboard/profile" }];
   const { user } = useUserStore();
   const { data, error, isLoading } = useProfile(user.id ?? "");
-  const [isEnable, setEnable] = useState(false);
+  const updateProfile = useProfileUpdate(user.id ?? "");
 
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
@@ -61,15 +62,14 @@ const Profile = () => {
   }, [data]);
 
   const onSubmit = (data: z.infer<typeof schema>) => {
-    console.log(form.formState.isDirty);
-    // update.mutate(data, { onSuccess: () => form.reset() });
+    updateProfile.mutate(data);
   };
 
   return (
     <>
       <BreadCrumb items={breadcrumbItems} />
       <div className="flex items-center">
-        <h1 className="text-lg font-semibold md:text-2xl">User Registration</h1>
+        <h1 className="text-lg font-semibold md:text-2xl">Profile</h1>
       </div>
       <div className="max-w-4xl">
         <Form {...form}>
