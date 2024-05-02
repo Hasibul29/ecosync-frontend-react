@@ -110,11 +110,11 @@ const RegistLandfill = () => {
                   name="capacity"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Capacity"</FormLabel>
+                      <FormLabel>Capacity</FormLabel>
                       <FormControl>
                         <Input
                           type="number"
-                          placeholder="Capacity"
+                          placeholder="Capacity in Tonnes"
                           {...field}
                         />
                       </FormControl>
@@ -153,7 +153,7 @@ const RegistLandfill = () => {
                   name="operationalTimespan"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Capacity (Tonnes)</FormLabel>
+                      <FormLabel>Operational Timespan</FormLabel>
                       <FormControl>
                         <Input
                           type="string"
