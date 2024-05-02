@@ -14,6 +14,7 @@ import Landfill from "./pages/Landfill/Landfill";
 import STSEntry from "./pages/STSEntry/STSEntry";
 import LandfillInfo from "./pages/Landfill/LandfillInfo";
 import Profile from "./pages/Profile/Profile";
+import LandfillEntry from "./pages/LandfillEntry/LandfiillEntry";
 
 const router = createBrowserRouter([
   // Auth routes
@@ -70,17 +71,15 @@ const router = createBrowserRouter([
         element: <LandfillInfo/>,
       },
       {
+        path: "dashboard/landfillentry",
+        element: <LandfillEntry />,
+      },
+      {
         path: "dashboard/profile",
         element: <Profile />,
       },
     ],
   },
-  // {
-  //   path: "/profile",
-  //   lazy: async () => ({
-  //     Component: (await import("./pages/Profile/Profile")).default,
-  //   }),
-  // },
   { path: "/forgot-password", element: <ForgetPassword/> },
   { path: "/forgot-password/otp", element: <ForgetPasswordOtp/> },
   { path: "/forgot-password/confirm", element: <ForgetPasswordConfirm/> },

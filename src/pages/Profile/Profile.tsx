@@ -148,7 +148,7 @@ const Profile = () => {
                     <FormControl>
                       <Textarea
                         className="disabled:opacity-100 h-40"
-                        placeholder="Permissions"
+                        placeholder="No permissions"
                         disabled
                         {...field}
                       />

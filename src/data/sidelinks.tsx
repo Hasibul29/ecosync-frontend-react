@@ -76,6 +76,12 @@ export const sidelinks: SideLink[] = [
     href: "/dashboard/stsentry",
     icon: <IconMessages size={18} />,
   },
+  {
+    title: "Landfill Entry",
+    label: "",
+    href: "/dashboard/landfillentry",
+    icon: <IconHexagonNumber4 size={18} />,
+  },
   //   {
   //     title: "Authentication",
   //     label: "",
