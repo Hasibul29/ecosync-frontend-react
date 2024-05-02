@@ -8,8 +8,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import useSTSManagerDelete from "@/hooks/useSTSManagerDelete";
-import { User, useSTSStore } from "@/store";
+import useLandfillManagerDelete from "@/hooks/useLandfillManagerDelete";
+import { User, useLandfillStore } from "@/store";
 
 interface Props {
   open: boolean;
@@ -17,11 +17,11 @@ interface Props {
   userData: User;
 }
 
-export function STSDeletemanager({ open, onOpenChange, userData }: Props) {
-  const { sts } = useSTSStore();
+export function LandfillDeleteManager({ open, onOpenChange, userData }: Props) {
+  const { landfill } = useLandfillStore();
 
-  const deleteManager = useSTSManagerDelete(
-    sts.id ?? "",
+  const deleteManager = useLandfillManagerDelete(
+    landfill.id ?? "",
     userData.id ?? "",
     onOpenChange
   );

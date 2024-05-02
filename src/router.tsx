@@ -12,6 +12,7 @@ import Role from "./pages/Rbac/Role";
 import STSInfo from "./pages/STS/STSInfo";
 import Landfill from "./pages/Landfill/Landfill";
 import STSEntry from "./pages/STSEntry/STSEntry";
+import LandfillInfo from "./pages/Landfill/LandfillInfo";
 
 const router = createBrowserRouter([
   // Auth routes
@@ -62,6 +63,10 @@ const router = createBrowserRouter([
       {
         path: "dashboard/stsentry",
         element: <STSEntry />,
+      },
+      {
+        path: "dashboard/landfill/landfillInfo",
+        element: <LandfillInfo/>,
       },
     ],
   },

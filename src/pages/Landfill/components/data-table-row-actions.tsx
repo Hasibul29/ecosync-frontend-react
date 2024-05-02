@@ -10,9 +10,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useState } from "react";
-import UpdateSTS from "../UpdateSTS";
-import { DeleteSTS } from "../DeleteLandfill";
-import { STS } from "@/hooks/useSTS";
+import UpdateLandfill from "../UpdateLandfill";
+import { DeleteLandfill } from "../DeleteLandfill";
 import { Landfill } from "@/hooks/useLandfill";
 
 interface DataTableRowActionsProps {
@@ -21,15 +20,15 @@ interface DataTableRowActionsProps {
 
 export function DataTableRowActions({ row }: DataTableRowActionsProps) {
 
-    const [showUpdateSTSDialog, setShowUpdateSTSDialog] = useState(false)
-    const [showDeleteSTSDialog, setShowDeleteSTSDialog] = useState(false)
+    const [showUpdateLandfillDialog, setShowUpdateLandfillDialog] = useState(false)
+    const [showDeleteLandfillDialog, setShowDeleteLandfillDialog] = useState(false)
 
 
 
   return (
     <>
-    {/* <UpdateSTS open={showUpdateSTSDialog} onOpenChange={setShowUpdateSTSDialog} stsData={row.original} />
-    <DeleteSTS open={showDeleteSTSDialog} onOpenChange={setShowDeleteSTSDialog} stsData={row.original} /> */}
+    <UpdateLandfill open={showUpdateLandfillDialog} onOpenChange={setShowUpdateLandfillDialog} landfillData={row.original} />
+    <DeleteLandfill open={showDeleteLandfillDialog} onOpenChange={setShowDeleteLandfillDialog} landfillData={row.original} />
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
@@ -41,13 +40,13 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[160px]">
-        <DropdownMenuItem onClick={() => {setShowUpdateSTSDialog(true)}} >Edit</DropdownMenuItem>
+        <DropdownMenuItem onClick={() => {setShowUpdateLandfillDialog(true)}} >Edit</DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => {
             navigator.clipboard.writeText(row.original.id ?? "");
           }}
         >
-          Copy STS Id
+          Copy Landfill Id
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => {
@@ -58,7 +57,7 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => {setShowDeleteSTSDialog(true)}}>Delete</DropdownMenuItem>
+        <DropdownMenuItem onClick={() => {setShowDeleteLandfillDialog(true)}}>Delete</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
     </>

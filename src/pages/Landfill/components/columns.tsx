@@ -58,7 +58,7 @@ export const columns: ColumnDef<Landfill>[] = [
       return (
         <div className="font-medium min-w-[50%]">
           {/* {row.getValue("name")} */}
-          <LandFillLink landfill={row.original} to="landfill" >  {row.getValue("name")} </LandFillLink>
+          <LandFillLink to={`landfillInfo`} landfill={row.original}>{row.getValue("name")}</LandFillLink>
         </div>
       );
     },

@@ -20,56 +20,56 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/custom/button";
-import { STS } from "@/hooks/useSTS";
-import useSTSUpdate from "@/hooks/useSTSUpdate";
+import { Landfill } from "@/hooks/useLandfill";
+import useLandfillUpdate from "@/hooks/useLandfillUpdate";
 import { useEffect } from "react";
 
 const schema = z.object({
   name: z.string().min(1, { message: "Name is required" }),
-  wardNo: z.string().min(1, { message: "Ward number is required" }),
   latitude: z.string().min(1, { message: "Latitude is required" }),
   longitude: z.string().min(1, { message: "Longitude is required" }),
   capacity: z.string().min(1, { message: "Capacity is required" }),
+  operationalTimespan: z.string().min(1, { message: "Operational Timespan is required" }),
 });
 
 interface Props {
   open: boolean;
   onOpenChange: (val: boolean) => void;
-  stsData: STS;
+  landfillData: Landfill;
 }
 
-const UpdateSTS = ({ onOpenChange, open, stsData }: Props) => {
-  const stsUpdate = useSTSUpdate(stsData.id ?? "", onOpenChange);
+const UpdateLandfill = ({ onOpenChange, open, landfillData }: Props) => {
+  const landfillUpdate = useLandfillUpdate(landfillData.id ?? "", onOpenChange);
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: {
-      name: stsData.name,
-      wardNo: stsData.wardNo,
-      latitude: stsData.latitude,
-      longitude: stsData.longitude,
-      capacity: stsData.capacity.toString(),
+      name: landfillData.name,
+      latitude: landfillData.latitude,
+      longitude: landfillData.longitude,
+      capacity: landfillData.capacity.toString(),
+      operationalTimespan: landfillData.operationalTimespan,
     },
   });
 
   useEffect(() => {
     form.reset({
-      name: stsData.name,
-      wardNo: stsData.wardNo,
-      latitude: stsData.latitude,
-      longitude: stsData.longitude,
-      capacity: stsData.capacity.toString(),
+      name: landfillData.name,
+      latitude: landfillData.latitude,
+      longitude: landfillData.longitude,
+      capacity: landfillData.capacity.toString(),
+      operationalTimespan: landfillData.operationalTimespan,
     });
-  }, [stsData, open]);
+  }, [landfillData, open]);
 
   const onSubmit = (data: z.infer<typeof schema>) => {
     console.log(data);
-    stsUpdate.mutate(
+    landfillUpdate.mutate(
       {
         name: data.name,
-        wardNo: data.wardNo,
         latitude: data.latitude,
         longitude: data.longitude,
         capacity: parseInt(data.capacity),
+        operationalTimespan: data.operationalTimespan,
       },
       { onSuccess: () => form.reset() }
     );
@@ -84,9 +84,9 @@ const UpdateSTS = ({ onOpenChange, open, stsData }: Props) => {
         className="sm:max-w-[425px]"
       >
         <DialogHeader>
-          <DialogTitle>Update STS</DialogTitle>
+          <DialogTitle>Update Landfill</DialogTitle>
           <DialogDescription>
-            Register a new STS here. Click register button when you are done.
+            Register a new Landfill here. Click register button when you are done.
           </DialogDescription>
         </DialogHeader>
         <div>
@@ -108,7 +108,7 @@ const UpdateSTS = ({ onOpenChange, open, stsData }: Props) => {
                 />
                 <FormField
                   control={form.control}
-                  name="wardNo"
+                  name="operationalTimespan"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Ward Number</FormLabel>
@@ -174,7 +174,7 @@ const UpdateSTS = ({ onOpenChange, open, stsData }: Props) => {
                     Cancel
                   </Button>
                 </DialogClose>
-                <Button loading={stsUpdate.isPending}>Submit</Button>
+                <Button loading={landfillUpdate.isPending}>Submit</Button>
               </DialogFooter>
             </form>
           </Form>
@@ -183,4 +183,4 @@ const UpdateSTS = ({ onOpenChange, open, stsData }: Props) => {
     </Dialog>
   );
 };
-export default UpdateSTS;
+export default UpdateLandfill;

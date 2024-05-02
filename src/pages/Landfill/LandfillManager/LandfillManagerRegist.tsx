@@ -40,10 +40,11 @@ import { useEffect, useState } from "react";
 import { PlusIcon } from "lucide-react";
 import { useLandfillStore } from "@/store";
 import useUsers from "@/hooks/useUsers";
+import useLandfillManagerRegist from "@/hooks/useLandfillManagerRegist";
 
 const formSchema = z.object({
   userId: z.string().min(1, { message: "Manager is required" }),
-  stsId: z.string(),
+  landfillId: z.string(),
 });
 
 const LandfillManagerRegist = () => {
@@ -57,16 +58,16 @@ const LandfillManagerRegist = () => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       userId: "",
-      : sts.id,
+      landfillId : landfill.id,
     },
   });
 
   useEffect(() => {
     form.reset({
-      stsId: sts.id,
+      landfillId: landfill.id,
       userId: "",
     });
-  }, [sts]);
+  }, [landfill]);
 
   function onSubmit(data: z.infer<typeof formSchema>) {
     managerRegist.mutate(data, { onSuccess: () => form.reset() });

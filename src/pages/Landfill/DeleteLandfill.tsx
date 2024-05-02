@@ -8,19 +8,19 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { STS } from "@/hooks/useSTS";
-import useSTSDelete from "@/hooks/useSTSDelete";
+import { Landfill } from "@/hooks/useLandfill";
+import useLandfillDelete from "@/hooks/useLandfillDelete";
 
 interface Props {
   open: boolean;
   onOpenChange: (val: boolean) => void;
-  stsData: STS;
+  landfillData: Landfill;
 }
 
-export function DeleteSTS({ open, onOpenChange, stsData }: Props) {
-  const deleteSTS = useSTSDelete(stsData.id ?? "", onOpenChange);
+export function DeleteLandfill({ open, onOpenChange, landfillData }: Props) {
+  const deleteLandfill = useLandfillDelete(landfillData.id ?? "", onOpenChange);
   const onSubmit = () => {
-    deleteSTS.mutate({});
+    deleteLandfill.mutate({});
   };
 
   return (
@@ -29,7 +29,7 @@ export function DeleteSTS({ open, onOpenChange, stsData }: Props) {
         <DialogHeader>
           <DialogTitle>Are you absolutely sure?</DialogTitle>
           <DialogDescription>
-            This action cannot be undone. This will permanently delete STS
+            This action cannot be undone. This will permanently delete Landfill
             data.
           </DialogDescription>
         </DialogHeader>
@@ -41,7 +41,7 @@ export function DeleteSTS({ open, onOpenChange, stsData }: Props) {
             <Button
               aria-label="Delete selected rows"
               variant="destructive"
-              loading={deleteSTS.isPending}
+              loading={deleteLandfill.isPending}
               onClick={() => onSubmit()}
             >
               Delete

@@ -3,7 +3,7 @@ import { Button } from "@/components/custom/button";
 import { useState } from "react";
 import { IconTrash } from "@tabler/icons-react";
 import { User } from "@/store";
-import { STSDeletemanager } from "../STSManager/STSDeleteManager";
+import { LandfillDeleteManager } from "../LandfillManager/LandfillManagerDelete";
 
 interface DataTableRowActionsProps {
   row: Row<User>;
@@ -14,7 +14,7 @@ export function ManagerDataTableRowActions({ row }: DataTableRowActionsProps) {
 
   return (
     <>
-      <STSDeletemanager
+      <LandfillDeleteManager
         open={showDeleteManagerDialog}
         onOpenChange={setShowDeleteManagerDialog}
         userData={row.original}
