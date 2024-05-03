@@ -40,6 +40,15 @@ const Dashboard = () => {
         <div className="mt-5">
           <Component/>
         </div>
+        <div className="mt-5">
+          <Component/>
+        </div>
+        <div className="mt-5">
+          <Component/>
+        </div>
+        <div className="mt-5">
+          <Component/>
+        </div>
       </div>
     </>
   );

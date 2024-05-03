@@ -163,7 +163,6 @@ const UpdateUser = ({ open, onOpenChange, userData }: Props) => {
                         </FormLabel>
                         <FormControl>
                           <Select
-                            disabled={true}
                             onValueChange={field.onChange}
                             defaultValue={field.value}
                             value={field.value}

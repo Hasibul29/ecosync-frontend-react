@@ -1,4 +1,5 @@
 import BreadCrumb from "@/components/bread-crumb";
+import { PasswordInput } from "@/components/custom/PasswordInput";
 import { Button } from "@/components/custom/button";
 import {
   Form,
@@ -10,6 +11,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import usePasswordChange from "@/hooks/usePasswordChange";
 import useProfileUpdate from "@/hooks/useProfieUpdate";
 import useProfile from "@/hooks/useProfile";
 import useUserStore from "@/store";
@@ -28,11 +30,21 @@ const schema = z.object({
   permissions: z.string(),
 });
 
+const passwordSchema = z.object({
+  newPassword: z
+    .string()
+    .min(7, { message: "Password must be at least 7 characters" }),
+  confirmPassword: z
+    .string()
+    .min(7, { message: "Password must be at least 7 characters" }),
+});
+
 const Profile = () => {
   const breadcrumbItems = [{ title: "Profile", link: "/dashboard/profile" }];
   const { user } = useUserStore();
   const { data, error, isLoading } = useProfile(user.id ?? "");
   const updateProfile = useProfileUpdate(user.id ?? "");
+  const passwordChange = usePasswordChange(user.id ?? "");
 
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
@@ -44,6 +56,14 @@ const Profile = () => {
       roleId: "",
       roleName: "",
       permissions: "",
+    },
+  });
+
+  const passwordForm = useForm<z.infer<typeof passwordSchema>>({
+    resolver: zodResolver(passwordSchema),
+    defaultValues: {
+      newPassword: "",
+      confirmPassword: "",
     },
   });
 
@@ -64,6 +84,9 @@ const Profile = () => {
   const onSubmit = (data: z.infer<typeof schema>) => {
     updateProfile.mutate(data);
   };
+  const onSubmitPassword = (data: z.infer<typeof passwordSchema>) => {
+    passwordChange.mutate(data, { onSuccess: () => passwordForm.reset() });
+  };
 
   return (
     <>
@@ -73,7 +96,7 @@ const Profile = () => {
       </div>
       <div className="max-w-4xl">
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="mt-6">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="mt-4">
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               <FormField
                 control={form.control}
@@ -162,7 +185,7 @@ const Profile = () => {
               <Button
                 type="submit"
                 className="px-8 py-2"
-                loading={false}
+                loading={updateProfile.isPending}
                 disabled={!form.formState.isDirty}
               >
                 Update
@@ -170,6 +193,60 @@ const Profile = () => {
             </div>
           </form>
         </Form>
+
+        <div className="mt-10 max-w-sm">
+          <div className="flex items-center">
+            <h1 className="text-lg font-semibold md:text-2xl">Change Password</h1>
+          </div>
+          <Form {...passwordForm}>
+            <form
+              onSubmit={passwordForm.handleSubmit(onSubmitPassword)}
+              className="mt-6"
+            >
+              <div>
+                <FormField
+                  control={passwordForm.control}
+                  name="newPassword"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Password</FormLabel>
+                      <FormControl>
+                        <PasswordInput placeholder="Password" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={passwordForm.control}
+                  name="confirmPassword"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Confirm Password</FormLabel>
+                      <FormControl>
+                        <PasswordInput
+                          placeholder="Confirm Password"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+              <div className="mt-10">
+                <Button
+                  type="submit"
+                  className="px-8 py-2"
+                  loading={passwordChange.isPending}
+                  disabled={!passwordForm.formState.isDirty}
+                >
+                  Update
+                </Button>
+              </div>
+            </form>
+          </Form>
+        </div>
       </div>
     </>
   );

@@ -1,9 +1,9 @@
 import { useMutation} from "@tanstack/react-query";
 import APIClient, { FetchResponse } from "../services/api-client";
 
-const apiClient = new APIClient<any,ForgetPasswordOtp>("/auth/reset-password/confirm");
+const apiClient = new APIClient<any,ForgetPasswordOConfirm>("/auth/reset-password/confirm");
 
-interface ForgetPasswordOtp {
+interface ForgetPasswordOConfirm {
     newPassword: string;
     confirmPassword: string;
     email: string;
@@ -11,7 +11,7 @@ interface ForgetPasswordOtp {
 }
 
 const useForgetPasswordConfirm = () =>
-  useMutation<FetchResponse, Error, ForgetPasswordOtp>({
+  useMutation<FetchResponse, Error, ForgetPasswordOConfirm>({
     mutationFn: apiClient.post,
   });
 
