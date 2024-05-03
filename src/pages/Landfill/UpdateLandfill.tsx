@@ -111,11 +111,11 @@ const UpdateLandfill = ({ onOpenChange, open, landfillData }: Props) => {
                   name="operationalTimespan"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Ward Number</FormLabel>
+                      <FormLabel>Operational Timespan</FormLabel>
                       <FormControl>
                         <Input
                           type="text"
-                          placeholder="Ward Number"
+                          placeholder="Operational Timespan in years"
                           {...field}
                         />
                       </FormControl>

@@ -64,7 +64,7 @@ const RegistLandfill = () => {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>
         <Button>
-          <PlusIcon className="mr-2" /> Add STS
+          <PlusIcon className="mr-2" /> Add Landfill
         </Button>
       </DialogTrigger>
       <DialogContent
@@ -74,9 +74,9 @@ const RegistLandfill = () => {
         className="sm:max-w-[425px]"
       >
         <DialogHeader>
-          <DialogTitle>STS Registration</DialogTitle>
+          <DialogTitle>Landfill Registration</DialogTitle>
           <DialogDescription>
-            Register a new STS here. Click register button when you are done.
+            Register a new Landfill here. Click register button when you are done.
           </DialogDescription>
         </DialogHeader>
         <div>
@@ -110,11 +110,11 @@ const RegistLandfill = () => {
                   name="capacity"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Capacity"</FormLabel>
+                      <FormLabel>Capacity</FormLabel>
                       <FormControl>
                         <Input
                           type="number"
-                          placeholder="Capacity"
+                          placeholder="Capacity in Tonnes"
                           {...field}
                         />
                       </FormControl>
@@ -153,7 +153,7 @@ const RegistLandfill = () => {
                   name="operationalTimespan"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Capacity (Tonnes)</FormLabel>
+                      <FormLabel>Operational Timespan</FormLabel>
                       <FormControl>
                         <Input
                           type="string"

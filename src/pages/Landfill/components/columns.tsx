@@ -105,7 +105,7 @@ export const columns: ColumnDef<Landfill>[] = [
   {
     accessorKey: "operationalTimespan",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Ward No" />
+      <DataTableColumnHeader column={column} title="Operational Timespan" />
     ),
     cell: ({ row }) => {
       return (
