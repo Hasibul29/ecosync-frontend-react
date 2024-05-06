@@ -20,6 +20,12 @@ import STSVehicleSelection from "./pages/STSVehicleSelection/Vehicle";
 const router = createBrowserRouter([
   // Auth routes
   {
+    path: "/landing",
+    lazy: async () => ({
+      Component: (await import("./pages/landingPage/landing")).default,
+    }),
+  },
+  {
     path: "/",
     lazy: async () => ({
       Component: (await import("./pages/Login")).default,
