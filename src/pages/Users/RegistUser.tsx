@@ -37,7 +37,7 @@ import { User } from "@/store";
 import { useState } from "react";
 
 const schema = z.object({
-  firstName: z.string().min(2).max(50),
+  firstName: z.string().trim().min(2).max(50),
   lastName: z.string().min(2).max(50),
   email: z
     .string()

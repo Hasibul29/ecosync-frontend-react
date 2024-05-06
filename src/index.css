@@ -74,3 +74,11 @@
       @apply bg-background text-foreground;
     }
   }
+
+
+  .leaflet-container {
+    height: 500px;
+  }
+  .leaflet-control-container .leaflet-routing-container-hide {
+    display: none;
+  }

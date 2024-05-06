@@ -27,6 +27,8 @@ export interface User {
   email?: string;
   roleId?: string;
   role?: Roles;
+  stsId?: string;
+  stsManager?: STS;
 }
 
 interface UserStore {

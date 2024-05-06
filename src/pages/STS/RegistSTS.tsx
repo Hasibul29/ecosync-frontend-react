@@ -53,8 +53,8 @@ const RegistSTS = () => {
     stsRegister.mutate({
       name: name,
       wardNo: wardNo,
-      latitude: latitude,
-      longitude: longitude,
+      latitude: parseFloat(latitude),
+      longitude:parseFloat(longitude),
       capacity: parseInt(capacity)
 
     }, {onSuccess: () => form.reset()});

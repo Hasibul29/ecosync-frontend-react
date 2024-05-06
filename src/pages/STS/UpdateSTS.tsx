@@ -45,8 +45,8 @@ const UpdateSTS = ({ onOpenChange, open, stsData }: Props) => {
     defaultValues: {
       name: stsData.name,
       wardNo: stsData.wardNo,
-      latitude: stsData.latitude,
-      longitude: stsData.longitude,
+      latitude: stsData.latitude.toString(),
+      longitude: stsData.longitude.toString(),
       capacity: stsData.capacity.toString(),
     },
   });
@@ -55,8 +55,8 @@ const UpdateSTS = ({ onOpenChange, open, stsData }: Props) => {
     form.reset({
       name: stsData.name,
       wardNo: stsData.wardNo,
-      latitude: stsData.latitude,
-      longitude: stsData.longitude,
+      latitude: stsData.latitude.toString(),
+      longitude: stsData.longitude.toString(),
       capacity: stsData.capacity.toString(),
     });
   }, [stsData, open]);
@@ -67,8 +67,8 @@ const UpdateSTS = ({ onOpenChange, open, stsData }: Props) => {
       {
         name: data.name,
         wardNo: data.wardNo,
-        latitude: data.latitude,
-        longitude: data.longitude,
+        latitude: parseFloat(data.latitude),
+        longitude: parseFloat(data.longitude),
         capacity: parseInt(data.capacity),
       },
       { onSuccess: () => form.reset() }

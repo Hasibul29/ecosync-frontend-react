@@ -1,11 +1,13 @@
 import { DashboardNav } from "@/components/dashboard-nav";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { sidelinks } from "@/data/sidelinks";
+import useUserStore from "@/store";
 import { MenuIcon } from "lucide-react";
 import { useState } from "react";
 
 export function SidebarSmall() {
   const [open, setOpen] = useState(false);
+  const { user } = useUserStore();
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
@@ -18,7 +20,7 @@ export function SidebarSmall() {
               Overview
             </h2>
             <div className="space-y-1">
-              <DashboardNav items={sidelinks} setOpen={setOpen} />
+              <DashboardNav items={sidelinks.filter((item) => item.access.includes(user.role?.name ?? ""))} setOpen={setOpen} />
             </div>
           </div>
         </div>

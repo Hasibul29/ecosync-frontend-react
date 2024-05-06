@@ -7,8 +7,8 @@ export interface STS {
   id?: string;
   name: string;
   wardNo: string;
-  latitude: string;
-  longitude: string;
+  latitude: number;
+  longitude: number;
   capacity: number;
 }
 

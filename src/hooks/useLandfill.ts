@@ -6,8 +6,8 @@ const apiClient = new APIClient<Landfill[]>("/landfill");
 export interface Landfill {
   id?: string;
   name: string;
-  latitude: string;
-  longitude: string;
+  latitude: number;
+  longitude: number;
   capacity: number;
   operationalTimespan: string;
 }

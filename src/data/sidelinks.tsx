@@ -69,6 +69,13 @@ export const sidelinks: SideLink[] = [
     access: ["Admin","STS Manager"],
   },
   {
+    title: "STS Vehicle",
+    label: "",
+    href: "/dashboard/sts/vehicle",
+    icon: <IconMessages size={18} />,
+    access: ["Admin","STS Manager"],
+  },
+  {
     title: "Landfill Entry",
     label: "",
     href: "/dashboard/landfillentry",

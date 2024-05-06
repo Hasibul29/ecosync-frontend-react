@@ -44,8 +44,8 @@ const UpdateLandfill = ({ onOpenChange, open, landfillData }: Props) => {
     resolver: zodResolver(schema),
     defaultValues: {
       name: landfillData.name,
-      latitude: landfillData.latitude,
-      longitude: landfillData.longitude,
+      latitude: landfillData.latitude.toString(),
+      longitude: landfillData.longitude.toString(),
       capacity: landfillData.capacity.toString(),
       operationalTimespan: landfillData.operationalTimespan,
     },
@@ -54,8 +54,8 @@ const UpdateLandfill = ({ onOpenChange, open, landfillData }: Props) => {
   useEffect(() => {
     form.reset({
       name: landfillData.name,
-      latitude: landfillData.latitude,
-      longitude: landfillData.longitude,
+      latitude: landfillData.latitude.toString(),
+      longitude: landfillData.longitude.toString(),
       capacity: landfillData.capacity.toString(),
       operationalTimespan: landfillData.operationalTimespan,
     });
@@ -66,8 +66,8 @@ const UpdateLandfill = ({ onOpenChange, open, landfillData }: Props) => {
     landfillUpdate.mutate(
       {
         name: data.name,
-        latitude: data.latitude,
-        longitude: data.longitude,
+        latitude: parseFloat(data.latitude),
+        longitude: parseFloat(data.longitude),
         capacity: parseInt(data.capacity),
         operationalTimespan: data.operationalTimespan,
       },

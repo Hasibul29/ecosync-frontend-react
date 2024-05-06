@@ -246,6 +246,7 @@ const Profile = () => {
               </div>
             </form>
           </Form>
+          <div className="mt-24"></div>
         </div>
       </div>
     </>

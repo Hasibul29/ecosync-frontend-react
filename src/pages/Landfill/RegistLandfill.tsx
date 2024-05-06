@@ -52,8 +52,8 @@ const RegistLandfill = () => {
     const {name, latitude, longitude, capacity, operationalTimespan} = data;
     landfillRegister.mutate({
       name: name,
-      latitude: latitude,
-      longitude: longitude,
+      latitude: parseFloat(latitude),
+      longitude: parseFloat(longitude),
       capacity: parseInt(capacity),
       operationalTimespan: operationalTimespan,
 
