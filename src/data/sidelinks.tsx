@@ -4,6 +4,7 @@ import {
   IconHexagonNumber4,
   IconLayoutDashboard,
   IconMessages,
+  IconCurrencyDollar,
 } from "@tabler/icons-react";
 
 export interface NavLink {
@@ -80,6 +81,13 @@ export const sidelinks: SideLink[] = [
     label: "",
     href: "/dashboard/landfillentry",
     icon: <IconHexagonNumber4 size={18} />,
+    access: ["Admin","Landfill Manager"],
+  },
+  {
+    title: "Billings",
+    label: "",
+    href: "/dashboard/billing",
+    icon: <IconCurrencyDollar size={18} />,
     access: ["Admin","Landfill Manager"],
   },
 ];
