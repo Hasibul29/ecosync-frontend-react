@@ -64,8 +64,8 @@ const STSVehicleSelection = () => {
           <MyLocation
             originLat={user.stsManager?.latitude ?? 23.705335046644926}
             originLng={user.stsManager?.longitude ?? 90.52195741396255}
-            destinatonLat={destination.latitude ?? 23.5}
-            detinationLng={destination.longitude ?? 90.8}
+            destinationLat={destination.latitude}
+            destinationLng={destination.longitude}
           />
         </div>
       </div>

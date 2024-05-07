@@ -1,21 +1,21 @@
 import L from "leaflet";
 import { createControlComponent } from "@react-leaflet/core";
 import "leaflet-routing-machine";
-import { MapContainer, TileLayer } from "react-leaflet";
+import { MapContainer, Marker, TileLayer } from "react-leaflet";
 import locationIcon from '../../assets/location.svg';
 
 interface Props {
   originLat: number;
   originLng: number;
-  destinatonLat: number;
-  detinationLng: number;
+  destinationLat: number;
+  destinationLng: number;
 }
 
 function MyLocation({
   originLat,
   originLng,
-  destinatonLat,
-  detinationLng,
+  destinationLat,
+  destinationLng,
 }: Props) {
   const myIcon2 = new L.Icon({
     iconUrl: locationIcon,
@@ -35,8 +35,8 @@ function MyLocation({
     const instance = L.Routing.control({
       show: false,
       waypoints: [
-        L.latLng(destinatonLat, detinationLng),
         L.latLng(originLat, originLng),
+        L.latLng(destinationLat, destinationLng),
       ],
       lineOptions: {
         styles: [{ color: "#6FA1EC", weight: 5 }],
@@ -54,12 +54,13 @@ function MyLocation({
       fitSelectedRoutes: true,
       plan: L.Routing.plan(
         [
-          L.latLng(destinatonLat, detinationLng),
           L.latLng(originLat, originLng),
+          L.latLng(destinationLat, destinationLng),
         ],
         {
           createMarker: function (i, wp) {
-            if( i==1) return L.marker(wp.latLng, { icon: myIcon2 });
+            if(i==0) return L.marker(wp.latLng, { draggable: false, icon: myIcon2 });
+            if(wp.latLng.lat == destinationLat && wp.latLng.lng == destinationLng) return L.marker(wp.latLng, { draggable: false, icon: myIcon });
             return L.marker(wp.latLng, {
               draggable: true,
               icon: myIcon,
@@ -91,8 +92,8 @@ function MyLocation({
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          {/* {destinatonLat && <Marker position={[originLat, originLng]} icon={myIcon}></Marker>} */}
-          <RoutingMachine />
+           {!destinationLat && <Marker position={[originLat, originLng]} icon={myIcon2}></Marker>}
+          {destinationLat && <RoutingMachine />}
         </MapContainer>
       </div>
     </>
