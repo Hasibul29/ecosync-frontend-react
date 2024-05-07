@@ -16,6 +16,7 @@ import LandfillInfo from "./pages/Landfill/LandfillInfo";
 import Profile from "./pages/Profile/Profile";
 import LandfillEntry from "./pages/LandfillEntry/LandfiillEntry";
 import STSVehicleSelection from "./pages/STSVehicleSelection/Vehicle";
+import Billing from "./pages/Billing/Billing";
 
 const router = createBrowserRouter([
   // Auth routes
@@ -88,6 +89,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/sts/vehicle",
         element: <STSVehicleSelection />,
+      },
+      {
+        path: "/dashboard/billing",
+        element: <Billing />,
       },
     ],
   },

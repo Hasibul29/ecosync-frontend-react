@@ -82,4 +82,11 @@ export const sidelinks: SideLink[] = [
     icon: <IconHexagonNumber4 size={18} />,
     access: ["Admin","Landfill Manager"],
   },
+  {
+    title: "Billings",
+    label: "",
+    href: "/dashboard/billing",
+    icon: <IconHexagonNumber4 size={18} />,
+    access: ["Admin","Landfill Manager"],
+  },
 ];
