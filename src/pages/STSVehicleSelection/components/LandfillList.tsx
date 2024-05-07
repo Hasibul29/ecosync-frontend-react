@@ -40,7 +40,7 @@ const LandfillList = ({onChange}:LandfillListProps) => {
           {isError ? (
             <p>{error.message}</p>
           ) : value ? (
-            data?.data?.find((landfill) => landfill.id === value)?.name ||
+            data?.data?.find((landfill) => landfill.name === value)?.name ||
             "Unknown landfill"
           ) : (
             "Select landfill..."
