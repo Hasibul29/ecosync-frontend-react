@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormMessage,
@@ -13,13 +14,15 @@ import {
   InputOTP,
   InputOTPGroup,
   InputOTPSlot,
-  InputOTPSeparator
+  InputOTPSeparator,
 } from "@/components/ui/input-otp";
 import { Button } from "@/components/custom/button";
 import { cn } from "@/lib/utils";
 import { Card } from "@/components/ui/card";
 import useForgetPasswordOtp from "@/hooks/useForgetPasswordOtp";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useTimer } from "react-timer-hook";
+import useForgetPasswordInitiate from "@/hooks/useForgetPasswordInitiate";
 
 interface UserAuthFormProps extends HTMLAttributes<HTMLDivElement> {}
 
@@ -32,9 +35,16 @@ const formSchema = z.object({
 });
 
 const ForgetPasswordOtp = ({ className, ...props }: UserAuthFormProps) => {
-   const otpConfirm = useForgetPasswordOtp();
-   const {state} = useLocation();
-   const navigate = useNavigate();
+  const otpConfirm = useForgetPasswordOtp();
+  const { state } = useLocation();
+  const navigate = useNavigate();
+  const countdown = new Date();
+  countdown.setSeconds(countdown.getSeconds() + 300);
+  const initiateReset = useForgetPasswordInitiate();
+  const { minutes, seconds, isRunning , restart} = useTimer({
+    autoStart: true,
+    expiryTimestamp: countdown,
+  });
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -46,9 +56,16 @@ const ForgetPasswordOtp = ({ className, ...props }: UserAuthFormProps) => {
   });
 
   function onSubmit(data: z.infer<typeof formSchema>) {
-    console.log(data);
-    otpConfirm.mutate(data, {onSuccess: () => {navigate("/forgot-password/confirm",{ state: {email: data.email}})}});
+    otpConfirm.mutate(data, {
+      onSuccess: () => {
+        navigate("/forgot-password/confirm", { state: { email: data.email } });
+      },
+    });
   }
+
+  const onResendOpt = () => {
+    initiateReset.mutate({email:state.email},{onSuccess:() => restart(countdown,true) });
+  };
 
   return (
     <div className="container grid h-svh flex-col items-center justify-center bg-primary-foreground lg:max-w-none lg:px-0">
@@ -59,9 +76,14 @@ const ForgetPasswordOtp = ({ className, ...props }: UserAuthFormProps) => {
             <h1 className="text-2xl font-semibold tracking-tight">
               Reset Password
             </h1>
-            <p className="text-sm text-muted-foreground pb-2">
-              Enter the OTP we sent to your email.
-            </p>
+            <div className="flex flex-row justify-between content-center">
+              <p className="text-sm text-muted-foreground pb-2">
+                Enter the OTP we sent to your email.
+              </p>
+              <p className="text-red-500 text-sm pb-2">
+                {minutes}:{seconds}
+              </p>
+            </div>
           </div>
           <div className={cn("grid gap-6", className)} {...props}>
             <Form {...form}>
@@ -73,32 +95,47 @@ const ForgetPasswordOtp = ({ className, ...props }: UserAuthFormProps) => {
                     render={({ field }) => (
                       <FormItem className="space-y-1">
                         <FormControl>
-                            <div className="flex justify-center">
-                          <InputOTP maxLength={6} {...field}>
-                            <InputOTPGroup>
-                              <InputOTPSlot index={0} />
-                              <InputOTPSlot index={1} />
-                              <InputOTPSlot index={2} />
-                            </InputOTPGroup>
-                            <InputOTPSeparator />
-                            <InputOTPGroup>
-                              <InputOTPSlot index={3} />
-                              <InputOTPSlot index={4} />
-                              <InputOTPSlot index={5} />
-                            </InputOTPGroup>
-                          </InputOTP>
+                          <div className="flex justify-center">
+                            <InputOTP maxLength={6} {...field}>
+                              <InputOTPGroup>
+                                <InputOTPSlot index={0} />
+                                <InputOTPSlot index={1} />
+                                <InputOTPSlot index={2} />
+                              </InputOTPGroup>
+                              <InputOTPSeparator />
+                              <InputOTPGroup>
+                                <InputOTPSlot index={3} />
+                                <InputOTPSlot index={4} />
+                                <InputOTPSlot index={5} />
+                              </InputOTPGroup>
+                            </InputOTP>
                           </div>
                         </FormControl>
                         <FormMessage className="flex justify-center" />
                       </FormItem>
                     )}
                   />
-                  <Button className="mt-5" loading={otpConfirm.isPending}>
+                  <Button
+                    type="submit"
+                    className="mt-5"
+                    disabled={!isRunning}
+                    loading={otpConfirm.isPending}
+                  >
                     Verify
                   </Button>
                 </div>
               </form>
             </Form>
+            <div className="flex justify-center items-center mt-6 gap-2">
+              Resend Code ?
+              <Button
+                variant="ghost"
+                disabled={isRunning}
+                onClick={() => onResendOpt()}
+              >
+                Resend
+              </Button>
+            </div>
           </div>
         </Card>
       </div>
