@@ -80,7 +80,7 @@ const AddRolePermission = ({ permissions }: Props) => {
         onInteractOutside={(e) => {
           e.preventDefault();
         }}
-        className=" md:max-w-2xl sm:max-w-[485px]"
+        className=" md:max-w-5xl sm:max-w-[485px]"
       >
         <DialogHeader>
           <DialogTitle>Add Permissions</DialogTitle>
@@ -121,7 +121,7 @@ const AddRolePermission = ({ permissions }: Props) => {
                                     );
                                   }}
                                 />
-                                <Label htmlFor={permission.id}>
+                                <Label htmlFor={permission.id} className="overflow-hidden hover:overflow-visible ">
                                   {permission.name}
                                 </Label>
                               </span>

@@ -31,7 +31,7 @@ export function DeletePermission({
   );
 
   const onSubmit = () => {
-    deletePermission.mutate({});
+    deletePermission.mutate();
   };
 
   return (
