@@ -8,6 +8,13 @@ import useSTSSelectedFleet from "@/hooks/useSTSSelectedFleet";
 import { columnsSelectedFleet } from "./components/columns-selected-fleet";
 import { DataTableSlectedFleet } from "./components/data-tables-selected-fleet";
 import MyLocation from "./STSMap";
+import LandfillList from "./components/LandfillList";
+import { useState } from "react";
+
+interface Destination{
+  latitude:number
+  longitude:number
+}
 
 const STSVehicleSelection = () => {
   const breadcrumbItems = [{ title: "Vehicles", link: "/dashboard/vehicles" }];
@@ -18,6 +25,8 @@ const STSVehicleSelection = () => {
     isLoading: isLoadingSelectedFleet,
     error: errorSelectedFleet,
   } = useSTSSelectedFleet(user.stsId ?? "");
+
+ const [destination,setDestination] = useState<Destination>({latitude: 0, longitude: 0});
 
   return (
     <>
@@ -49,7 +58,15 @@ const STSVehicleSelection = () => {
           )}
         </div>
         <div className="min-w-[600px] ml-4">
-         <MyLocation/>
+          <div className="mb-4">
+            <LandfillList onChange={(latitude,longitude) => setDestination({latitude,longitude})} />
+          </div>
+          <MyLocation
+            originLat={user.stsManager?.latitude ?? 23.705335046644926}
+            originLng={user.stsManager?.longitude ?? 90.52195741396255}
+            destinatonLat={destination.latitude ?? 23.5}
+            detinationLng={destination.longitude ?? 90.8}
+          />
         </div>
       </div>
     </>
