@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/custom/button";
 import useSTSFleetAddVehicle from "@/hooks/useSTSFleetAddVehicle";
 import { SuggestedVehicle } from "@/hooks/useSTSVehicleSelecton";
 import useUserStore from "@/store";
@@ -24,7 +24,7 @@ const AddToFleetAction = ({ vehicles, onSuccess }: AddToFleetActionProps) => {
     });
   };
 
-  return <Button onClick={() => onSubmit()}>Add To Fleet</Button>;
+  return <Button loading={addVehicle.isPending} onClick={() => onSubmit()}>Add To Fleet</Button>;
 };
 
 export default AddToFleetAction;
