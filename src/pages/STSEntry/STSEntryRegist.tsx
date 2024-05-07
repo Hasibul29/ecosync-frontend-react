@@ -26,16 +26,6 @@ import { useState } from "react";
 import useUserStore from "@/store";
 import useSTSEntryRegist from "@/hooks/useSTSEntryRegist";
 
-// export interface STSEntry {
-//     id: string;
-//     stsId: string;
-//     vehicleId: string;
-//     wasteVolume: number;
-//     arrivalTime: Date;
-//     departureTime: Date;
-//     vehicle?:Vehicle;
-//     sts?:STS;
-//   }
 
 const schema = z.object({
   vehicleNumber: z.string().min(1, { message: "Please enter vehicle number." }),
@@ -173,7 +163,7 @@ const STSEntryRegist = () => {
                     Cancel
                   </Button>
                 </DialogClose>
-                <Button loading={false} disabled={!form.formState.isDirty} >Register</Button>
+                <Button loading={stsEntryRegist.isPending} disabled={!form.formState.isDirty} >Register</Button>
               </DialogFooter>
             </form>
           </Form>

@@ -53,8 +53,7 @@ const RoleRegist = () => {
   });
 
   function onSubmit(data: z.infer<typeof formSchema>) {
-    console.log(data);
-    addRole.mutate(data as Roles);
+    addRole.mutate(data, { onSuccess: () => form.reset() });
   }
 
   return (
