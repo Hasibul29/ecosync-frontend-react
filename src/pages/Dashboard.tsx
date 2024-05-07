@@ -1,7 +1,11 @@
 import { DollarSign } from "lucide-react";
-import { MapContainer, Marker, TileLayer } from "react-leaflet";
-import useStats, { LandfillLocation, StsLocation } from "@/hooks/useStats";
+import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import useStats, { LandfillData, StsData } from "@/hooks/useStats";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import L from "leaflet";
+import markerIcon from "../assets/marker.svg";
+import { STS } from "@/hooks/useSTS";
+import { Landfill } from "@/hooks/useLandfill";
 
 const Dashboard = () => {
   const { data, isLoading, error } = useStats();
@@ -17,8 +21,8 @@ const Dashboard = () => {
         <p>Loading.....</p>
       ) : (
         <MyLocation
-          landfillLocation={data?.data?.landfillLocation ?? []}
-          stsLocation={data?.data?.stsLocation ?? []}
+          landfill={data?.data?.landfill ?? [] }
+          sts={data?.data?.sts ?? [] }
         />
       )}
     </>
@@ -26,17 +30,23 @@ const Dashboard = () => {
 };
 
 interface Props {
-  landfillLocation: LandfillLocation[];
-  stsLocation: StsLocation[];
+  landfill: LandfillData[];
+  sts: StsData[];
 }
 
-function MyLocation({ landfillLocation, stsLocation }: Props) {
+function MyLocation({ landfill, sts }: Props) {
+  const marker = new L.Icon({
+    iconUrl: markerIcon,
+    iconRetinaUrl:markerIcon,
+    popupAnchor: [-0, -0],
+    iconSize: [32, 45],
+  });
   return (
     <>
       <div>
         <MapContainer
           center={[23.705335046644926, 90.52195741396255]}
-          zoom={13}
+          zoom={10}
           scrollWheelZoom={true}
         >
           <TileLayer
@@ -44,18 +54,27 @@ function MyLocation({ landfillLocation, stsLocation }: Props) {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
 
-          {landfillLocation.map((location) => (
+          {landfill.map((location) => (
             <Marker
-              key={location.latitude.toString() + location.longitude.toString()}
+              key={location?.latitude?.toString() + location?.longitude?.toString()}
               position={[location.latitude, location.longitude]}
+              icon={marker}
+              riseOnHover={true}
+              eventHandlers={{
+                mouseover: (event) => event.target.openPopup(),
+              }}
               
-            ></Marker>
+            ><Popup>{location.name}<br/>Capacity : {location.capacity}</Popup></Marker>
           ))}
-          {stsLocation.map((location) => (
+          {sts.map((location) => (
             <Marker
               key={location.latitude.toString() + location.longitude.toString()}
               position={[location.latitude, location.longitude]}
-            ></Marker>
+              riseOnHover={true}
+              eventHandlers={{
+                mouseover: (event) => event.target.openPopup(),
+              }}
+            ><Popup>{location.name}<br/>Capacity : {location.capacity}</Popup></Marker>
           ))}
         </MapContainer>
       </div>

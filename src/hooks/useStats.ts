@@ -10,18 +10,22 @@ export interface StatsInterface {
     totalUser: number
     totalGurbadgeCollected: number
     totalGurbadgeDisposed: number
-    landfillLocation: LandfillLocation[]
-    stsLocation: StsLocation[]
+    landfill: LandfillData[]
+    sts: StsData[]
   }
   
-  export interface LandfillLocation {
+  export interface LandfillData {
+    name: string;
+    capacity: number;
     latitude: number
     longitude: number
   }
   
-  export interface StsLocation {
-    latitude: number
-    longitude: number
+  export interface StsData{
+    name: string;
+    capacity: number;
+    latitude: number;
+    longitude: number;
   }
   
 
