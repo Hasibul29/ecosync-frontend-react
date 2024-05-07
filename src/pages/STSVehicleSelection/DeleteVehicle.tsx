@@ -22,7 +22,7 @@ export function DeleteVehicle({ open, onOpenChange, vehicleData }: Props) {
   const { user } = useUserStore();
   const vehicleDelete = useSTSFleetVehicleDelete(user.stsId ?? "",vehicleData.vehicleNumber ?? "", onOpenChange);
   const onSubmit = () => {
-    vehicleDelete.mutate({});
+    vehicleDelete.mutate();
   };
 
   return (

@@ -20,7 +20,7 @@ interface Props {
 export function DeleteSTS({ open, onOpenChange, stsData }: Props) {
   const deleteSTS = useSTSDelete(stsData.id ?? "", onOpenChange);
   const onSubmit = () => {
-    deleteSTS.mutate({});
+    deleteSTS.mutate();
   };
 
   return (

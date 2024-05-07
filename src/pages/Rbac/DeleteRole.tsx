@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/dialog";
 import useRbacDeleteRole from "@/hooks/useRbacDeleteRole";
 import { Roles } from "@/hooks/useRbacRoles";
-import { useNavigate } from "react-router-dom";
 
 interface Props {
   open: boolean;
@@ -20,10 +19,9 @@ interface Props {
 }
 
 export function DeleteRole({ open, onOpenChange, roleData, redirect }: Props) {
-  const deleteRole = useRbacDeleteRole(roleData.id ?? "", onOpenChange);
-  const navigate = useNavigate();
+  const deleteRole = useRbacDeleteRole(roleData.id ?? "", onOpenChange,redirect);
   const onSubmit = () => {
-    deleteRole.mutate({},{onSuccess: () => { if (redirect) navigate(-1);}});
+    deleteRole.mutate();
   };
 
   return (

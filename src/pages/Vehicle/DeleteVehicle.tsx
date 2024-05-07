@@ -20,7 +20,7 @@ interface Props {
 export function DeleteVehicle({ open, onOpenChange, vehicleData }: Props) {
   const vehicleDelete = useVehicleDelete(vehicleData.id ?? "", onOpenChange);
   const onSubmit = () => {
-    vehicleDelete.mutate({});
+    vehicleDelete.mutate();
   };
 
   return (

@@ -20,7 +20,7 @@ interface Props {
 export function DeleteLandfill({ open, onOpenChange, landfillData }: Props) {
   const deleteLandfill = useLandfillDelete(landfillData.id ?? "", onOpenChange);
   const onSubmit = () => {
-    deleteLandfill.mutate({});
+    deleteLandfill.mutate();
   };
 
   return (

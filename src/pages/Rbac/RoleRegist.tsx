@@ -25,7 +25,6 @@ import {
 import { useState } from "react";
 import { PlusIcon } from "lucide-react";
 import useRbacAddRole from "@/hooks/useRbacAddRole";
-import { Roles } from "@/hooks/useRbacRoles";
 
 const formSchema = z.object({
   name: z.string().min(1, { message: "Please enter name." }).min(2, {

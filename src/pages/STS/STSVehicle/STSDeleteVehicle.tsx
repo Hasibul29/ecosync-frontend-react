@@ -28,7 +28,7 @@ export function DeleteSTSVehicle({ open, onOpenChange, vehicleData }: Props) {
   );
 
   const onSubmit = () => {
-    deleteVehicle.mutate({});
+    deleteVehicle.mutate();
   };
 
   return (

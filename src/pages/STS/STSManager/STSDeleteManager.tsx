@@ -27,7 +27,7 @@ export function STSDeletemanager({ open, onOpenChange, userData }: Props) {
   );
 
   const onSubmit = () => {
-    deleteManager.mutate({});
+    deleteManager.mutate();
   };
 
   return (

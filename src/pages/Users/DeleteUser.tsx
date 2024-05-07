@@ -20,7 +20,7 @@ interface Props {
 export function DeleteUser({ open, onOpenChange, userData }: Props) {
   const deleteUser = useUserDelete(userData.id ?? "", onOpenChange);
   const onSubmit = () => {
-    deleteUser.mutate({});
+    deleteUser.mutate();
   };
 
   return (
