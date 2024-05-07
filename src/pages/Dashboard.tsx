@@ -40,8 +40,76 @@ const Dashboard = () => {
         src="https://maps.google.com/maps?q=[-36.623758386860175, 174.5020302019307]&output=embed"
       ></iframe> */}
 
-        {/* <MyLocation /> */}
+        <MyLocation />
     </>
   );
 };
+
+
+import { MapContainer, Marker, TileLayer } from "react-leaflet";
+
+function MyLocation() {
+  return (
+    <>
+    {/* print  */}
+    <Button>My Location</Button>
+    <div>
+      <MapContainer
+        center={[23.705335046644926, 90.52195741396255]}
+        zoom={13}
+        scrollWheelZoom={true}
+        >
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+        {/* <Marker position={[23.705335046644926, 90.52195741396255]}></Marker>
+        <Marker position={[24.705335046644926, 90.52195741396255]}></Marker> */}
+        <RoutingMachine position={"topright"}/>
+      </MapContainer>
+    </div>
+    </>
+  );
+}
+
+
+
+import L from "leaflet";
+import { createControlComponent } from "@react-leaflet/core";
+import "leaflet-routing-machine";
+import { Button } from "@/components/ui/button";
+
+const createRoutineMachineLayer = () => {
+  const instance = L.Routing.control({
+    show:false,
+    waypoints: [
+      L.latLng(23.742721100691337, 90.3822443047247),
+      L.latLng(23.693969600764312, 90.48080785993155)
+    ],
+    lineOptions: {
+      styles: [{ color: "#6FA1EC", weight: 5 }],
+      extendToWaypoints: true,
+      addWaypoints: true,
+      missingRouteTolerance: 5
+    },
+    altLineOptions: {
+      styles: [{ color: "red", weight: 5 }],
+      extendToWaypoints: true,
+      addWaypoints: true,
+      missingRouteTolerance: 5
+    },
+    showAlternatives: true,
+    fitSelectedRoutes: true,
+  });
+  
+  instance.on('routeselected', function(e) {
+    const route = e.route
+    console.log(route)
+ })
+  return instance;
+};
+
+const RoutingMachine = createControlComponent(createRoutineMachineLayer);
+
+
 export default Dashboard;

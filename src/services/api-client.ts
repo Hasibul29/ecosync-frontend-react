@@ -11,7 +11,7 @@ const axiosInstance = axios.create({
   withCredentials: true,
 });
 
-class APIClient<T, V = undefined> {
+class APIClient<T= undefined, V = undefined> {
   endpoint: string;
 
   constructor(endpoint: string) {
@@ -36,8 +36,8 @@ class APIClient<T, V = undefined> {
     return res.data;
   };
   
-  delete = async (data?: AxiosRequestConfig) => {
-    const res = await axiosInstance.delete<FetchResponse<T>>(this.endpoint, data);
+  delete = async () => {
+    const res = await axiosInstance.delete<FetchResponse<T>>(this.endpoint);
     return res.data;
   };
 }

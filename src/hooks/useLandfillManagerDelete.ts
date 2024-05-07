@@ -1,5 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import APIClient from "../services/api-client";
+import APIClient, { FetchResponse } from "../services/api-client";
+import { AxiosError } from "axios";
+import { toast } from "sonner";
 
 const useLandfillManagerDelete = (
   landfillId: string,
@@ -8,9 +10,9 @@ const useLandfillManagerDelete = (
 ) => {
   const apiClient = new APIClient(`/landfill/manager/${landfillId}/${userId}`);
   const queryClient = useQueryClient();
-  return useMutation({
+  return useMutation<FetchResponse, AxiosError<FetchResponse>>({
     mutationFn: apiClient.delete,
-    onSuccess: () => {
+    onSuccess: (data) => {
       queryClient.invalidateQueries({
         queryKey: ["landfill", landfillId, "manager"],
       });
@@ -18,7 +20,11 @@ const useLandfillManagerDelete = (
         queryKey: ["users", "landfill"],
       })
       onOpenChange(false);
+      toast.success(data.message);
     },
+    onError: (error) => {
+      toast.error(error.response?.data.message);
+    }
   });
 };
 
