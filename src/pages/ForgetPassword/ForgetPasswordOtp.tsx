@@ -42,7 +42,7 @@ const ForgetPasswordOtp = ({ className, ...props }: UserAuthFormProps) => {
   countdown.setSeconds(countdown.getSeconds() + 300);
   const initiateReset = useForgetPasswordInitiate();
   const { minutes, seconds, isRunning , restart} = useTimer({
-    autoStart: true,
+    autoStart: false,
     expiryTimestamp: countdown,
   });
 
@@ -118,7 +118,7 @@ const ForgetPasswordOtp = ({ className, ...props }: UserAuthFormProps) => {
                   <Button
                     type="submit"
                     className="mt-5"
-                    disabled={!isRunning}
+                    disabled={false}
                     loading={otpConfirm.isPending}
                   >
                     Verify
@@ -126,7 +126,7 @@ const ForgetPasswordOtp = ({ className, ...props }: UserAuthFormProps) => {
                 </div>
               </form>
             </Form>
-            <div className="flex justify-center items-center mt-6 gap-2">
+            <div className="flex justify-center items-center gap-2">
               Resend Code ?
               <Button
                 variant="ghost"
