@@ -15,7 +15,7 @@ import STSEntry from "./pages/STSEntry/STSEntry";
 import LandfillInfo from "./pages/Landfill/LandfillInfo";
 import Profile from "./pages/Profile/Profile";
 import LandfillEntry from "./pages/LandfillEntry/LandfiillEntry";
-import STSVehicleSelection from "./pages/STSVehicleSelection/Vehicle";
+import STSVehicleSelection from "./pages/STSVehicleSelection/STSVehicleSelection";
 import Billing from "./pages/Billing/Billing";
 import useUserStore, { useLandfillStore, useRoleStore, useSTSStore } from "./store";
 import Layout from "./components/Layout";
