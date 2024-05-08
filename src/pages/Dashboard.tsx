@@ -29,8 +29,8 @@ const Dashboard = () => {
           <AlertDescription>{error.response?.data.message}</AlertDescription>
         </Alert>
       )}
-      <div className=" grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-6">
-        <div className="mt-5">
+      <div className=" max-w-5xl grid grid-cols-1 gap-4 min-[550px]:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+        <div className="mt-5 min-w-[250px]">
           <Component
             title="Active Vehicles"
             value={data?.data?.totalVehicle ?? 0}
@@ -38,12 +38,12 @@ const Dashboard = () => {
             <DollarSign className="h-4 w-4 text-muted-foreground" />
           </Component>
         </div>
-        <div className="mt-5">
+        <div className="mt-5 min-w-[250px]">
           <Component title="Active STS" value={data?.data?.totalSts ?? 0}>
             <DollarSign className="h-4 w-4 text-muted-foreground" />
           </Component>
         </div>
-        <div className="mt-5">
+        <div className="mt-5 min-w-[250px]">
           <Component
             title="Active Landfill"
             value={data?.data?.totalLandfill ?? 0}
@@ -51,17 +51,17 @@ const Dashboard = () => {
             <DollarSign className="h-4 w-4 text-muted-foreground" />
           </Component>
         </div>
-        <div className="mt-5">
+        <div className="mt-5 min-w-[250px]">
           <Component title="Active Worker" value={data?.data?.totalUser ?? 0}>
             <DollarSign className="h-4 w-4 text-muted-foreground" />
           </Component>
         </div>
-        <div className="mt-5">
+        <div className="mt-5 min-w-[250px]">
           <Component title="Total Gurbadge Collected" value={data?.data?.totalGurbadgeCollected ?? 0}>
             <DollarSign className="h-4 w-4 text-muted-foreground" />
           </Component>
         </div>
-        <div className="mt-5">
+        <div className="mt-5 min-w-[250px]">
           <Component title="Total Gurbadge Disposed" value={data?.data?.totalGurbadgeDisposed ?? 0}>
             <DollarSign className="h-4 w-4 text-muted-foreground" />
           </Component>
