@@ -88,7 +88,7 @@ export const columns: ColumnDef<Billing>[] = [
     cell: ({ row }) => {
       return (
         <div className="font-medium min-w-[50%]">
-          {row.getValue("Timestamp")}
+          {row.getValue("generatedTimeStamp")}
         </div>
       );
     },

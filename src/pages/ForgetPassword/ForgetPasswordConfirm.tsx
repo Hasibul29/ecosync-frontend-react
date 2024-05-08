@@ -56,7 +56,7 @@ const ForgetPasswordConfirm = ({ className, ...props }: UserAuthFormProps) => {
 
   function onSubmit(data: z.infer<typeof formSchema>) {
     console.log(data);
-    confirmReset.mutate(data, { onSuccess: () => navigate("/") });
+    confirmReset.mutate(data, { onSuccess: () => navigate("/login") });
   }
 
   return (
