@@ -83,7 +83,7 @@ export const columns: ColumnDef<STSEntry>[] = [
     cell: ({ row }) => {
       return (
         <div className="font-medium min-w-[50%]">
-          {row.getValue("arrivalTime")}
+          {new Date(row.getValue("arrivalTime")).toLocaleString()}
         </div>
       );
     },
@@ -93,10 +93,11 @@ export const columns: ColumnDef<STSEntry>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Departure Time" />
     ),
+
     cell: ({ row }) => {
       return (
         <div className="font-medium min-w-[50%]">
-          {row.getValue("departureTime")}
+          {new Date(row.getValue("departureTime")).toLocaleString()}
         </div>
       );
     },

@@ -57,12 +57,12 @@ const Dashboard = () => {
           </Component>
         </div>
         <div className="mt-5 min-w-[250px]">
-          <Component title="Total Gurbadge Collected" value={data?.data?.totalGurbadgeCollected ?? 0}>
+          <Component title="Total Garbage Collected" value={data?.data?.totalGurbadgeCollected ?? 0}>
             <DollarSign className="h-4 w-4 text-muted-foreground" />
           </Component>
         </div>
         <div className="mt-5 min-w-[250px]">
-          <Component title="Total Gurbadge Disposed" value={data?.data?.totalGurbadgeDisposed ?? 0}>
+          <Component title="Total Garbage Disposed" value={data?.data?.totalGurbadgeDisposed ?? 0}>
             <DollarSign className="h-4 w-4 text-muted-foreground" />
           </Component>
         </div>
@@ -73,11 +73,11 @@ const Dashboard = () => {
             <BarChart
               data={[
                 {
-                  name: "Gurbadge Collected",
+                  name: "Garbage Collected",
                   total: data?.data?.totalGurbadgeCollected,
                 },
                 {
-                  name: "Gurbadge Disposed",
+                  name: "Garbage Disposed",
                   total: data?.data?.totalGurbadgeDisposed,
                 },
               ]}

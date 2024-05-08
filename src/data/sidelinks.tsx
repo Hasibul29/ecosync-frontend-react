@@ -1,17 +1,13 @@
 import {
-  IconApps,
   IconChecklist,
-  IconHexagonNumber4,
   IconMan,
   IconTruck,
-  IconMessages,
   IconCurrencyDollar,
   IconHome,
   IconCarGarage,
   IconHomeEco,
   IconHomeHand,
   IconTimeline,
-  IconTimelineEvent,
   IconFileTime,
 } from "@tabler/icons-react";
 
