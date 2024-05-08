@@ -1,62 +1,106 @@
-import { DollarSign } from "lucide-react";
+import { AlertCircle, DollarSign } from "lucide-react";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import useStats, { LandfillData, StsData } from "@/hooks/useStats";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import L from "leaflet";
 import markerIcon from "../assets/marker.svg";
-import { Bar, BarChart, Label, ResponsiveContainer, XAxis, YAxis } from "recharts"
-
+import {
+  Bar,
+  BarChart,
+  Label,
+  ResponsiveContainer,
+  XAxis,
+  YAxis,
+} from "recharts";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 
 const Dashboard = () => {
   const { data, isLoading, error } = useStats();
-  
+
   return (
     <>
       <div className=" mt-5 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-6">
         <div className="mt-5">
-          <Component title="Active Vehicles" value={data?.data?.totalVehicle ?? 0} > <DollarSign className="h-4 w-4 text-muted-foreground" /></Component>
+          <Component
+            title="Active Vehicles"
+            value={data?.data?.totalVehicle ?? 0}
+          >
+            {" "}
+            <DollarSign className="h-4 w-4 text-muted-foreground" />
+          </Component>
         </div>
         <div className="mt-5">
-          <Component title="Active STS" value={data?.data?.totalSts ?? 0} > <DollarSign className="h-4 w-4 text-muted-foreground" /></Component>
+          <Component title="Active STS" value={data?.data?.totalSts ?? 0}>
+            {" "}
+            <DollarSign className="h-4 w-4 text-muted-foreground" />
+          </Component>
         </div>
         <div className="mt-5">
-          <Component title="Active Landfill" value={data?.data?.totalLandfill ?? 0} > <DollarSign className="h-4 w-4 text-muted-foreground" /></Component>
+          <Component
+            title="Active Landfill"
+            value={data?.data?.totalLandfill ?? 0}
+          >
+            {" "}
+            <DollarSign className="h-4 w-4 text-muted-foreground" />
+          </Component>
         </div>
         <div className="mt-5">
-          <Component title="Active Worker" value={data?.data?.totalUser ?? 0} > <DollarSign className="h-4 w-4 text-muted-foreground" /></Component>
+          <Component title="Active Worker" value={data?.data?.totalUser ?? 0}>
+            {" "}
+            <DollarSign className="h-4 w-4 text-muted-foreground" />
+          </Component>
         </div>
       </div>
       <ResponsiveContainer width={600} height={450}>
-      <BarChart data={ [{ name : "Gurbadge Collected" ,  total : data?.data?.totalGurbadgeCollected},{ name : "Gurbadge Disposed" ,  total : data?.data?.totalGurbadgeDisposed}]}>
-        <XAxis
-          dataKey="name"
-          stroke="#888888"
-          fontSize={12}
-          tickLine={false}
-          axisLine={false}
-        />
-        <YAxis
-          stroke="#888888"
-          fontSize={12}
-          tickLine={false}
-          axisLine={false}
-          tickFormatter={(value) => `${value}`}
-        ><Label value="Weight in Tonnes" angle={-90} position="insideLeft" /></YAxis>
-        <Bar
-          dataKey="total"
-          fill="currentColor"
-          radius={[4, 4, 0, 0]}
-          className="fill-primary"
-        />
-      </BarChart>
-    </ResponsiveContainer>
-      {error && <p>{error.message}</p>}
+        <BarChart
+          data={[
+            {
+              name: "Gurbadge Collected",
+              total: data?.data?.totalGurbadgeCollected,
+            },
+            {
+              name: "Gurbadge Disposed",
+              total: data?.data?.totalGurbadgeDisposed,
+            },
+          ]}
+        >
+          <XAxis
+            dataKey="name"
+            stroke="#888888"
+            fontSize={12}
+            tickLine={false}
+            axisLine={false}
+          />
+          <YAxis
+            stroke="#888888"
+            fontSize={12}
+            tickLine={false}
+            axisLine={false}
+            tickFormatter={(value) => `${value}`}
+          >
+            <Label value="Weight in Tonnes" angle={-90} position="insideLeft" />
+          </YAxis>
+          <Bar
+            dataKey="total"
+            fill="currentColor"
+            radius={[4, 4, 0, 0]}
+            className="fill-primary"
+          />
+        </BarChart>
+      </ResponsiveContainer>
+      {error && (
+        <Alert variant="destructive">
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle>Error</AlertTitle>
+          <AlertDescription>{error.response?.data.message}</AlertDescription>
+        </Alert>
+      )}
       {isLoading ? (
         <p>Loading.....</p>
       ) : (
         <MyLocation
-          landfill={data?.data?.landfill ?? [] }
-          sts={data?.data?.sts ?? [] }
+          landfill={data?.data?.landfill ?? []}
+          sts={data?.data?.sts ?? []}
         />
       )}
     </>
@@ -71,7 +115,7 @@ interface Props {
 function MyLocation({ landfill, sts }: Props) {
   const marker = new L.Icon({
     iconUrl: markerIcon,
-    iconRetinaUrl:markerIcon,
+    iconRetinaUrl: markerIcon,
     popupAnchor: [-0, -0],
     iconSize: [32, 45],
   });
@@ -90,15 +134,22 @@ function MyLocation({ landfill, sts }: Props) {
 
           {landfill.map((location) => (
             <Marker
-              key={location?.latitude?.toString() + location?.longitude?.toString()}
+              key={
+                location?.latitude?.toString() + location?.longitude?.toString()
+              }
               position={[location.latitude, location.longitude]}
               icon={marker}
               riseOnHover={true}
               eventHandlers={{
                 mouseover: (event) => event.target.openPopup(),
               }}
-              
-            ><Popup>{location.name}<br/>Capacity : {location.capacity}</Popup></Marker>
+            >
+              <Popup>
+                {location.name}
+                <br />
+                Capacity : {location.capacity}
+              </Popup>
+            </Marker>
           ))}
           {sts.map((location) => (
             <Marker
@@ -108,7 +159,13 @@ function MyLocation({ landfill, sts }: Props) {
               eventHandlers={{
                 mouseover: (event) => event.target.openPopup(),
               }}
-            ><Popup>{location.name}<br/>Capacity : {location.capacity}</Popup></Marker>
+            >
+              <Popup>
+                {location.name}
+                <br />
+                Capacity : {location.capacity}
+              </Popup>
+            </Marker>
           ))}
         </MapContainer>
       </div>
@@ -120,11 +177,11 @@ export default Dashboard;
 
 interface ComponentProps {
   children?: React.ReactNode;
-  title : string;
-  value : number;
+  title: string;
+  value: number;
 }
 
-function Component({ title, value , children }: ComponentProps) {
+function Component({ title, value, children }: ComponentProps) {
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">

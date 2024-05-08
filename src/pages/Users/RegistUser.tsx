@@ -71,7 +71,6 @@ const RegistUser = () => {
   });
 
   const onSubmit = (data: z.infer<typeof schema>) => {
-    console.log(data);
     userRegister.mutate(data as User, {onSuccess: () => form.reset()});
   };
 

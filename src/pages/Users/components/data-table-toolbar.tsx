@@ -17,7 +17,7 @@ interface DataTableToolbarProps<TData> {
 export function DataTableToolbar<TData>({
   table,
 }: DataTableToolbarProps<TData>) {
-  const { data } = useRoles();
+  const { data, isLoading, error } = useRoles();
   const isFiltered = table.getState().columnFilters.length > 0;
   const [selectedFilter, setSelectedFilter] = useState("name");
 
@@ -44,7 +44,10 @@ export function DataTableToolbar<TData>({
           className="h-8 w-[150px] lg:w-[250px]"
         />
         <div className="flex gap-x-2">
-          {table.getColumn("roles") && (
+          {error && (
+            <p className="text-red-500">{error.response?.data.message}</p>
+          )}
+          {isLoading?"Loading...":table.getColumn("roles") && (
             <DataTableFacetedFilter
               column={table.getColumn("roles")}
               title="Role"

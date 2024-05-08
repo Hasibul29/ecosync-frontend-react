@@ -4,11 +4,13 @@ import { DataTable } from "./components/data-tables";
 import { columns } from "./components/columns";
 import useLandfill from "@/hooks/useLandfill";
 import { DataTableSkeleton } from "@/components/DataTableSkeleton";
-
-
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import { AlertCircle } from "lucide-react";
 
 const Landfill = () => {
-  const breadcrumbItems = [{ title: "Manage Landfill", link: "/dashboard/landfill" }];
+  const breadcrumbItems = [
+    { title: "Manage Landfill", link: "/dashboard/landfill" },
+  ];
   const { data, isLoading, error } = useLandfill();
 
   return (
@@ -21,11 +23,19 @@ const Landfill = () => {
         <RegistLandfill />
       </div>
       <div>
-        {error && <p>{error.message}</p>}
+        {error && (
+          <Alert variant="destructive">
+            <AlertCircle className="h-4 w-4" />
+            <AlertTitle>Error</AlertTitle>
+            <AlertDescription>
+              {error.response?.data.message}
+            </AlertDescription>
+          </Alert>
+        )}
         {isLoading ? (
-          <DataTableSkeleton columnCount={3} rowCount={10}/>
+          <DataTableSkeleton columnCount={3} rowCount={10} />
         ) : (
-          <DataTable columns={columns} data={data?.data ?? []}  />
+          <DataTable columns={columns} data={data?.data ?? []} />
         )}
       </div>
     </>

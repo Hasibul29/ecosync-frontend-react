@@ -10,10 +10,12 @@ import { DataTableSlectedFleet } from "./components/data-tables-selected-fleet";
 import MyLocation from "./STSMap";
 import LandfillList from "./components/LandfillList";
 import { useState } from "react";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import { AlertCircle } from "lucide-react";
 
-interface Destination{
-  latitude:number
-  longitude:number
+interface Destination {
+  latitude: number;
+  longitude: number;
 }
 
 const STSVehicleSelection = () => {
@@ -26,7 +28,10 @@ const STSVehicleSelection = () => {
     error: errorSelectedFleet,
   } = useSTSSelectedFleet(user.stsId ?? "");
 
- const [destination,setDestination] = useState<Destination>({latitude: 0, longitude: 0});
+  const [destination, setDestination] = useState<Destination>({
+    latitude: 0,
+    longitude: 0,
+  });
 
   return (
     <>
@@ -35,7 +40,13 @@ const STSVehicleSelection = () => {
         <h1 className="text-lg font-semibold md:text-2xl">Vehicle Selection</h1>
       </div>
       <div>
-        {error && <p>{error.message}</p>}
+        {error && (
+          <Alert variant="destructive">
+            <AlertCircle className="h-4 w-4" />
+            <AlertTitle>Error</AlertTitle>
+            <AlertDescription>{error.response?.data.message}</AlertDescription>
+          </Alert>
+        )}
         {isLoading ? (
           <DataTableSkeleton columnCount={3} rowCount={10} />
         ) : (
@@ -47,7 +58,15 @@ const STSVehicleSelection = () => {
       </div>
       <div className="flex">
         <div className="flex-1">
-          {errorSelectedFleet && <p>{errorSelectedFleet.message}</p>}
+          {errorSelectedFleet && (
+            <Alert variant="destructive">
+              <AlertCircle className="h-4 w-4" />
+              <AlertTitle>Error</AlertTitle>
+              <AlertDescription>
+                {errorSelectedFleet.response?.data.message}
+              </AlertDescription>
+            </Alert>
+          )}
           {isLoadingSelectedFleet ? (
             <DataTableSkeleton columnCount={3} rowCount={10} />
           ) : (
@@ -59,7 +78,11 @@ const STSVehicleSelection = () => {
         </div>
         <div className="min-w-[600px] ml-4">
           <div className="mb-4">
-            <LandfillList onChange={(latitude,longitude) => setDestination({latitude,longitude})} />
+            <LandfillList
+              onChange={(latitude, longitude) =>
+                setDestination({ latitude, longitude })
+              }
+            />
           </div>
           <MyLocation
             originLat={user.stsManager?.latitude ?? 23.705335046644926}

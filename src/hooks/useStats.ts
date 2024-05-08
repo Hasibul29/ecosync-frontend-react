@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import APIClient, { FetchResponse } from "../services/api-client";
+import { AxiosError } from "axios";
 
 const apiClient = new APIClient<StatsInterface>("/stats");
 
@@ -30,10 +31,10 @@ export interface StatsInterface {
   
 
 const useStats = () =>
-  useQuery<FetchResponse<StatsInterface>, Error>({
+  useQuery<FetchResponse<StatsInterface>, AxiosError<FetchResponse<StatsInterface>>>({
     queryKey: ["stats"],
     queryFn: apiClient.get,
-    staleTime: 24 * 60 * 60 * 1000, // 1 hour
+    staleTime: 2 * 60 * 1000, // 2min
   });
 
 export default useStats;

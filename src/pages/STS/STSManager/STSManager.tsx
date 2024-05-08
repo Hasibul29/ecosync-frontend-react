@@ -4,6 +4,8 @@ import useSTSManager from "@/hooks/useSTSManager";
 import STSManagerRegist from "./STSManagerRegist";
 import { columns } from "../components/manager-columns";
 import { DataTable } from "../components/data-tables";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import { AlertCircle } from "lucide-react";
 
 const STSManager = () => {
   const { sts } = useSTSStore();
@@ -18,7 +20,13 @@ const STSManager = () => {
         <STSManagerRegist />
       </div>
       <div>
-        {error && <p>{error.message}</p>}
+        {error && (
+          <Alert variant="destructive">
+            <AlertCircle className="h-4 w-4" />
+            <AlertTitle>Error</AlertTitle>
+            <AlertDescription>{error.response?.data.message}</AlertDescription>
+          </Alert>
+        )}
         {isLoading ? (
           <DataTableSkeleton columnCount={3} rowCount={4} />
         ) : (

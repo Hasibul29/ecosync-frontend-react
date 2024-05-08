@@ -7,7 +7,7 @@ const useAuth = () =>
   useQuery<any, Error, FetchResponse<null>>({
     queryKey: ["isAuthenticated"],
     queryFn: apiClient.get,
-    staleTime: 60 * 60 * 1000, // 1 hour
+    staleTime: 5 * 60 * 1000, // 1 hour
     retry: false,
     
   });

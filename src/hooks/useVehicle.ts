@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import APIClient, { FetchResponse } from "../services/api-client";
+import { AxiosError } from "axios";
 
 const apiClient = new APIClient<Vehicle[]>("/vehicles");
 
@@ -15,14 +16,14 @@ export interface Vehicle {
 }
 
 const useVehicle = (filter?: string) =>
-  useQuery<FetchResponse<Vehicle[]>, Error>({
+  useQuery<FetchResponse<Vehicle[]>, AxiosError<FetchResponse<Vehicle[]>>>({
     queryKey: filter ? ["vehicles", filter] : ["vehicles"],
     queryFn: () => apiClient.get({
         params: {
             filter: filter
         }
     }),
-    staleTime: 24 * 60 * 60 * 1000, // 1 hour
+    staleTime: 24 * 60 * 60 * 1000, // 24 hour
   });
 
 export default useVehicle;
