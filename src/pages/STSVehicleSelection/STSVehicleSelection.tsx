@@ -12,11 +12,13 @@ import LandfillList from "./components/LandfillList";
 import { useRef, useState } from "react";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { AlertCircle } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/custom/button";
+import useAddRoute, { LocationLatLng } from "@/hooks/useAddRoute";
 
 interface Destination {
   latitude: number;
   longitude: number;
+  landfillId: string;
 }
 export interface MapData {
   totalDistance: number;
@@ -27,10 +29,6 @@ export interface MapData {
   };
   routeList: LocationLatLng[];
   createdAt: Date;
-}
-export interface LocationLatLng {
-  latitude: number;
-  longitude: number;
 }
 
 const STSVehicleSelection = () => {
@@ -46,8 +44,31 @@ const STSVehicleSelection = () => {
   const [destination, setDestination] = useState<Destination>({
     latitude: 0,
     longitude: 0,
+    landfillId: "",
   });
   const routeDataRef = useRef<MapData | null>(null);
+  const addRoute = useAddRoute();
+
+  const handleMapClick = () => {
+     addRoute.mutate({
+        stsId: user.stsId ?? "",
+        landfillId: destination.landfillId,
+        totalTime: (routeDataRef.current?.totalTime ?? 0) / 60,
+        totalDistance: (routeDataRef.current?.totalDistance ?? 0)/1000,
+        wayPoints: {
+          origin: {
+            latitude: routeDataRef.current?.wayPoints.origin.latitude ?? 0,
+            longitude: routeDataRef.current?.wayPoints.origin.longitude ?? 0,
+          },
+          destination: {
+            latitude: routeDataRef.current?.wayPoints.destination.latitude ?? 0,
+            longitude: routeDataRef.current?.wayPoints.destination.longitude ?? 0,
+          }
+        },
+        vehicleList: selectedFleet?.data?.vehicles ?? [],
+        routeList: routeDataRef.current?.routeList ?? [],
+     });
+  }
 
   return (
     <>
@@ -95,12 +116,11 @@ const STSVehicleSelection = () => {
         <div className="min-w-[600px] ml-4">
           <div className="mb-4">
             <LandfillList
-              onChange={(latitude, longitude) =>
-                setDestination({ latitude, longitude })
+              onChange={(latitude, longitude, landfillId) =>
+                setDestination({ latitude, longitude,landfillId})
               }
             />
-            { destination.latitude !== 0 && <span className="ml-4"><Button onClick={() => console.log(routeDataRef.current)}>Save</Button></span>}
-            {/* { destination.latitude !== 0 &&  <p>Distance: {((routeDataRef.current?.totalDistance?? 0) / 1000.0).toFixed(2)} km | Time: {((routeDataRef.current?.totalTime?? 0)/60).toFixed(2)} min</p>} */}
+            { destination.latitude !== 0 && <span className="ml-4"><Button loading={addRoute.isPending} onClick={() => handleMapClick()}>Save</Button></span>}
           </div>
           <MyLocation
             originLat={user.stsManager?.latitude ?? 23.705335046644926}

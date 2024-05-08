@@ -19,7 +19,7 @@ import useLandfill from "@/hooks/useLandfill";
 import { useState } from "react";
 
 interface LandfillListProps {
-  onChange: (latitude:number,longitude:number) => void;
+  onChange: (latitude:number,longitude:number,landfillId:string) => void;
 }
 
 const LandfillList = ({onChange}:LandfillListProps) => {
@@ -61,7 +61,7 @@ const LandfillList = ({onChange}:LandfillListProps) => {
                   onSelect={(value) => {
                     setValue(value);
                     setOpen(false);
-                    onChange(Landfill.latitude,Landfill.longitude);
+                    onChange(Landfill.latitude,Landfill.longitude,Landfill.id??"");
                   }}
                 >
                   <Check

@@ -17,6 +17,7 @@ const useLandfillEntryRegist = (userId: string, onOpenChange: (open: boolean) =>
     mutationFn: apiClient.post,
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["landfill", "entry"] });
+      queryClient.invalidateQueries({ queryKey: ["billing"] });
       onOpenChange(false);
       toast.success(data.message);
     },
