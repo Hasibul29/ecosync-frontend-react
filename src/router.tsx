@@ -1,4 +1,4 @@
-import { Navigate, createBrowserRouter, useNavigate } from "react-router-dom";
+import { Navigate, createBrowserRouter } from "react-router-dom";
 import NotFoundError from "./pages/NotFoundError";
 import Dashboard from "./pages/Dashboard";
 import Users from "./pages/Users/Users";

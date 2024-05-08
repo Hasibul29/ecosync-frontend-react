@@ -1,22 +1,10 @@
 import { Header } from "./Header";
 import Sidebar from "./Sidebar";
-import useAuth from "@/hooks/useAuth";
-import { Outlet, redirect, useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { SidebarSmall } from "./SidebarSmall";
 import { ThemeProvider } from "@/components/theme-provider";
-import { useEffect } from "react";
 
 const Layout = () => {
-  // const { data, isLoading, isError } = useAuth();
-  // const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   if (!isLoading &&isError) navigate("/login");
-  // }, [isLoading, isError]);
-
-  // if (isLoading) return <p>Loading...</p>;
-
-
   return (
     <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
       <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
