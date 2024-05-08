@@ -36,7 +36,7 @@ function MyLocation({
 
   const createRoutineMachineLayer = () => {
     const instance = L.Routing.control({
-      show: false,
+      show: true,
       waypoints: [
         L.latLng(originLat, originLng),
         L.latLng(destinationLat, destinationLng),
