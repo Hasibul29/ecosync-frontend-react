@@ -90,6 +90,23 @@ const STSVehicleSelection = () => {
           <DataTable columns={columns} data={data?.data ?? []} />
         )}
       </div>
+      <div>
+          <div className="mb-4">
+            <LandfillList
+              onChange={(latitude, longitude, landfillId) =>
+                setDestination({ latitude, longitude,landfillId})
+              }
+            />
+            { destination.latitude !== 0 && <span className="ml-4"><Button loading={addRoute.isPending} onClick={() => handleMapClick()}>Save</Button></span>}
+          </div>
+          <MyLocation
+            originLat={user.stsManager?.latitude ?? 23.705335046644926}
+            originLng={user.stsManager?.longitude ?? 90.52195741396255}
+            destinationLat={destination.latitude}
+            destinationLng={destination.longitude}
+            routeDataRef={routeDataRef}
+          />
+        </div>
       <div className="flex items-center">
         <h1 className="text-lg font-semibold md:text-2xl">Today's Fleet</h1>
       </div>
@@ -112,23 +129,6 @@ const STSVehicleSelection = () => {
               data={selectedFleet?.data?.vehicles ?? []}
             />
           )}
-        </div>
-        <div className="min-w-[600px] ml-4">
-          <div className="mb-4">
-            <LandfillList
-              onChange={(latitude, longitude, landfillId) =>
-                setDestination({ latitude, longitude,landfillId})
-              }
-            />
-            { destination.latitude !== 0 && <span className="ml-4"><Button loading={addRoute.isPending} onClick={() => handleMapClick()}>Save</Button></span>}
-          </div>
-          <MyLocation
-            originLat={user.stsManager?.latitude ?? 23.705335046644926}
-            originLng={user.stsManager?.longitude ?? 90.52195741396255}
-            destinationLat={destination.latitude}
-            destinationLng={destination.longitude}
-            routeDataRef={routeDataRef}
-          />
         </div>
       </div>
     </>
