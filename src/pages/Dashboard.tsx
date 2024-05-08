@@ -19,19 +19,27 @@ const Dashboard = () => {
 
   return (
     <>
-      <div className=" mt-5 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-6">
+      <div className="flex items-center">
+        <h1 className="text-lg font-semibold md:text-2xl">Dashboard</h1>
+      </div>
+      {error && (
+        <Alert variant="destructive">
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle>Error</AlertTitle>
+          <AlertDescription>{error.response?.data.message}</AlertDescription>
+        </Alert>
+      )}
+      <div className=" grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-6">
         <div className="mt-5">
           <Component
             title="Active Vehicles"
             value={data?.data?.totalVehicle ?? 0}
           >
-            {" "}
             <DollarSign className="h-4 w-4 text-muted-foreground" />
           </Component>
         </div>
         <div className="mt-5">
           <Component title="Active STS" value={data?.data?.totalSts ?? 0}>
-            {" "}
             <DollarSign className="h-4 w-4 text-muted-foreground" />
           </Component>
         </div>
@@ -40,61 +48,73 @@ const Dashboard = () => {
             title="Active Landfill"
             value={data?.data?.totalLandfill ?? 0}
           >
-            {" "}
             <DollarSign className="h-4 w-4 text-muted-foreground" />
           </Component>
         </div>
         <div className="mt-5">
           <Component title="Active Worker" value={data?.data?.totalUser ?? 0}>
-            {" "}
+            <DollarSign className="h-4 w-4 text-muted-foreground" />
+          </Component>
+        </div>
+        <div className="mt-5">
+          <Component title="Total Gurbadge Collected" value={data?.data?.totalGurbadgeCollected ?? 0}>
+            <DollarSign className="h-4 w-4 text-muted-foreground" />
+          </Component>
+        </div>
+        <div className="mt-5">
+          <Component title="Total Gurbadge Disposed" value={data?.data?.totalGurbadgeDisposed ?? 0}>
             <DollarSign className="h-4 w-4 text-muted-foreground" />
           </Component>
         </div>
       </div>
-      <ResponsiveContainer width={600} height={450}>
-        <BarChart
-          data={[
-            {
-              name: "Gurbadge Collected",
-              total: data?.data?.totalGurbadgeCollected,
-            },
-            {
-              name: "Gurbadge Disposed",
-              total: data?.data?.totalGurbadgeDisposed,
-            },
-          ]}
-        >
-          <XAxis
-            dataKey="name"
-            stroke="#888888"
-            fontSize={12}
-            tickLine={false}
-            axisLine={false}
-          />
-          <YAxis
-            stroke="#888888"
-            fontSize={12}
-            tickLine={false}
-            axisLine={false}
-            tickFormatter={(value) => `${value}`}
-          >
-            <Label value="Weight in Tonnes" angle={-90} position="insideLeft" />
-          </YAxis>
-          <Bar
-            dataKey="total"
-            fill="currentColor"
-            radius={[4, 4, 0, 0]}
-            className="fill-primary"
-          />
-        </BarChart>
-      </ResponsiveContainer>
-      {error && (
-        <Alert variant="destructive">
-          <AlertCircle className="h-4 w-4" />
-          <AlertTitle>Error</AlertTitle>
-          <AlertDescription>{error.response?.data.message}</AlertDescription>
-        </Alert>
-      )}
+      <Card className="max-w-[550px]">
+        <CardContent className="pt-10">
+          <ResponsiveContainer width="100%" height={450}>
+            <BarChart
+              data={[
+                {
+                  name: "Gurbadge Collected",
+                  total: data?.data?.totalGurbadgeCollected,
+                },
+                {
+                  name: "Gurbadge Disposed",
+                  total: data?.data?.totalGurbadgeDisposed,
+                },
+              ]}
+            >
+              <XAxis
+                dataKey="name"
+                stroke="#888888"
+                fontSize={12}
+                tickLine={false}
+                axisLine={false}
+              />
+              <YAxis
+                stroke="#888888"
+                fontSize={12}
+                tickLine={false}
+                axisLine={false}
+                tickFormatter={(value) => `${value}`}
+              >
+                <Label
+                  value="Weight in Tonnes"
+                  angle={-90}
+                  position="insideLeft"
+                />
+              </YAxis>
+              <Bar
+                dataKey="total"
+                fill="currentColor"
+                radius={[4, 4, 0, 0]}
+                className="fill-primary"
+              />
+            </BarChart>
+          </ResponsiveContainer>
+        </CardContent>
+      </Card>
+      <div className="flex items-center my-5 mt-5">
+        <h1 className="text-lg font-semibold md:text-2xl">STS and Landfill Locations</h1>
+      </div>
       {isLoading ? (
         <p>Loading.....</p>
       ) : (
