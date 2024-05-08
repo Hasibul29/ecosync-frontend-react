@@ -50,7 +50,7 @@ const formSchema = z.object({
 const LandfillManagerRegist = () => {
   const [open, onOpenChange] = useState(false);
   const [open2, setOpen] = useState(false);
-  const { data, isLoading } = useUsers("landfill");
+  const { data, isLoading, error } = useUsers("landfill");
   const { landfill } = useLandfillStore();
   const managerRegist = useLandfillManagerRegist(landfill.id ?? "", onOpenChange);
 
@@ -113,7 +113,7 @@ const LandfillManagerRegist = () => {
                               className="w-[200px] justify-between "
                             >
                               <p className="opacity-50">
-                                {field.value
+                                {error? <p className="text-red-500">{error.response?.data.message}</p>:  field.value
                                   ? data?.data?.find(
                                       (user) =>
                                         user.id === field.value

@@ -1,6 +1,7 @@
 import BreadCrumb from "@/components/bread-crumb";
 import { PasswordInput } from "@/components/custom/PasswordInput";
 import { Button } from "@/components/custom/button";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import {
   Form,
   FormControl,
@@ -16,6 +17,7 @@ import useProfileUpdate from "@/hooks/useProfieUpdate";
 import useProfile from "@/hooks/useProfile";
 import useUserStore from "@/store";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { AlertCircle } from "lucide-react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -94,6 +96,13 @@ const Profile = () => {
       <div className="flex items-center">
         <h1 className="text-lg font-semibold md:text-2xl">Profile</h1>
       </div>
+      {error && (
+        <Alert variant="destructive">
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle>Error</AlertTitle>
+          <AlertDescription>{error.response?.data.message}</AlertDescription>
+        </Alert>
+      )}
       <div className="max-w-4xl">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="mt-4">
@@ -196,7 +205,9 @@ const Profile = () => {
 
         <div className="mt-10 max-w-sm">
           <div className="flex items-center">
-            <h1 className="text-lg font-semibold md:text-2xl">Change Password</h1>
+            <h1 className="text-lg font-semibold md:text-2xl">
+              Change Password
+            </h1>
           </div>
           <Form {...passwordForm}>
             <form

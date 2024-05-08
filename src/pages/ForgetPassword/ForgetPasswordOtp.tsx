@@ -5,7 +5,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormMessage,
@@ -42,7 +41,7 @@ const ForgetPasswordOtp = ({ className, ...props }: UserAuthFormProps) => {
   countdown.setSeconds(countdown.getSeconds() + 300);
   const initiateReset = useForgetPasswordInitiate();
   const { minutes, seconds, isRunning , restart} = useTimer({
-    autoStart: false,
+    autoStart: true,
     expiryTimestamp: countdown,
   });
 

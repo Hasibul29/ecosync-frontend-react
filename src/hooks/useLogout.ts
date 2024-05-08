@@ -12,7 +12,7 @@ const useLogout = () => {
   return useMutation({
     mutationFn: apiClient.post,
     onSuccess: () => {
-      navigate("/");
+      navigate("/login");
       setUser({});
       secureLocalStorage.clear();
     },

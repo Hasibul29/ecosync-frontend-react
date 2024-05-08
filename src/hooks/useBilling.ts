@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import APIClient, { FetchResponse } from "../services/api-client";
+import { AxiosError } from "axios";
 
 
 export interface Billing {
@@ -14,10 +15,10 @@ export interface Billing {
 
 const useBilling = (userId:string) => {
   const apiClient = new APIClient<Billing[]>(`/landfill/billing/${userId}`);
-  return useQuery<FetchResponse<Billing[]>, Error>({
+  return useQuery<FetchResponse<Billing[]>, AxiosError<FetchResponse<Billing[]>>>({
     queryKey: ["billing",],
     queryFn: apiClient.get,
-    staleTime: 24 * 60 * 60 * 1000, // 1 hour
+    staleTime: 2 * 60 * 1000, // 2 min
   });
 };
 

@@ -93,7 +93,7 @@ const AddRolePermission = ({ permissions }: Props) => {
             <form onSubmit={form.handleSubmit(onSubmit)}>
               <div className="grid grid-cols-1 gap-1">
                 <div className="colums-1">
-                  {isError && <p className="text-red-400">{error.message}</p>}
+                  {isError && <p className="text-red-400">{error.response?.data.message}</p>}
                   <FormField
                     control={form.control}
                     name="permissionIdList"

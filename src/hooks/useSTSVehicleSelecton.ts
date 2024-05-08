@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import APIClient, { FetchResponse } from "../services/api-client";
 import { Vehicle } from "./useVehicle";
+import { AxiosError } from "axios";
 
 export interface SuggestedVehicle extends Vehicle {
     isSuggested: boolean;
@@ -8,10 +9,10 @@ export interface SuggestedVehicle extends Vehicle {
 
 const useSTSVehicleSelection = (stsId: string) => {
   const apiClient = new APIClient<SuggestedVehicle[]>(`/sts/manager/vehicle/${stsId}`);
-  return useQuery<FetchResponse<SuggestedVehicle[]>, Error>({
+  return useQuery<FetchResponse<SuggestedVehicle[]>, AxiosError<FetchResponse<SuggestedVehicle[]>>>({
     queryKey: ["sts", "manager" ,stsId ,"vehicle"],
     queryFn: apiClient.get,
-    staleTime: 24 * 60 * 60 * 1000, // 1 day
+    staleTime: 2 * 60 * 1000, // 2min
   });
 };
 

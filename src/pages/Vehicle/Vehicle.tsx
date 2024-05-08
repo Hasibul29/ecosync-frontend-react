@@ -4,8 +4,8 @@ import { columns } from "./components/columns";
 import { DataTableSkeleton } from "@/components/DataTableSkeleton";
 import useVehicle from "@/hooks/useVehicle";
 import RegistVehicle from "./RegistVehicle";
-
-
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import { AlertCircle } from "lucide-react";
 
 const Vehicle = () => {
   const breadcrumbItems = [{ title: "Vehicles", link: "/dashboard/vehicles" }];
@@ -21,9 +21,15 @@ const Vehicle = () => {
         <RegistVehicle />
       </div>
       <div>
-        {error && <p>{error.message}</p>}
+        {error && (
+          <Alert variant="destructive">
+            <AlertCircle className="h-4 w-4" />
+            <AlertTitle>Error</AlertTitle>
+            <AlertDescription>{error.response?.data.message}</AlertDescription>
+          </Alert>
+        )}
         {isLoading ? (
-          <DataTableSkeleton columnCount={3} rowCount={10}/>
+          <DataTableSkeleton columnCount={3} rowCount={10} />
         ) : (
           <DataTable columns={columns} data={data?.data ?? []} />
         )}

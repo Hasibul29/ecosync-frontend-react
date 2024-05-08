@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { Navigate, createBrowserRouter } from "react-router-dom";
 import NotFoundError from "./pages/NotFoundError";
 import Dashboard from "./pages/Dashboard";
 import Users from "./pages/Users/Users";
@@ -17,30 +17,52 @@ import Profile from "./pages/Profile/Profile";
 import LandfillEntry from "./pages/LandfillEntry/LandfiillEntry";
 import STSVehicleSelection from "./pages/STSVehicleSelection/Vehicle";
 import Billing from "./pages/Billing/Billing";
+import useUserStore, { useLandfillStore, useRoleStore, useSTSStore } from "./store";
+import Layout from "./components/Layout";
+
+interface Props {
+  children: React.ReactNode
+}
+
+
+const Guard = ({children}: Props) => {
+  const { user } = useUserStore();
+  return user.id ? children : <Navigate to="/login" />
+}
+
+const RoleInfoAccess = ({children}: Props) => {
+  const { role } = useRoleStore();
+  return role.id ? children : <Navigate to="/dashboard/role" />
+}
+const STSInfoAccess = ({children}: Props) => {
+  const { sts } = useSTSStore();
+  return sts.id ? children : <Navigate to="/dashboard/sts" />
+}
+const LandfillInfoAccess = ({children}: Props) => {
+  const { landfill } = useLandfillStore();
+  return landfill.id ? children : <Navigate to="/dashboard/landfill" />
+}
 
 const router = createBrowserRouter([
-  // Auth routes
   {
-    path: "/landing",
+    path: "/",
     lazy: async () => ({
       Component: (await import("./pages/landingPage/landing")).default,
     }),
   },
   {
-    path: "/",
+    path: "/login",
     lazy: async () => ({
       Component: (await import("./pages/Login")).default,
     }),
   },
   {
     path: "/",
-    lazy: async () => ({
-      Component: (await import("./components/Layout")).default,
-    }),
+    element: <Guard><Layout/></Guard>,
     children: [
       {
         path: "dashboard",
-        element: <Dashboard />,
+        element: <Dashboard />
       },
       {
         path: "dashboard/users",
@@ -52,7 +74,7 @@ const router = createBrowserRouter([
       },
       {
         path: "dashboard/role/roleInfo",
-        element: <RbacInfo />,
+        element: <RoleInfoAccess><RbacInfo /></RoleInfoAccess>,
       },
       {
         path: "dashboard/sts",
@@ -60,7 +82,7 @@ const router = createBrowserRouter([
       },
       {
         path: "dashboard/sts/stsInfo",
-        element: <STSInfo />,
+        element: <STSInfoAccess><STSInfo /></STSInfoAccess>,
       },
       {
         path: "dashboard/vehicles",
@@ -76,7 +98,7 @@ const router = createBrowserRouter([
       },
       {
         path: "dashboard/landfill/landfillInfo",
-        element: <LandfillInfo/>,
+        element: <LandfillInfoAccess><LandfillInfo /></LandfillInfoAccess>,
       },
       {
         path: "dashboard/landfillentry",

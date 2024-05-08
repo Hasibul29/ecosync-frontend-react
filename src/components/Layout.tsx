@@ -1,22 +1,10 @@
 import { Header } from "./Header";
 import Sidebar from "./Sidebar";
-import useAuth from "@/hooks/useAuth";
 import { Outlet } from "react-router-dom";
 import { SidebarSmall } from "./SidebarSmall";
 import { ThemeProvider } from "@/components/theme-provider";
 
 const Layout = () => {
-  const { data, isLoading, isError, error } = useAuth();
-
-  if (isLoading) return <p>Loading...</p>;
-
-  if (isError) {
-    return <p>{error.message}</p>;
-  }
-
-  if (!data?.success) {
-    return <p>WOW</p>;
-  }
   return (
     <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
       <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">

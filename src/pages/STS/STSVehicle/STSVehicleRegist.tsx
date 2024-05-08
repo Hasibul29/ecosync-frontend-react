@@ -50,7 +50,7 @@ const formSchema = z.object({
 const STSVehicleRegist = () => {
   const [open, onOpenChange] = useState(false);
   const [open2, setOpen] = useState(false);
-  const { data, isLoading } = useVehicle("sts");
+  const { data, isLoading, error } = useVehicle("sts");
   const { sts } = useSTSStore();
   const vehicleRegist = useSTSVehicleRegist(sts.id ?? "", onOpenChange);
 
@@ -113,7 +113,7 @@ const STSVehicleRegist = () => {
                               className="w-[200px] justify-between "
                             >
                               <p className="opacity-50">
-                                {field.value
+                                {error? <p className="text-red-500">{error.response?.data.message}</p>:  field.value
                                   ? data?.data?.find(
                                       (vehicle) =>
                                         vehicle.id === field.value

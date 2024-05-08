@@ -1,115 +1,216 @@
-import { DollarSign } from "lucide-react";
-
+import { AlertCircle, DollarSign } from "lucide-react";
+import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import useStats, { LandfillData, StsData } from "@/hooks/useStats";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import L from "leaflet";
+import markerIcon from "../assets/marker.svg";
+import {
+  Bar,
+  BarChart,
+  Label,
+  ResponsiveContainer,
+  XAxis,
+  YAxis,
+} from "recharts";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 
-function Component() {
+const Dashboard = () => {
+  const { data, isLoading, error } = useStats();
+
+  return (
+    <>
+      <div className="flex items-center">
+        <h1 className="text-lg font-semibold md:text-2xl">Dashboard</h1>
+      </div>
+      {error && (
+        <Alert variant="destructive">
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle>Error</AlertTitle>
+          <AlertDescription>{error.response?.data.message}</AlertDescription>
+        </Alert>
+      )}
+      <div className=" max-w-5xl grid grid-cols-1 gap-4 min-[550px]:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+        <div className="mt-5 min-w-[250px]">
+          <Component
+            title="Active Vehicles"
+            value={data?.data?.totalVehicle ?? 0}
+          >
+            <DollarSign className="h-4 w-4 text-muted-foreground" />
+          </Component>
+        </div>
+        <div className="mt-5 min-w-[250px]">
+          <Component title="Active STS" value={data?.data?.totalSts ?? 0}>
+            <DollarSign className="h-4 w-4 text-muted-foreground" />
+          </Component>
+        </div>
+        <div className="mt-5 min-w-[250px]">
+          <Component
+            title="Active Landfill"
+            value={data?.data?.totalLandfill ?? 0}
+          >
+            <DollarSign className="h-4 w-4 text-muted-foreground" />
+          </Component>
+        </div>
+        <div className="mt-5 min-w-[250px]">
+          <Component title="Active Worker" value={data?.data?.totalUser ?? 0}>
+            <DollarSign className="h-4 w-4 text-muted-foreground" />
+          </Component>
+        </div>
+        <div className="mt-5 min-w-[250px]">
+          <Component title="Total Gurbadge Collected" value={data?.data?.totalGurbadgeCollected ?? 0}>
+            <DollarSign className="h-4 w-4 text-muted-foreground" />
+          </Component>
+        </div>
+        <div className="mt-5 min-w-[250px]">
+          <Component title="Total Gurbadge Disposed" value={data?.data?.totalGurbadgeDisposed ?? 0}>
+            <DollarSign className="h-4 w-4 text-muted-foreground" />
+          </Component>
+        </div>
+      </div>
+      <Card className="max-w-[550px]">
+        <CardContent className="pt-10">
+          <ResponsiveContainer width="100%" height={450}>
+            <BarChart
+              data={[
+                {
+                  name: "Gurbadge Collected",
+                  total: data?.data?.totalGurbadgeCollected,
+                },
+                {
+                  name: "Gurbadge Disposed",
+                  total: data?.data?.totalGurbadgeDisposed,
+                },
+              ]}
+            >
+              <XAxis
+                dataKey="name"
+                stroke="#888888"
+                fontSize={12}
+                tickLine={false}
+                axisLine={false}
+              />
+              <YAxis
+                stroke="#888888"
+                fontSize={12}
+                tickLine={false}
+                axisLine={false}
+                tickFormatter={(value) => `${value}`}
+              >
+                <Label
+                  value="Weight in Tonnes"
+                  angle={-90}
+                  position="insideLeft"
+                />
+              </YAxis>
+              <Bar
+                dataKey="total"
+                fill="currentColor"
+                radius={[4, 4, 0, 0]}
+                className="fill-primary"
+              />
+            </BarChart>
+          </ResponsiveContainer>
+        </CardContent>
+      </Card>
+      <div className="flex items-center my-5 mt-5">
+        <h1 className="text-lg font-semibold md:text-2xl">STS and Landfill Locations</h1>
+      </div>
+      {isLoading ? (
+        <p>Loading.....</p>
+      ) : (
+        <MyLocation
+          landfill={data?.data?.landfill ?? []}
+          sts={data?.data?.sts ?? []}
+        />
+      )}
+    </>
+  );
+};
+
+interface Props {
+  landfill: LandfillData[];
+  sts: StsData[];
+}
+
+function MyLocation({ landfill, sts }: Props) {
+  const marker = new L.Icon({
+    iconUrl: markerIcon,
+    iconRetinaUrl: markerIcon,
+    popupAnchor: [-0, -0],
+    iconSize: [32, 45],
+  });
+  return (
+    <>
+      <div>
+        <MapContainer
+          center={[23.705335046644926, 90.52195741396255]}
+          zoom={10}
+          scrollWheelZoom={true}
+        >
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+
+          {landfill.map((location) => (
+            <Marker
+              key={
+                location?.latitude?.toString() + location?.longitude?.toString()
+              }
+              position={[location.latitude, location.longitude]}
+              icon={marker}
+              riseOnHover={true}
+              eventHandlers={{
+                mouseover: (event) => event.target.openPopup(),
+              }}
+            >
+              <Popup>
+                {location.name}
+                <br />
+                Capacity : {location.capacity}
+              </Popup>
+            </Marker>
+          ))}
+          {sts.map((location) => (
+            <Marker
+              key={location.latitude.toString() + location.longitude.toString()}
+              position={[location.latitude, location.longitude]}
+              riseOnHover={true}
+              eventHandlers={{
+                mouseover: (event) => event.target.openPopup(),
+              }}
+            >
+              <Popup>
+                {location.name}
+                <br />
+                Capacity : {location.capacity}
+              </Popup>
+            </Marker>
+          ))}
+        </MapContainer>
+      </div>
+    </>
+  );
+}
+
+export default Dashboard;
+
+interface ComponentProps {
+  children?: React.ReactNode;
+  title: string;
+  value: number;
+}
+
+function Component({ title, value, children }: ComponentProps) {
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
-        <DollarSign className="h-4 w-4 text-muted-foreground" />
+        <CardTitle className="text-sm font-medium">{title}</CardTitle>
+        {children}
       </CardHeader>
       <CardContent>
-        <div className="text-2xl font-bold">$45,231.89</div>
-        <p className="text-xs text-muted-foreground">+20.1% from last month</p>
+        <div className="text-2xl font-bold">{value}</div>
       </CardContent>
     </Card>
   );
 }
-
-const Dashboard = () => {
-  return (
-    <>
-      <p>Main Body Content</p>
-      <div className="w-64 mt-5">
-        <div className="mt-5">
-          <Component />
-        </div>
-        {/* 23.734965142073605, 90.41712656442267 */}
-        {/* <iframe
-          src="https://www.google.com/maps/embed?pb=!1m20!1m8!1m3!1d20570.125811014525!2d90.42256866702908!3d23.712072097294925!3m2!1i1024!2i768!4f13.1!4m9!3e6!4m3!3m2!1d23.7349444!2d90.4170254!4m3!3m2!1d23.705335046644926!2d90.52195741396255!5e0!3m2!1sen!2sbd!4v1714762410598!5m2!1sen!2sbd"
-          width="600"
-          height="450"
-          loading="eager"
-        ></iframe> */}
-        {/* 23.5397482254434, 90.29361859906831 */}
-      </div>
-      {/* <iframe
-        width="100%"
-        height="500"
-        src="https://maps.google.com/maps?q=[-36.623758386860175, 174.5020302019307]&output=embed"
-      ></iframe> */}
-
-        <MyLocation />
-    </>
-  );
-};
-
-
-import { MapContainer, Marker, TileLayer } from "react-leaflet";
-
-function MyLocation() {
-  return (
-    <>
-    {/* print  */}
-    <Button>My Location</Button>
-    <div>
-      <MapContainer
-        center={[23.705335046644926, 90.52195741396255]}
-        zoom={13}
-        scrollWheelZoom={true}
-        >
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-        {/* <Marker position={[23.705335046644926, 90.52195741396255]}></Marker>
-        <Marker position={[24.705335046644926, 90.52195741396255]}></Marker> */}
-        <RoutingMachine position={"topright"}/>
-      </MapContainer>
-    </div>
-    </>
-  );
-}
-
-
-
-import L from "leaflet";
-import { createControlComponent } from "@react-leaflet/core";
-import "leaflet-routing-machine";
-import { Button } from "@/components/ui/button";
-
-const createRoutineMachineLayer = () => {
-  const instance = L.Routing.control({
-    show:false,
-    waypoints: [
-      L.latLng(23.742721100691337, 90.3822443047247),
-      L.latLng(23.693969600764312, 90.48080785993155)
-    ],
-    lineOptions: {
-      styles: [{ color: "#6FA1EC", weight: 5 }],
-      extendToWaypoints: true,
-      addWaypoints: true,
-      missingRouteTolerance: 5
-    },
-    altLineOptions: {
-      styles: [{ color: "red", weight: 5 }],
-      extendToWaypoints: true,
-      addWaypoints: true,
-      missingRouteTolerance: 5
-    },
-    showAlternatives: true,
-    fitSelectedRoutes: true,
-  });
-  
-  instance.on('routeselected', function(e) {
-    const route = e.route
-    console.log(route)
- })
-  return instance;
-};
-
-const RoutingMachine = createControlComponent(createRoutineMachineLayer);
-
-
-export default Dashboard;

@@ -27,7 +27,7 @@ export function LandfillDeleteManager({ open, onOpenChange, userData }: Props) {
   );
 
   const onSubmit = () => {
-    deleteManager.mutate({});
+    deleteManager.mutate();
   };
 
   return (

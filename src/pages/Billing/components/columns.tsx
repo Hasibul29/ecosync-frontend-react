@@ -2,6 +2,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Checkbox } from "@/components/ui/checkbox";
 import { DataTableColumnHeader } from "./data-table-column-header";
 import { Billing } from "@/hooks/useBilling";
+import { DataTableRowActions } from "./data-table-row-actions";
 
 export const columns: ColumnDef<Billing>[] = [
   {
@@ -88,13 +89,13 @@ export const columns: ColumnDef<Billing>[] = [
     cell: ({ row }) => {
       return (
         <div className="font-medium min-w-[50%]">
-          {row.getValue("Timestamp")}
+          {row.getValue("generatedTimeStamp")}
         </div>
       );
     },
   },
-  // {
-  //   id: "actions",
-  //   cell: ({ row }) => <div className="min-w-[10%]"><DataTableRowActions row={row} /></div>,
-  // },
+  {
+    id: "actions",
+    cell: ({ row }) => <div className="min-w-[10%]"><DataTableRowActions row={row} /></div>,
+  },
 ];

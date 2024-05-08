@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import APIClient, { FetchResponse } from "../services/api-client";
 import { Vehicle } from "./useVehicle";
 import { Landfill } from "./useLandfill";
+import { AxiosError } from "axios";
 
 export interface LandfillEntry {
   id?: string;
@@ -16,10 +17,10 @@ export interface LandfillEntry {
 
 const useLandfillEntry = (userId: string) => {
   const apiClient = new APIClient<LandfillEntry[]>("/landfill/entry/" + userId);
-  return useQuery<FetchResponse<LandfillEntry[]>, Error>({
+  return useQuery<FetchResponse<LandfillEntry[]>, AxiosError<FetchResponse<LandfillEntry[]>>>({
     queryKey: ["landfill", "entry"],
     queryFn: apiClient.get,
-    staleTime: 24 * 60 * 60 * 1000, // 24 hour
+    staleTime: 2 * 60 * 1000, // 2min
   });
 };
 

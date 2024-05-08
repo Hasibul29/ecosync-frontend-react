@@ -38,7 +38,7 @@ const LandfillList = ({onChange}:LandfillListProps) => {
           className="w-[200px] justify-between"
         >
           {isError ? (
-            <p>{error.message}</p>
+            <p>{error.response?.data.message}</p>
           ) : value ? (
             data?.data?.find((landfill) => landfill.name === value)?.name ||
             "Unknown landfill"

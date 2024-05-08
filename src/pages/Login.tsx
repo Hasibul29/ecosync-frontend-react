@@ -55,9 +55,6 @@ const Login = ({ className, ...props }: UserAuthFormProps) => {
       <div className="mx-auto flex w-full flex-col justify-center space-y-2 sm:w-[480px] lg:p-8">
         <div className="mb-4 flex items-center justify-center">
           <h1 className="text-3xl font-medium ">EcoSync</h1>
-          {login.error && (
-            <h1 className="text-3xl font-medium ">{login.error.message}</h1>
-          )}
         </div>
         <Card className="p-6">
           <div className="flex flex-col space-y-2 text-left">
@@ -66,6 +63,9 @@ const Login = ({ className, ...props }: UserAuthFormProps) => {
               Enter your email and password below to log into your account
             </p>
           </div>
+          {login.error && (
+            <h1 className="text-red-500 font-medium flex justify-center">{login.error.response?.data.message}</h1>
+          )}
           <div className={cn("grid gap-6", className)} {...props}>
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)}>
