@@ -116,6 +116,7 @@ const UpdateVehicle = ({ onOpenChange, open, vehicleData }: Props) => {
                 <FormField
                   control={form.control}
                   name="vehicleNumber"
+                  disabled = {true}
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Vehicle Number</FormLabel>
@@ -133,6 +134,7 @@ const UpdateVehicle = ({ onOpenChange, open, vehicleData }: Props) => {
                 <FormField
                   control={form.control}
                   name="vehicleType"
+                  disabled = {true}
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Vehicle Type</FormLabel>
@@ -141,6 +143,7 @@ const UpdateVehicle = ({ onOpenChange, open, vehicleData }: Props) => {
                           onValueChange={field.onChange}
                           defaultValue={field.value}
                           value={field.value}
+                          disabled = {true}
                         >
                           <SelectTrigger className="w-[180px]">
                             <SelectValue placeholder="Select a vehicle" />
@@ -170,6 +173,7 @@ const UpdateVehicle = ({ onOpenChange, open, vehicleData }: Props) => {
                 <FormField
                   control={form.control}
                   name="capacity"
+                  disabled = {true}
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Capacity</FormLabel>
@@ -177,6 +181,7 @@ const UpdateVehicle = ({ onOpenChange, open, vehicleData }: Props) => {
                         <Select
                           onValueChange={field.onChange}
                           defaultValue={field.value}
+                          disabled = {true}
                           value={field.value}
                         >
                           <SelectTrigger className="w-[180px]">
