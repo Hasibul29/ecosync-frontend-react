@@ -8,6 +8,7 @@ export interface FetchResponse<T = undefined> {
 
 const axiosInstance = axios.create({
   baseURL: "http://127.0.0.1:3000",
+  // baseURL:"https://ecosync-backend-fastify.onrender.com",
   withCredentials: true,
 });
 
