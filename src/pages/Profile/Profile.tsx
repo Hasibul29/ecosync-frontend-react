@@ -44,7 +44,7 @@ const passwordSchema = z.object({
 const Profile = () => {
   const breadcrumbItems = [{ title: "Profile", link: "/dashboard/profile" }];
   const { user } = useUserStore();
-  const { data, error, isLoading } = useProfile(user.id ?? "");
+  const { data, error } = useProfile(user.id ?? "");
   const updateProfile = useProfileUpdate(user.id ?? "");
   const passwordChange = usePasswordChange(user.id ?? "");
 
